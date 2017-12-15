@@ -1,7 +1,7 @@
 # Summary
 
 * [介绍](README.md)
-* [开始](chapter1.md)
+* 开始
   * [安装](chapter1/jie-shao.md)
   * [web服务器设置](chapter1/webfu-wu-qi-an-zhuang.md)
     * WAMP
@@ -80,4 +80,6 @@
 * [i18n](i18n.md)
   * 国际化
   * 翻译
+
+
 
