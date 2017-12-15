@@ -2,8 +2,8 @@
 
 * [介绍](README.md)
 * [开始](chapter1.md)
-  * [介绍](chapter1/jie-shao.md)
-  * [Web服务器安装](chapter1/webfu-wu-qi-an-zhuang.md)
+  * [安装](chapter1/jie-shao.md)
+  * [Web服务器设置](chapter1/webfu-wu-qi-an-zhuang.md)
     * WAMP
     * XAMPP
 * [教程](jiao-cheng.md)
