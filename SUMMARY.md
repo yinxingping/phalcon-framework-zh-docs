@@ -3,7 +3,7 @@
 * [介绍](README.md)
 * [开始](chapter1.md)
   * [安装](chapter1/jie-shao.md)
-  * [Web服务器设置](chapter1/webfu-wu-qi-an-zhuang.md)
+  * [web服务器设置](chapter1/webfu-wu-qi-an-zhuang.md)
     * WAMP
     * XAMPP
 * [教程](jiao-cheng.md)
