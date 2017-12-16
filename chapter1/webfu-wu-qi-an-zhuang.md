@@ -1,6 +1,6 @@
 # Web服务器配置
 
-为了让您的应用程序能够正常工作，您需要设置您的web服务器来正确处理重定向。对于流行的web服务器的设置说明如下：
+为了让你的应用程序能够正常工作，你需要设置你的web服务器来正确处理重定向。对于流行的web服务器的设置说明如下：
 
 
 
@@ -12,7 +12,7 @@ PHP-FPM（FastCGI进程管理器）通常用于处理PHP文件。现在，PHP-FP
 
 
 
-Windows中PHP-FPM通过PHP发行包中的文件_** php-cgi.exe **_提供。您可以用这个脚本启动它来帮助设置选项。Windows不支持unix套接字，因此这个脚本将在端口9000上以TCP模式启动 fast-cgi。
+Windows中PHP-FPM通过PHP发行包中的文件_** php-cgi.exe **_提供。你可以用这个脚本启动它来帮助设置选项。Windows不支持unix套接字，因此这个脚本将在端口9000上以TCP模式启动 fast-cgi。
 
 
 
@@ -31,13 +31,13 @@ c:\bin\RunHiddenConsole.exe C:\PHP\php-cgi.exe -b 127.0.0.1:9000
 
 ---
 
-为了加速让您的Phalcon应用程序在开发模式下运行起来，最简单的方法就是使用这个内置的web服务器。不要在生产环境下使用此服务器，后面为 [Nginx](https://docs.phalconphp.com/zh/3.2/webserver-setup#nginx) 和 [Apache](https://docs.phalconphp.com/zh/3.2/webserver-setup#apache) 提供的配置才是您所需要的。
+为了加速让你的Phalcon应用程序在开发模式下运行起来，最简单的方法就是使用这个内置的web服务器。不要在生产环境下使用此服务器，后面为 [Nginx](https://docs.phalconphp.com/zh/3.2/webserver-setup#nginx) 和 [Apache](https://docs.phalconphp.com/zh/3.2/webserver-setup#apache) 提供的配置才是你所需要的。
 
 ### Phalcon配置
 
-没有Apache或Nginx的条件下，为了让Phalcon需要的动态URI重写起作用，您可以使用后面的路由文件：[.htrouter.php](https://github.com/phalcon/phalcon-devtools/blob/master/templates/.htrouter.php)
+没有Apache或Nginx的条件下，为了让Phalcon需要的动态URI重写起作用，你可以使用后面的路由文件：[.htrouter.php](https://github.com/phalcon/phalcon-devtools/blob/master/templates/.htrouter.php)
 
-如果您用[Phalcon-Devtools](https://docs.phalconphp.com/en/3.2/devtools-installation)创建了应用程序，这个文件应该已经在您项目的根目录下，您可以用下面的命令启动服务器：
+如果你用[Phalcon-Devtools](https://docs.phalconphp.com/en/3.2/devtools-installation)创建了应用程序，这个文件应该已经在你项目的根目录下，你可以用下面的命令启动服务器：
 
 ```
 $(which php) -S localhost:8000 -t public .htrouter.php
@@ -63,7 +63,7 @@ $(which php) -S localhost:8000 -t public .htrouter.php
 
 [Nginx](http://wiki.nginx.org/Main)是一个自由、开源、高性能的HTTP服务器和反向代理，以及一个IMAP/POP3代理服务器。与传统的服务器不同，Nginx不依赖线程来处理请求，相反，它使用了一种更具伸缩性的事件驱动（异步）架构。这种架构使用较小，但更重要的是、在负载下可预测的内存量。
 
-Nginx + PHP-FPM + Phalcon 提供了一套强大的工具，为您的PHP应用程序提供最大的性能。
+Nginx + PHP-FPM + Phalcon 提供了一套强大的工具，为你的PHP应用程序提供最大的性能。
 
 #### 安装Nginx
 
@@ -155,7 +155,7 @@ Nginx + PHP-FPM + Phalcon 提供了一套强大的工具，为您的PHP应用程
 
 #### 启动Nginx
 
-通常从命令行启动nginx，但这取决于您的安装方法。
+通常从命令行启动nginx，但这取决于你的安装方法。
 
 ## Apache
 
@@ -211,7 +211,7 @@ test/
 
 #### Apache设置
 
-如果你不想使用 .htaccess文件，您可以将这些设置移到apache的主设置文件：
+如果你不想使用 .htaccess文件，你可以将这些设置移到apache的主设置文件：
 
 ```
 <IfModule mod_rewrite.c>
