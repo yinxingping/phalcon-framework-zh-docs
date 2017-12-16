@@ -2,19 +2,13 @@
 
 为了让你的应用程序能够正常工作，你需要设置你的web服务器来正确处理重定向。对于流行的web服务器的设置说明如下：
 
-
-
 ## PHP-FPM
 
 ---
 
 PHP-FPM（FastCGI进程管理器）通常用于处理PHP文件。现在，PHP-FPM与所有基于Linux的PHP发行版绑定在一起。
 
-
-
 Windows中PHP-FPM通过PHP发行包中的文件_** php-cgi.exe **_提供。你可以用这个脚本启动它来帮助设置选项。Windows不支持unix套接字，因此这个脚本将在端口9000上以TCP模式启动 fast-cgi。
-
-
 
 用以下内容创建 _**php-fcgi.bat **_：
 
@@ -24,8 +18,6 @@ ECHO Starting PHP FastCGI...
 set PATH=C:\PHP;%PATH%
 c:\bin\RunHiddenConsole.exe C:\PHP\php-cgi.exe -b 127.0.0.1:9000
 ```
-
-## 
 
 ## PHP内置web服务器（用于开发人员）
 
@@ -54,8 +46,6 @@ $(which php) -S localhost:8000 -t public .htrouter.php
 * .htrouter.php - 将对每个请求进行评估的入口点
 
 然后在浏览器中点击[http://localhost:8000/](http://localhost:8000/)来检查是否一切正常。
-
-## 
 
 ## Nginx
 
@@ -180,7 +170,7 @@ test/
     index.php
 ```
 
-#### Document root
+#### 文档根目录
 
 这是最常见的情况，应用被安装在文档根下的任何目录中。在本例中，我们使用两个.htaccess文件，第一个用于隐藏应用代码，将所有请求转发到应用程序的文档根（public/）。
 
@@ -253,6 +243,20 @@ test/
 
 </VirtualHost>
 ```
+
+## Cherokee
+
+---
+
+[Cherokee](http://www.cherokee-project.com/) 是一个高性能的web服务器，它非常快速、灵活和易于配置。
+
+#### Phalcon配置
+
+Cherokee提供了一个友好的图形界面来配置web服务器上几乎所有可用的设置。
+
+
+
+通过以root身份
 
 
 
