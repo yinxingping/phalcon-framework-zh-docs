@@ -2,6 +2,8 @@
 
 Phalcon需要PHP来运行。它的松耦合设计允许开发人员在没有附加扩展的情况下安装和使用它的功能。某些组件依赖于其他扩展。例如，使用数据库连接将需要 _**php**_**pdo **扩展。如果您的RDBMS是Mysql/MariaDb或Aurora数据库，那么您也需要** php**_**mysqlnd **_扩展。类似地，要使用PostgreSql数据库时需要_** php**_**\_pgsql **扩展。
 
+
+
 ## 硬件
 
 ---
@@ -46,7 +48,7 @@ Phalcon需要PHP来运行。它的松耦合设计允许开发人员在没有附�
 
 由于Phalcon被编译为PHP扩展，所以它的安装与其他传统PHP框架有所不同。需要在web服务器上安装和加载一个模块。
 
-## 
+
 
 ## Linux
 
@@ -163,9 +165,9 @@ yum install php56-php-phalcon3
 
 特定体系结构（X86/X64）和PHP（5.5、5.6、7.x）的版本都有提供。
 
-### 
 
-### FreeBSD
+
+## FreeBSD
 
 ---
 
@@ -187,17 +189,17 @@ cd /usr/ports/www/phalcon
 make install clean
 ```
 
-### 
 
-### Gentoo
+
+## Gentoo
 
 ---
 
 可以在这里找到安装Phalcon的说明 [https://github.com/smoke/phalcon-gentoo-overlay](https://github.com/smoke/phalcon-gentoo-overlay)
 
-### 
 
-### macOS
+
+## macOS
 
 ---
 
@@ -233,9 +235,9 @@ extension=php_phalcon.so
 
 重启您的web服务器。
 
-### 
 
-### Windows
+
+## Windows
 
 ---
 
@@ -270,9 +272,9 @@ extension=php_phalcon.dll
 
 重启您的web服务器。
 
-### 
 
-### 从源代码编译
+
+## 从源代码编译
 
 ---
 
@@ -339,7 +341,9 @@ extension=phalcon.so
 extension=phalcon.so
 ```
 
-### 高级编译
+
+
+## 高级编译
 
 ---
 
