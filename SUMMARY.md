@@ -7,7 +7,7 @@
     * [WAMP](chapter1/webfu-wu-qi-an-zhuang/wamp.md)
     * [XAMPP](chapter1/webfu-wu-qi-an-zhuang/xampp.md)
 * [教程](jiao-cheng.md)
-  * 基础
+  * [基础](jiao-cheng/ji-chu.md)
   * REST
   * Vokuro
   * 性能
