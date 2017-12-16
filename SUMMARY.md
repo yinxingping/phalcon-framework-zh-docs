@@ -5,7 +5,7 @@
   * [安装](chapter1/jie-shao.md)
   * [web服务器设置](chapter1/webfu-wu-qi-an-zhuang.md)
     * [WAMP](chapter1/webfu-wu-qi-an-zhuang/wamp.md)
-    * XAMPP
+    * [XAMPP](chapter1/webfu-wu-qi-an-zhuang/xampp.md)
 * [教程](jiao-cheng.md)
   * 基础
   * REST

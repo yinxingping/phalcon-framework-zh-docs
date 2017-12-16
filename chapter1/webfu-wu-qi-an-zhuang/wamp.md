@@ -8,8 +8,6 @@
 
 WAMP有32和64位版本，你可以从下载区下载适合你的WAMP的Phalcon DLL。
 
-
-
 下载Phalcon库后你将看到类似以下的zip文件：
 
 ![](/assets/import9.png)
@@ -40,17 +38,13 @@ extension=php_phalcon.dll
 
 并保存。
 
-
-
 重启Apache Web服务器，在系统托盘上单击 _**WampServer **_图标，从弹出菜单中选择_** Restart All Services**_。查看托盘图标将再次变为绿色。
 
 ![](/assets/import13.png)
 
-打开浏览器导航到 http://localhost，将会出现WAMP欢迎页面。检查_** extensions loaded **_部分以确认phalcon已经加载。
+打开浏览器导航到 [http://localhost，将会出现WAMP欢迎页面。检查\_\*\*](http://localhost，将会出现WAMP欢迎页面。检查_**) extensions loaded \*\*\_部分以确认phalcon已经加载。
 
 ![](/assets/import14.png)
 
-恭喜你！你现在正在玩Phalcon。
-
-
+恭喜你！你现在正在使用Phalcon。
 
