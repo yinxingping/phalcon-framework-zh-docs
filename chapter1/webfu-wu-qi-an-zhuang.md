@@ -254,9 +254,39 @@ test/
 
 Cherokee提供了一个友好的图形界面来配置web服务器上几乎所有可用的设置。
 
+以root身份执行 _**/path-to-cherokee/sbin/cherokee-admin **_进入cherokee管理员页面
 
+![](/assets/import.png)
 
-通过以root身份
+点击_** vServers **_创建一个虚拟主机，然后增加一个新的虚拟服务器：
+
+![](/assets/import1.png)
+
+最近添加的虚拟服务器一定出现在屏幕的左侧栏中，在_** Behaviors **_选项卡中，你将看到该虚拟服务器的一组默认行为。点击_** Rule Management **_按钮，删除那些标签为_** Directory/cherokee\_thems **_和 _**Directory/icons**_ 的：
+
+![](/assets/import2.png)
+
+使用向导添加 _**PHP Language**_ 行为，这个行为允许你运行PHP应用程序：
+
+正常情况下，这种行为不需要额外的设置。添加另一个行为，这一次在 _**Manual Configuration**_ 部分。在_** Rule Type **_下选择 _**File Exists**_，然后确保选项_** Match any file**_为 _**enabled**_：
+
+![](/assets/import4.png)
+
+在 _**Handler**_ 选项卡中选择_** List & Send **_作为_** handler**_：
+
+![](/assets/import5.png)
+
+为了启用URL重写引擎，编辑 _**Default**_ 行为，将 _**handler**_ 改为 _**Redirection**_，然后增加下面的正则表达式到引擎 _**^\(.\*\)$**_：
+
+![](/assets/import6.png)
+
+最后，确保行为按照下列顺序排列：
+
+![](/assets/import7.png)
+
+在浏览器里执行应用程序：
+
+![](/assets/import8.png)
 
 
 
