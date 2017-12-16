@@ -2,13 +2,19 @@
 
 Phalcon需要PHP来运行。它的松耦合设计允许开发人员在没有附加扩展的情况下安装和使用它的功能。某些组件依赖于其他扩展。例如，使用数据库连接将需要 _**php**_**pdo **扩展。如果您的RDBMS是Mysql/MariaDb或Aurora数据库，那么您也需要** php**_**mysqlnd **_扩展。类似地，要使用PostgreSql数据库时需要_** php**_**\_pgsql **扩展。
 
+
+
 ## 硬件
 
 ---
 
 在提供高性能的同时，Phalcon被设计为尽可能少的使用资源。虽然我们已经在各种低端环境中测试过了（比如0.25 RAM，0.5 CPU），但是您所选择的硬件将取决于您的应用程序需要。
 
+
+
 我们的网站和博客（以及其他站点）托管在一个Amazon VM上，有512MB RAM和1个vCPU。
+
+
 
 ## 软件
 
@@ -45,6 +51,8 @@ Phalcon需要PHP来运行。它的松耦合设计允许开发人员在没有附�
 # 安装
 
 由于Phalcon被编译为PHP扩展，所以它的安装与其他传统PHP框架有所不同。需要在web服务器上安装和加载一个模块。
+
+## 
 
 ## Linux
 
@@ -151,7 +159,9 @@ sudo yum install php70u-phalcon
 
 **Remi**
 
-[Remi Collet](https://github.com/remicollet) 为基于RPM的安装维护着一个优秀的存储库。您可以找到关于如何为您的发行版启用它的说明
+[Remi Collet](https://github.com/remicollet) 为基于RPM的安装维护着一个优秀的存储库。您可以在 [这里](https://blog.remirepo.net/pages/Config-en) 找到关于如何为您的发行版启用它的说明
+
+
 
 在那之后安装Phalcon是很容易的：
 
@@ -160,6 +170,8 @@ yum install php56-php-phalcon3
 ```
 
 特定体系结构（X86/X64）和PHP（5.5、5.6、7.x）的版本都有提供。
+
+### 
 
 ### FreeBSD
 
@@ -183,11 +195,15 @@ cd /usr/ports/www/phalcon
 make install clean
 ```
 
+### 
+
 ### Gentoo
 
 ---
 
 可以在这里找到安装Phalcon的说明 [https://github.com/smoke/phalcon-gentoo-overlay](https://github.com/smoke/phalcon-gentoo-overlay)
+
+### 
 
 ### macOS
 
@@ -225,6 +241,8 @@ extension=php_phalcon.so
 
 重启您的web服务器。
 
+### 
+
 ### Windows
 
 ---
@@ -259,6 +277,8 @@ extension=php_phalcon.dll
 ```
 
 重启您的web服务器。
+
+### 
 
 ### 从源代码编译
 
@@ -398,6 +418,8 @@ phpinfo();
 
 然后在你的浏览器上加载它。应该有一个关于Phalcon的章节。如果没有，请确保您的扩展已被正确编译，您对 php.ini 进行了必要的更改，和您已经重新启动了web服务器。
 
+
+
 您还可以从命令行检查您的安装：
 
 ```
@@ -418,6 +440,8 @@ Array
     [6] => pdo_mysql
 )
 ```
+
+
 
 您也可以使用Cli查看已安装的模块：
 

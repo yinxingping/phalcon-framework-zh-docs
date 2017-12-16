@@ -8,7 +8,11 @@
 
 PHP-FPM（FastCGI进程管理器）通常用于处理PHP文件。现在，PHP-FPM与所有基于Linux的PHP发行版绑定在一起。
 
+
+
 Windows中PHP-FPM通过PHP发行包中的文件_** php-cgi.exe **_提供。您可以用这个脚本启动它来帮助设置选项。Windows不支持unix套接字，因此这个脚本将在端口9000上以TCP模式启动 fast-cgi。
+
+
 
 用以下内容创建 _**php-fcgi.bat **_：
 
@@ -27,14 +31,12 @@ c:\bin\RunHiddenConsole.exe C:\PHP\php-cgi.exe -b 127.0.0.1:9000
 
 ### Phalcon配置
 
-没有Apache或Nginx的条件下，为了让Phalcon需要的动态URI重写起作用，你可以使用后面的路由文件：[.htrouter.php](https://github.com/phalcon/phalcon-devtools/blob/master/templates/.htrouter.php)
+没有Apache或Nginx的条件下，为了让Phalcon需要的动态URI重写起作用，您可以使用后面的路由文件：[.htrouter.php](https://github.com/phalcon/phalcon-devtools/blob/master/templates/.htrouter.php)
 
-
-
-如果你用[Phalcon-Devtools](https://docs.phalconphp.com/en/3.2/devtools-installation)创建了应用程序，这个文件应该已经在你项目的根目录下，你可以用下面的命令启动服务器：
+如果您用[Phalcon-Devtools](https://docs.phalconphp.com/en/3.2/devtools-installation)创建了应用程序，这个文件应该已经在您项目的根目录下，您可以用下面的命令启动服务器：
 
 ```
-
+$(which php) -S localhost:8000 -t public .htrouter.php
 ```
 
 上面命令详解：
@@ -45,7 +47,7 @@ c:\bin\RunHiddenConsole.exe C:\PHP\php-cgi.exe -b 127.0.0.1:9000
 
 * -t public - 定义服务器根目录，php需要路由请求到public目录下的静态资源\(assets\)如JS, CSS和images
 
-* .htrouter.php - 计算每个请求的进入点
+* .htrouter.php - 将对每个请求进行评估的入口点
 
 然后在浏览器中点击[http://localhost:8000/](http://localhost:8000/)来检查是否一切正常。
 
@@ -53,9 +55,11 @@ c:\bin\RunHiddenConsole.exe C:\PHP\php-cgi.exe -b 127.0.0.1:9000
 
 ---
 
-[Nginx](http://wiki.nginx.org/Main)是一个自由、开源、高性能的HTTP服务器和反向代理，也是一个IMAP/POP3代理服务器。不像传统的服务器，Nginx不靠线程处理请求，取而代之的，它使用更多扩展性的事件驱动（异步）架构。这种架构使用更小但更重要、可预计数量的内存。
+[Nginx](http://wiki.nginx.org/Main)是一个自由、开源、高性能的HTTP服务器和反向代理，以及一个IMAP/POP3代理服务器。与传统的服务器不同，Nginx不依赖线程来处理请求，相反，它使用了一种更具伸缩性的事件驱动（异步）架构。这种架构使用较小，但更重要的是、在负载下可预测的内存量。
 
-Nginx + PHP-FPM + Phalcon 为你的PHP应用程序提供了一个强大的工具集，这个工具集可以提供最大的性能。
+
+
+Nginx + PHP-FPM + Phalcon 提供了一套强大的工具，为你的PHP应用程序提供最大的性能。
 
 #### 安装Nginx
 
