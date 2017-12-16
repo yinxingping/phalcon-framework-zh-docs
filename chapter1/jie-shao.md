@@ -165,8 +165,6 @@ yum install php56-php-phalcon3
 
 特定体系结构（X86/X64）和PHP（5.5、5.6、7.x）的版本都有提供。
 
-
-
 ## FreeBSD
 
 ---
@@ -189,15 +187,11 @@ cd /usr/ports/www/phalcon
 make install clean
 ```
 
-
-
 ## Gentoo
 
 ---
 
 可以在这里找到安装Phalcon的说明 [https://github.com/smoke/phalcon-gentoo-overlay](https://github.com/smoke/phalcon-gentoo-overlay)
-
-
 
 ## macOS
 
@@ -235,8 +229,6 @@ extension=php_phalcon.so
 
 重启您的web服务器。
 
-
-
 ## Windows
 
 ---
@@ -271,8 +263,6 @@ extension=php_phalcon.dll
 ```
 
 重启您的web服务器。
-
-
 
 ## 从源代码编译
 
@@ -340,8 +330,6 @@ extension=phalcon.so
 # Ubuntu/Debian with php5-cli: Add a file called 30-phalcon.ini in /etc/php5/cli/conf.d/ with this content:
 extension=phalcon.so
 ```
-
-
 
 ## 高级编译
 
