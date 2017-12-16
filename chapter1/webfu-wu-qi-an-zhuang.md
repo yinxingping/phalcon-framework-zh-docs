@@ -1,24 +1,35 @@
 # Web服务器配置
 
-为了让Phalcon应用路由工作，你需要配置你的web服务器来正确地处理重定向。流行的web服务器配置指导如下：
-
-> 注意：Windows、WAMP、XAMPP，Cherokee配置请参考英文文档
+为了让您的应用程序能够正常工作，您需要设置您的web服务器来正确处理重定向。对于流行的web服务器的设置说明如下：
 
 ## PHP-FPM
 
 ---
 
-PHP-FPM（FastCGI Process Manager）用于允许处理PHP文件。如今，PHP-FPM已经与所有基于Linux的PHP distributions绑定了。
+PHP-FPM（FastCGI进程管理器）通常用于处理PHP文件。现在，PHP-FPM与所有基于Linux的PHP发行版绑定在一起。
 
-## PHP内置Web服务器（供开发者使用）
+Windows中PHP-FPM通过PHP发行包中的文件_** php-cgi.exe **_提供。您可以用这个脚本启动它来帮助设置选项。Windows不支持unix套接字，因此这个脚本将在端口9000上以TCP模式启动 fast-cgi。
+
+用以下内容创建 _**php-fcgi.bat **_：
+
+```
+@ECHO OFF
+ECHO Starting PHP FastCGI...
+set PATH=C:\PHP;%PATH%
+c:\bin\RunHiddenConsole.exe C:\PHP\php-cgi.exe -b 127.0.0.1:9000
+```
+
+## PHP内置web服务器（用于开发人员）
 
 ---
 
-为了加快让你的Phalcon应用程序在开发模式下运行起来，最容易的方法就是使用这个内置的Web服务器。不要在生产环境下使用这个服务器，后面为Nginx和Apache提供的配置才是你需要的。
+为了加速让您的Phalcon应用程序在开发模式下运行起来，最简单的方法就是使用这个内置的web服务器。不要在生产环境下使用此服务器，后面为 [Nginx](https://docs.phalconphp.com/zh/3.2/webserver-setup#nginx) 和 [Apache](https://docs.phalconphp.com/zh/3.2/webserver-setup#apache) 提供的配置才是您所需要的。
 
-#### Phalcon配置
+### Phalcon配置
 
 没有Apache或Nginx的条件下，为了让Phalcon需要的动态URI重写起作用，你可以使用后面的路由文件：[.htrouter.php](https://github.com/phalcon/phalcon-devtools/blob/master/templates/.htrouter.php)
+
+
 
 如果你用[Phalcon-Devtools](https://docs.phalconphp.com/en/3.2/devtools-installation)创建了应用程序，这个文件应该已经在你项目的根目录下，你可以用下面的命令启动服务器：
 
@@ -56,78 +67,6 @@ Nginx + PHP-FPM + Phalcon 为你的PHP应用程序提供了一个强大的工具
 
 ```
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 ```
 
 #### 启动Nginx
@@ -146,15 +85,6 @@ Apache是一个多平台可用、流行且广为人知的Web服务器。
 
 ```
 
-
-
-
-
-
-
-
-
-
 ```
 
 #### Document root
@@ -165,24 +95,11 @@ Apache是一个多平台可用、流行且广为人知的Web服务器。
 
 ```
 
-
-
-
-
-
-
 ```
 
 第二个 .htaccess 文件位于 public/ 目录，重写所有的URIs到 public/index.php 文件：
 
 ```
-
-
-
-
-
-
-
 
 ```
 
@@ -192,21 +109,6 @@ Apache是一个多平台可用、流行且广为人知的Web服务器。
 
 ```
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 ```
 
 #### Virtual Hosts
@@ -215,24 +117,7 @@ Apache是一个多平台可用、流行且广为人知的Web服务器。
 
 ```
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 ```
 
-
-
-  
 
 
