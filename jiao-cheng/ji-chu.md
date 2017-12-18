@@ -87,7 +87,7 @@ $loader->register();
 
 如果你仍然对细节感兴趣，请阅读 [Martin Fowler](https://martinfowler.com/articles/injection.html) 的文章。
 
-每当框架需要一个组件或服务时，它就会使用一个约定的名称向容器请求服务。别忘记引入 **Phalcon\Di** 来设置服务容器。
+每当框架需要一个组件或服务时，它就会使用一个约定的名称向容器请求服务。别忘记引入 `Phalcon\Di` 来设置服务容器。
 
 服务可以用几种方式注册，但对于我们这个教程，我们将使用一个[匿名函数](http://php.net/manual/en/functions.anonymous.php) 。
 
@@ -154,7 +154,7 @@ $di->set(
 
 #### 处理应用请求
 
-在这个文件的最后部分，我们找到 Phalcon\Mvc\Application。它的目的是初始化请求环境，路由进来的请求，然后转发任何发现的操作（actions）；它聚合任何响应，并在程序完成时返回它们。
+在这个文件的最后部分，我们找到 `Phalcon\Mvc\Application`。它的目的是初始化请求环境，路由进来的请求，然后转发任何发现的操作（actions）；它聚合任何响应，并在程序完成时返回它们。
 
 **public/index.php**
 
@@ -174,7 +174,7 @@ $response->send();
 
 **public/index.php**
 
-```
+```php
 <?php
 
 use Phalcon\Loader;
@@ -240,7 +240,7 @@ try {
 
 ---
 
-默认Phalcon会寻找一个叫 **IndexController **的控制器，当在请求中没有添加控制器（controller）或操作（action）时它就是开始点（如 http://localhost:8000/）。一个 **IndexController** 和它的 **IndexAction** 应该像下面的例子：
+默认Phalcon会寻找一个叫 `IndexController`** **的控制器，当在请求中没有添加控制器（controller）或操作（action）时它就是开始点（如 [http://localhost:8000/）。一个](http://localhost:8000/）。一个) `IndexController` 和它的 `IndexAction` 应该像下面的例子：
 
 **app/controllers/IndexController.php**
 
@@ -329,7 +329,7 @@ echo $this->tag->linkTo(
 <a href="/signup">Sign Up Here!</a>
 ```
 
-我们使用类 [Phalcon\Tag](https://docs.phalconphp.com/en/3.2/api/Phalcon_Tag) 生成标记。这是一个实用程序类，它允许我们用框架约定来构建HTML标记。由于这个类也是在DI中注册的一个服务，所以我们使用 **$this-&gt;tag** 来访问它。
+我们使用类 [Phalcon\Tag](https://docs.phalconphp.com/en/3.2/api/Phalcon_Tag) 生成标记。这是一个实用程序类，它允许我们用框架约定来构建HTML标记。由于这个类也是在DI中注册的一个服务，所以我们使用 `$this->tag` 来访问它。
 
 你可以在[这里](https://docs.phalconphp.com/en/3.2/tag)找到更详细的关于HTML生成的文章。
 
@@ -385,11 +385,9 @@ class SignupController extends Controller
 
 [Phalcon\Tag](https://docs.phalconphp.com/en/3.2/api/Phalcon_Tag) 也提供了有用的方法来构建表单元素。
 
-例如，**Phalcon\Tag::form\(\) **方法只接收一个参数，一个应用中指向一个controller/action的相对URI.
+例如，`Phalcon\Tag::form() `方法只接收一个参数，一个应用中指向一个controller/action的相对URI.
 
-
-
-通过点击“Register"按钮，你会看到从框架抛出一个异常，指出我们在控制器"signup"中缺少"register"操作。我们的 public/index.php 文件抛出这个异常：
+通过点击“Register"按钮，你会看到从框架抛出一个异常，指出我们在控制器"signup"中缺少"register"操作。我们的 `public/index.php` 文件抛出这个异常：
 
 ```
 Exception: Action "register" was not found on handler "signup"
@@ -425,8 +423,6 @@ class SignupController extends Controller
 ---
 
 对于PHP来说，Phalcon带来了第一个用C语言写的ORM，它简化了开发的复杂性。
-
-
 
 在创建我们的第一个模型之前，我们需要创建一个数据库表，以便将它映射。一个存储注册用户的简单表可以这样创建：
 
@@ -538,11 +534,7 @@ class SignupController extends Controller
 
 在registerAction的开头，我们从User类创建一个空的user对象，该用户类管理用户的记录。类的公共属性映射到数据库中users表的字段。在新记录中设置相关值，并调用save\(\)将在数据库中存储该记录的数据。save\(\)方法返回一个布尔值，该值表示数据的存储是否成功。
 
-
-
 ORM自动地转义输入以阻止SQL注入，因此我们只需要将请求传递给save\(\)方法。
-
-
 
 在定义为not nul l\(required\) 的字段中会自动进行额外的验证。如果我们在注册表单中没有输入任何必需的字段，我们的屏幕将会是这样的：
 
@@ -553,8 +545,6 @@ ORM自动地转义输入以阻止SQL注入，因此我们只需要将请求传�
 ---
 
 正如你所看到的，使用Phalcon来构建一个应用程序是很容易的。事实上，Phalcon从一个扩展运行可以大大减少项目的占用，同时也大大提高了项目的性能。
-
-
 
 如果你已经准备好学习更多的内容，请阅读下面的 [REST教程](https://docs.phalconphp.com/en/3.2/tutorial-rest)。
 

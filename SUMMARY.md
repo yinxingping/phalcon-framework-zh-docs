@@ -8,7 +8,7 @@
     * [XAMPP](chapter1/webfu-wu-qi-an-zhuang/xampp.md)
 * [教程](jiao-cheng.md)
   * [基础](jiao-cheng/ji-chu.md)
-  * REST
+  * [REST](jiao-cheng/rest.md)
   * Vokuro
   * 性能
   * Invo
