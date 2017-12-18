@@ -56,7 +56,7 @@ Phalcon的一个关键特征是它的松耦合，你可以为特定的应用程�
 
 **public/index.php**
 
-```
+```php
 <?php
 
 use Phalcon\Loader;
@@ -97,7 +97,7 @@ $loader->register();
 
 **public/index.php**
 
-```
+```php
 <?php
 
 use Phalcon\Di\FactoryDefault;
@@ -112,7 +112,7 @@ $di = new FactoryDefault();
 
 **public/index.php**
 
-```
+```php
 <?php
 
 use Phalcon\Mvc\View;
@@ -134,7 +134,7 @@ $di->set(
 
 **public/index.php**
 
-```
+```php
 <?php
 
 use Phalcon\Mvc\Url as UrlProvider;
@@ -158,7 +158,7 @@ $di->set(
 
 **public/index.php**
 
-```
+```php
 <?php
 
 use Phalcon\Mvc\Application;
@@ -244,7 +244,7 @@ try {
 
 **app/controllers/IndexController.php**
 
-```
+```php
 <?php
 
 use Phalcon\Mvc\Controller;
@@ -272,7 +272,7 @@ class IndexController extends Controller
 
 **app/views/index/index.phtml**
 
-```
+```php
 <?php echo "<h1>Hello!</h1>";
 ```
 
@@ -280,7 +280,7 @@ class IndexController extends Controller
 
 **app/controllers/IndexController.php**
 
-```
+```php
 <?php
 
 use Phalcon\Mvc\Controller;
@@ -304,7 +304,7 @@ class IndexController extends Controller
 
 **app/views/index/index.phtml**
 
-```
+```php
 <?php
 
 echo "<h1>Hello!</h1>";
@@ -323,7 +323,7 @@ echo $this->tag->linkTo(
 
 **app/views/index/index.phtml Rendered**
 
-```
+```html
 <h1>Hello!</h1>
 
 <a href="/signup">Sign Up Here!</a>
@@ -339,7 +339,7 @@ echo $this->tag->linkTo(
 
 **app/controllers/SignupController.php**
 
-```
+```php
 <?php
 
 use Phalcon\Mvc\Controller;
@@ -357,7 +357,7 @@ class SignupController extends Controller
 
 **app/views/signup/index.phtml**
 
-```
+```php
 <h2>Sign up using this form</h2>
 
 <?php echo $this->tag->form("signup/register"); ?>
@@ -385,7 +385,7 @@ class SignupController extends Controller
 
 [Phalcon\Tag](https://docs.phalconphp.com/en/3.2/api/Phalcon_Tag) 也提供了有用的方法来构建表单元素。
 
-例如，`Phalcon\Tag::form() `方法只接收一个参数，一个应用中指向一个controller/action的相对URI.
+例如，`Phalcon\Tag::form()`方法只接收一个参数，一个应用中指向一个controller/action的相对URI.
 
 通过点击“Register"按钮，你会看到从框架抛出一个异常，指出我们在控制器"signup"中缺少"register"操作。我们的 `public/index.php` 文件抛出这个异常：
 
@@ -397,7 +397,7 @@ Exception: Action "register" was not found on handler "signup"
 
 **app/controllers/SignupController.php**
 
-```
+```php
 <?php
 
 use Phalcon\Mvc\Controller;
@@ -428,19 +428,21 @@ class SignupController extends Controller
 
 **create\_users\_table.sql**
 
-    CREATE TABLE `users` (
-        `id`    int(10)     unsigned NOT NULL AUTO_INCREMENT,
-        `name`  varchar(70)          NOT NULL,
-        `email` varchar(70)          NOT NULL,
+```sql
+CREATE TABLE `users` (
+    `id`    int(10)     unsigned NOT NULL AUTO_INCREMENT,
+    `name`  varchar(70)          NOT NULL,
+    `email` varchar(70)          NOT NULL,
 
-        PRIMARY KEY (`id`)
-    );
+    PRIMARY KEY (`id`)
+);
+```
 
 模型应该位于 app/models 目录。映射到"users"表的模型：
 
 **app/models/Users.php**
 
-```
+```php
 <?php
 
 use Phalcon\Mvc\Model;
@@ -461,7 +463,7 @@ class Users extends Model
 
 **public/index.php**
 
-```
+```php
 <?php
 
 use Phalcon\Db\Adapter\Pdo\Mysql as DbAdapter;
@@ -490,7 +492,7 @@ $di->set(
 
 **app/controllers/SignupController.php**
 
-```
+```php
 <?php
 
 use Phalcon\Mvc\Controller;
