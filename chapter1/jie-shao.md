@@ -117,13 +117,13 @@ sudo apt-get install php-phalcon
 
 **稳定版**
 
-```
+```bash
 curl -s https://packagecloud.io/install/repositories/phalcon/stable/script.rpm.sh | sudo bash
 ```
 
 **每晚构建版**
 
-```
+```bash
 curl -s https://packagecloud.io/install/repositories/phalcon/nightly/script.rpm.sh | sudo bash
 ```
 
@@ -169,13 +169,13 @@ yum install php56-php-phalcon3
 
 **pkg\_add**
 
-```
+```bash
 pkg_add -r phalcon
 ```
 
 **Source**
 
-```
+```bash
 export CFLAGS="-O2 --fvisibility=hidden"
 
 cd /usr/ports/www/phalcon
@@ -202,7 +202,7 @@ make install clean
 
 #### Brew
 
-```
+```bash
 brew tap homebrew/homebrew-php
 brew install php55-phalcon
 brew install php56-phalcon
@@ -212,7 +212,7 @@ brew install php71-phalcon
 
 #### MacPorts
 
-```
+```bash
 sudo port install php55-phalcon
 sudo port install php56-phalcon
 ```
@@ -277,19 +277,19 @@ extension=php_phalcon.dll
 
 **Ubuntu**
 
-```
+```bash
 sudo apt-get install php5-dev libpcre3-dev gcc make
 ```
 
 **Suse**
 
-```
+```bash
 sudo zypper install php5-devel gcc make
 ```
 
 **CentOS/Fedora/RHEL**
 
-```
+```bash
 sudo yum install php-devel pcre-devel gcc make
 ```
 
@@ -297,13 +297,13 @@ sudo yum install php-devel pcre-devel gcc make
 
 我们首先需要从Github的存储库克隆Phalcon
 
-```
+```bash
 git clone https://github.com/phalcon/cphalcon
 ```
 
 现在构建扩展
 
-```
+```bash
 cd cphalcon/build
 sudo ./install
 ```
@@ -333,7 +333,7 @@ extension=phalcon.so
 
 Phalcon自动检测你的体系结构，但是，你也可以强制为特定体系结构编译。
 
-```
+```bash
 cd cphalcon/build
 
 # One of the following:
@@ -344,7 +344,7 @@ sudo ./install --arch safe
 
 如果自动安装失败了，你可以手动构建扩展：
 
-```
+```bash
 git clone https://github.com/phalcon/cphalcon
 # cd cphalcon/build/php5/32bits
 cd cphalcon/build/php5/64bits
@@ -366,7 +366,7 @@ make install
 
 如果你有特定PHP版本运行：
 
-```
+```bash
 git clone https://github.com/phalcon/cphalcon
 # cd cphalcon/build/php5/32bits
 cd cphalcon/build/php5/64bits
@@ -400,7 +400,7 @@ phpinfo();
 
 你还可以从命令行检查你的安装：
 
-```
+```bash
 php -r 'print_r(get_loaded_extensions());'
 ```
 
@@ -421,7 +421,7 @@ Array
 
 你也可以使用Cli查看已安装的模块：
 
-```
+```bash
 php -m
 ```
 
