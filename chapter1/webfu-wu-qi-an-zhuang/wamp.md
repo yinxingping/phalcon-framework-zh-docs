@@ -30,7 +30,7 @@ extension=php_phalcon.dll
 
 ![](/assets/import12.png)
 
-_**C:\wamp\bin\apache\apache2.4.9\bin\php.ini **_下的_** php.ini **_也要编辑，在文件的末尾添加：
+`C:\wamp\bin\apache\apache2.4.9\bin\php.ini `下的_** **_`php.ini`_** **_也要编辑，在文件的末尾添加：
 
 ```
 extension=php_phalcon.dll
@@ -38,7 +38,7 @@ extension=php_phalcon.dll
 
 并保存。
 
-重启Apache Web服务器，在系统托盘上单击 _**WampServer **_图标，从弹出菜单中选择_** Restart All Services**_。查看托盘图标将再次变为绿色。
+重启Apache Web服务器，在系统托盘上单击 `WampServer`_** **_图标，从弹出菜单中选择_** **_`Restart All Services`。查看托盘图标将再次变为绿色。
 
 ![](/assets/import13.png)
 
