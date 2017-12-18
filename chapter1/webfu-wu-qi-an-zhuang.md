@@ -8,9 +8,9 @@
 
 PHP-FPM（FastCGI进程管理器）通常用于处理PHP文件。现在，PHP-FPM与所有基于Linux的PHP发行版绑定在一起。
 
-Windows中PHP-FPM通过PHP发行包中的文件_** php-cgi.exe **_提供。你可以用这个脚本启动它来帮助设置选项。Windows不支持unix套接字，因此这个脚本将在端口9000上以TCP模式启动 fast-cgi。
+Windows中PHP-FPM通过PHP发行包中的文件_** **_`php-cgi.exe`_** **_提供。你可以用这个脚本启动它来帮助设置选项。Windows不支持unix套接字，因此这个脚本将在端口9000上以TCP模式启动 fast-cgi。
 
-用以下内容创建 _**php-fcgi.bat **_：
+用以下内容创建 `php-fcgi.bat`_** **_：
 
 ```
 @ECHO OFF
@@ -155,7 +155,7 @@ Apache是一种流行的、众所周知的web服务器，可以在许多平台�
 
 #### Phalcon设置
 
-以下是用来配置 Apache+Phalcon 的可能设置。这些记录主要聚焦于允许使用友好URLs和 [路由组件](https://docs.phalconphp.com/zh/3.2/routing) 的 _**mod\_rewrite**_ 模块的设置。通常一个应用程序有以下结构：
+以下是用来配置 Apache+Phalcon 的可能设置。这些记录主要聚焦于允许使用友好URLs和 [路由组件](https://docs.phalconphp.com/zh/3.2/routing) 的 `mod_rewrite` 模块的设置。通常一个应用程序有以下结构：
 
 ```
 test/
@@ -254,29 +254,29 @@ test/
 
 Cherokee提供了一个友好的图形界面来配置web服务器上几乎所有可用的设置。
 
-以root身份执行 _**/path-to-cherokee/sbin/cherokee-admin **_进入cherokee管理员页面
+以root身份执行` /path-to-cherokee/sbin/cherokee-admin`_** **_进入cherokee管理员页面
 
 ![](/assets/import.png)
 
-点击_** vServers **_创建一个虚拟主机，然后增加一个新的虚拟服务器：
+点击_** **_`vServers`_** **_创建一个虚拟主机，然后增加一个新的虚拟服务器：
 
 ![](/assets/import1.png)
 
-最近添加的虚拟服务器一定出现在屏幕的左侧栏中，在_** Behaviors **_选项卡中，你将看到该虚拟服务器的一组默认行为。点击_** Rule Management **_按钮，删除那些标签为_** Directory/cherokee\_thems **_和 _**Directory/icons**_ 的：
+最近添加的虚拟服务器一定出现在屏幕的左侧栏中，在_** **_`Behaviors`_** **_选项卡中，你将看到该虚拟服务器的一组默认行为。点击_** **_`Rule Management`_** **_按钮，删除那些标签为` Directory/cherokee_thems`_** **_和 `Directory/icons` 的：
 
 ![](/assets/import2.png)
 
-使用向导添加 _**PHP Language**_ 行为，这个行为允许你运行PHP应用程序：
+使用向导添加 `PHP Language` 行为，这个行为允许你运行PHP应用程序：
 
-正常情况下，这种行为不需要额外的设置。添加另一个行为，这一次在 _**Manual Configuration**_ 部分。在_** Rule Type **_下选择 _**File Exists**_，然后确保选项_** Match any file**_为 _**enabled**_：
+正常情况下，这种行为不需要额外的设置。添加另一个行为，这一次在` Manual Configuration` 部分。在_** **_`Rule Type`_** **_下选择 `File Exists`，然后确保选项_** **_`Match any file为 enabled`：
 
 ![](/assets/import4.png)
 
-在 _**Handler**_ 选项卡中选择_** List & Send **_作为_** handler**_：
+在 `Handler` 选项卡中选择_** **_`List & Send`_** **_作为_** **_`handler`：
 
 ![](/assets/import5.png)
 
-为了启用URL重写引擎，编辑 _**Default**_ 行为，将 _**handler**_ 改为 _**Redirection**_，然后增加下面的正则表达式到引擎 _**^\(.\*\)$**_：
+为了启用URL重写引擎，编辑 `Default` 行为，将 `handler` 改为 `Redirection`，然后增加下面的正则表达式到引擎 _**^\(.\*\)$**_：
 
 ![](/assets/import6.png)
 
@@ -287,6 +287,4 @@ Cherokee提供了一个友好的图形界面来配置web服务器上几乎所有
 在浏览器里执行应用程序：
 
 ![](/assets/import8.png)
-
-
 
