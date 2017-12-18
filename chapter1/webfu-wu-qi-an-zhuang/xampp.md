@@ -20,7 +20,7 @@ XAMPP总是发行Apache和PHP的32位版。你需要从下载区下载x86版的W
 
 ![](/assets/import17.png)
 
-编辑 _**C:\xampp\php\php.ini**_，可以用Notepad或类似程序编辑它。我们推荐使用Notepad++以避免行尾问题。在文件为不添加：
+编辑 `C:\xampp\php\php.ini`，可以用Notepad或类似程序编辑它。我们推荐使用Notepad++以避免行尾问题。在文件为不添加：
 
 ```
 extension=php_phalcon.dll
@@ -30,15 +30,11 @@ extension=php_phalcon.dll
 
 ![](/assets/import18.png)
 
-
-
 从XAMPP的控制中心重启Apache Web服务器，这将加载最新的PHP配置。
-
-
 
 ![](/assets/import19.png)
 
-打开浏览器导航到 [http://localhost](http://localhost)，将出现XAMPP的欢迎页面。点击链接 _**phpinfo\(\)**_ ：
+打开浏览器导航到 [http://localhost](http://localhost)，将出现XAMPP的欢迎页面。点击链接 `phpinfo()` ：
 
 ![](/assets/import20.png)
 
