@@ -31,7 +31,7 @@ c:\bin\RunHiddenConsole.exe C:\PHP\php-cgi.exe -b 127.0.0.1:9000
 
 如果你用[Phalcon-Devtools](https://docs.phalconphp.com/en/3.2/devtools-installation)创建了应用程序，这个文件应该已经在你项目的根目录下，你可以用下面的命令启动服务器：
 
-```
+```bash
 $(which php) -S localhost:8000 -t public .htrouter.php
 ```
 
@@ -254,7 +254,7 @@ test/
 
 Cherokee提供了一个友好的图形界面来配置web服务器上几乎所有可用的设置。
 
-以root身份执行` /path-to-cherokee/sbin/cherokee-admin`_** **_进入cherokee管理员页面
+以root身份执行`/path-to-cherokee/sbin/cherokee-admin`_** **_进入cherokee管理员页面
 
 ![](/assets/import.png)
 
@@ -262,13 +262,13 @@ Cherokee提供了一个友好的图形界面来配置web服务器上几乎所有
 
 ![](/assets/import1.png)
 
-最近添加的虚拟服务器一定出现在屏幕的左侧栏中，在_** **_`Behaviors`_** **_选项卡中，你将看到该虚拟服务器的一组默认行为。点击_** **_`Rule Management`_** **_按钮，删除那些标签为` Directory/cherokee_thems`_** **_和 `Directory/icons` 的：
+最近添加的虚拟服务器一定出现在屏幕的左侧栏中，在_** **_`Behaviors`_** **_选项卡中，你将看到该虚拟服务器的一组默认行为。点击_** **_`Rule Management`_** **_按钮，删除那些标签为`Directory/cherokee_thems`_** **_和 `Directory/icons` 的：
 
 ![](/assets/import2.png)
 
 使用向导添加 `PHP Language` 行为，这个行为允许你运行PHP应用程序：
 
-正常情况下，这种行为不需要额外的设置。添加另一个行为，这一次在` Manual Configuration` 部分。在_** **_`Rule Type`_** **_下选择 `File Exists`，然后确保选项_** **_`Match any file为 enabled`：
+正常情况下，这种行为不需要额外的设置。添加另一个行为，这一次在`Manual Configuration` 部分。在_** **_`Rule Type`_** **_下选择 `File Exists`，然后确保选项_** **_`Match any file为 enabled`：
 
 ![](/assets/import4.png)
 
