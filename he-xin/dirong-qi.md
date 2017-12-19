@@ -668,5 +668,223 @@ class SomeComponent
 }
 ```
 
+带 setter 注入的服务可以如下注册：
+
+```php
+<?php
+
+$di->set(
+    'response',
+    [
+        'className' => 'Phalcon\Http\Response',
+    ]
+);
+
+$di->set(
+    'someComponent',
+    [
+        'className' => 'SomeApp\SomeComponent',
+        'calls'     => [
+            [
+                'method'    => 'setResponse',
+                'arguments' => [
+                    [
+                        'type' => 'service',
+                        'name' => 'response',
+                    ]
+                ]
+            ],
+            [
+                'method'    => 'setFlag',
+                'arguments' => [
+                    [
+                        'type'  => 'parameter',
+                        'value' => true,
+                    ]
+                ]
+            ]
+        ]
+    ]
+);
+```
+
+#### 属性注册
+
+一个不太常见的策略是将依赖项或参数直接注入到类的公共属性中：
+
+```php
+<?php
+
+namespace SomeApp;
+
+use Phalcon\Http\Response;
+
+class SomeComponent
+{
+    /**
+     * @var Response
+     */
+    public $response;
+
+    public $someFlag;
+}
+```
+
+带属性注入的服务可以如下注册：
+
+```php
+<?php
+
+$di->set(
+    'response',
+    [
+        'className' => 'Phalcon\Http\Response',
+    ]
+);
+
+$di->set(
+    'someComponent',
+    [
+        'className'  => 'SomeApp\SomeComponent',
+        'properties' => [
+            [
+                'name'  => 'response',
+                'value' => [
+                    'type' => 'service',
+                    'name' => 'response',
+                ],
+            ],
+            [
+                'name'  => 'someFlag',
+                'value' => [
+                    'type'  => 'parameter',
+                    'value' => true,
+                ],
+            ]
+        ]
+    ]
+);
+```
+
+支持的参数类型包括以下：
+
+| Type | Description | Example |
+| :--- | :--- | :--- |
+| parameter | Represents a literal value to be passed as parameter | `php['type' =>'parameter', 'value' =>1234]` |
+| service | Represents another service in the service container | `php['type' =>'service', 'name' =>'request']` |
+| instance | Represents an object that must be built dynamically | `php['type' =>'instance', 'className' =>'DateTime', 'arguments' => ['now']]` |
+
+  
+解析一个定义复杂的服务可能比前面的简单定义稍微慢一些。但是，这些提供了更健壮的定义和注入服务的方法。
+
+
+
+通过允许混合不同类型的定义，每个人都可以根据应用程序的需要来决定什么是最合适的注册服务。
+
+### 数组语法
+
+数组也允许注册服务：
+
+```php
+<?php
+
+use Phalcon\Di;
+use Phalcon\Http\Request;
+
+// Create the Dependency Injector Container
+$di = new Di();
+
+// By its class name
+$di['request'] = 'Phalcon\Http\Request';
+
+// Using an anonymous function, the instance will be lazy loaded
+$di['request'] = function () {
+    return new Request();
+};
+
+// Registering an instance directly
+$di['request'] = new Request();
+
+// Using an array definition
+$di['request'] = [
+    'className' => 'Phalcon\Http\Request',
+];
+```
+
+在上面的示例中，当框架需要访问请求数据时，它将请求在容器中标识为“request”的服务。反过来，容器将返回所需服务的一个实例。开发人员可能最终会在需要的时候替换组件。
+
+
+
+用于设置/注册服务的每个方法\(在上面的示例中演示\)都有其优点和缺点。这取决于开发人员和特定的需求，这些需求将指定使用哪一个。
+
+
+
+通过字符串设置服务很简单，但是缺乏灵活性。使用数组设置服务提供了更大的灵活性，但是使代码更加复杂。lambda函数在这两者之间是一个很好的平衡，但是可能会导致比预期更多的维护。
+
+
+
+[Phalcon\Di](https://docs.phalconphp.com/zh/3.2/api/Phalcon_Di) 为它所存储的每一个服务都提供了延迟加载的功能，除非开发人员选择直接实例化对象并将其存储在容器中，否则存储在该对象中的任何对象\(通过数组、字符串等\)将被延迟加载，也就是说只有在请求时才实例化。
+
+### 从YMAL文件加载服务
+
+这个特性可以让您在 `yaml` 文件中设置服务，或者只使用简单的php。例如，您可以使用 `yaml` 文件来加载服务：
+
+```yaml
+config:
+  className: \Phalcon\Config
+  shared: true
+```
+
+```php
+<?php
+
+use Phalcon\Di;
+
+$di = new Di();
+$di->loadFromYaml('services.yml');
+$di->get('config'); // will properly return config service
+```
+
+## 解析服务
+
+---
+
+从容器中获取服务只是简单地调用“get”方法，将返回一个新的服务实例：
+
+```php
+$request = $di->get('request');
+```
+
+或调用魔术方法：
+
+```php
+$request = $di->getRequest();
+```
+
+或使用数组访问语法：
+
+```php
+$request = $di['request'];
+```
+
+通过给"get"方法添加一个数组参数将参数传递给构造器：
+
+```php
+<?php
+
+// new MyComponent('some-parameter', 'other')
+$component = $di->get(
+    'MyComponent',
+    [
+        'some-parameter',
+        'other',
+    ]
+);
+```
+
+### 事件
+
+[Phalcon\Di](https://docs.phalconphp.com/zh/3.2/api/Phalcon_Di) 能发送事件给一个
+
 
 
