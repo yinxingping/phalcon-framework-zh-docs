@@ -26,7 +26,7 @@
     * Full
     * Micro
     * Cli
-  * DI容器
+  * [DI容器](he-xin/dirong-qi.md)
   * MVC
 * [服务](fu-wu.md)
   * 缓存
