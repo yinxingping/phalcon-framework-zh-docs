@@ -6,8 +6,6 @@
 
 下面的例子有点长，但是它试图解释为什么Phalcon要使用服务定位和依赖注入。首先，假设我们正在开发一个名为`SomeComponent`的组件，我们的组件有一个依赖项，它就是是与数据库的连接。
 
-
-
 在第一个示例中，连接是在组件内部创建的。尽管这是一个完全有效的实现，但是我们不能更改连接参数或数据库系统的类型，因为组件只能按创建的那样工作。
 
 ```php
@@ -241,8 +239,6 @@ $some->someOtherDbTask(
 
 到目前为止，我们已经看到了依赖注入如何解决了我们的问题。将依赖项作为参数传递，而不是在代码内部创建它们，这使我们的应用程序更易于维护和解耦。但是，从长期来看，这种依赖注入有一些缺点。
 
-
-
 例如，如果组件有很多依赖项，我们将需要创建多个`setter`参数来传递依赖项，或者创建一个通过多个参数传递它们的构造器。另外，使用组件之前创建依赖项，每次，都使我们的代码不像我们希望的那样易于维护：
 
 ```php
@@ -292,8 +288,6 @@ class SomeComponent
 ```
 
 现在，我们发现自己回到了起点，我们再次构建了组件内部的依赖关系！必须找到一个解决办法，使我们避免反复陷入不良实践。
-
-
 
 解决这些问题的一种实用而优雅的方法是使用一个依赖容器。容器充当我们之前看到的全局注册表，将依赖容器作为一个桥梁来获得依赖项，使我们可以减少组件的复杂性：
 
@@ -371,19 +365,11 @@ $some->someDbTask();
 
 组件现在可以简单地访问它需要的服务，如果它不需要一个服务，该服务甚至不用初始化，节省资源。该组件现在已经高度解耦了，例如，我们可以替换连接创建的方式、它们的行为或它们的任何其他方面，而这不会影响组件。
 
-
-
 [Phalcon\Di](https://docs.phalconphp.com/zh/3.2/api/Phalcon_Di) 是一个实现依赖注入和服务定位的组件，它本身就是一个容器。
-
-
 
 由于Phalcon是高度解耦的，因此，[Phalcon\Di](https://docs.phalconphp.com/zh/3.2/api/Phalcon_Di) 对这个框架不同组件的集成至关重要。开发人员还可以使用该组件来注入依赖关系，并管理应用程序中使用的不同类的全局实例。
 
-
-
 基本上，这个组件实现了控制反转（[Inversion of Control](http://en.wikipedia.org/wiki/Inversion_of_control)）模式。应用这一点，对象不会使用`setter`或构造函数来接收它们的依赖项，而是请求依赖注入器服务。这降低了整体的复杂性，因为只有一种方法可以在组件中获得所需的依赖项。
-
-
 
 此外，该模式增加了代码的可测试性，从而降低了错误的可能性。
 
@@ -393,8 +379,6 @@ $some->someDbTask();
 
 框架本身或开发人员可以注册服务。当组件a需要组件B\(或其类的一个实例\)来操作时，它可以从容器中请求组件B，而不是创建一个新的实例组件B。
 
-
-
 这种工作方式给了我们很多优势：
 
 * 我们可以很容易地将组件替换为自己或第三方创建的组件
@@ -402,8 +386,6 @@ $some->someDbTask();
 * 我们可以完全控制对象初始化，允许我们在将这些对象交付到组件之前，根据需要设置这些对象
 
 * 我们可以以结构化和统一的方式获得组件的全局实例
-
-
 
 服务可以使用多种定义类型：
 
@@ -463,6 +445,227 @@ $di->set(
         );
     }
 );
+```
+
+可以通过给闭包环境传递额外的变量来克服部分限制：
+
+```php
+<?php
+
+use Phalcon\Config;
+use Phalcon\Db\Adapter\Pdo\Mysql as PdoMysql;
+
+$config = new Config(
+    [
+        'host'     => '127.0.0.1',
+        'username' => 'user',
+        'password' => 'pass',
+        'dbname'   => 'my_database',
+    ]
+);
+
+// Using the $config variable in the current scope
+$di->set(
+    'db',
+    function () use ($config) {
+        return new PdoMysql(
+            [
+                'host'     => $config->host,
+                'username' => $config->username,
+                'password' => $config->password,
+                'dbname'   => $config->name,
+            ]
+        );
+    }
+);
+```
+
+你也可以使用 `get()` 方法访问其他的DI服务：
+
+```php
+<?php
+
+use Phalcon\Config;
+use Phalcon\Db\Adapter\Pdo\Mysql as PdoMysql;
+
+$di->set(
+    'config',
+    function () {
+        return new Config(
+            [
+                'host'     => '127.0.0.1',
+                'username' => 'user',
+                'password' => 'pass',
+                'dbname'   => 'my_database',
+            ]
+        );
+    }
+);
+
+// Using the 'config' service from the DI
+$di->set(
+    'db',
+    function () {
+        $config = $this->get('config');
+
+        return new PdoMysql(
+            [
+                'host'     => $config->host,
+                'username' => $config->username,
+                'password' => $config->password,
+                'dbname'   => $config->name,
+            ]
+        );
+    }
+);
+```
+
+### 复杂注册
+
+如果需要更改服务的定义，而不需要实例化/解析服务，那么，我们需要使用数组语法来定义服务。使用数组定义定义服务可以稍微详细一点：
+
+```php
+<?php
+
+use Phalcon\Logger\Adapter\File as LoggerFile;
+
+// Register a service 'logger' with a class name and its parameters
+$di->set(
+    'logger',
+    [
+        'className' => 'Phalcon\Logger\Adapter\File',
+        'arguments' => [
+            [
+                'type'  => 'parameter',
+                'value' => '../apps/logs/error.log',
+            ]
+        ]
+    ]
+);
+
+// Using an anonymous function
+$di->set(
+    'logger',
+    function () {
+        return new LoggerFile('../apps/logs/error.log');
+    }
+);
+```
+
+上面的两个服务注册都产生相同的结果。然而，数组定义允许在需要时更改服务参数：
+
+```php
+<?php
+
+// Change the service class name
+$di
+    ->getService('logger')
+    ->setClassName('MyCustomLogger');
+
+// Change the first parameter without instantiating the logger
+$di
+    ->getService('logger')
+    ->setParameter(
+        0,
+        [
+            'type'  => 'parameter',
+            'value' => '../apps/logs/error.log',
+        ]
+    );
+```
+
+除了使用数组语法之外，还可以使用三种类型的依赖注入：
+
+#### 构造器注入
+
+这种注入类型将依赖项/参数传递给类构造器。假设我们有下面的组件：
+
+```php
+<?php
+
+namespace SomeApp;
+
+use Phalcon\Http\Response;
+
+class SomeComponent
+{
+    /**
+     * @var Response
+     */
+    protected $response;
+
+    protected $someFlag;
+
+    public function __construct(Response $response, $someFlag)
+    {
+        $this->response = $response;
+        $this->someFlag = $someFlag;
+    }
+}
+```
+
+服务可以这样注册：
+
+```php
+<?php
+
+$di->set(
+    'response',
+    [
+        'className' => 'Phalcon\Http\Response'
+    ]
+);
+
+$di->set(
+    'someComponent',
+    [
+        'className' => 'SomeApp\SomeComponent',
+        'arguments' => [
+            [
+                'type' => 'service',
+                'name' => 'response',
+            ],
+            [
+                'type'  => 'parameter',
+                'value' => true,
+            ],
+        ]
+    ]
+);
+```
+
+‘response'服务（[Phalcon\Http\Response](https://docs.phalconphp.com/zh/3.2/api/Phalcon_Http_Response)）被解析并作为构造器的第一个参数，而第二个参数是个布尔值（true），按它应该的方法传递。
+
+#### Setter注入
+
+类可以有注入可选依赖项的 `setter` 方法，我们之前的类可以修改为接受使用 `setter` 的依赖项：
+
+```php
+<?php
+
+namespace SomeApp;
+
+use Phalcon\Http\Response;
+
+class SomeComponent
+{
+    /**
+     * @var Response
+     */
+    protected $response;
+
+    protected $someFlag;
+
+    public function setResponse(Response $response)
+    {
+        $this->response = $response;
+    }
+
+    public function setFlag($someFlag)
+    {
+        $this->someFlag = $someFlag;
+    }
+}
 ```
 
 
