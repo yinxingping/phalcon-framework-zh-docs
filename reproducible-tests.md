@@ -1,8 +1,11 @@
-If you have found a bug it is important to add relevant reproducibility information to your issue to allow us to reproduce the bug and fix it quicker. If you have the application publicly on Github please submit the repository address along with the issue description. You can also use [Gist](https://gist.github.com/) to post any code you want to share with us.
+# 可重现测试
 
-## Creating a small script
+如果你已经发现了一个bug，那么将相关的重现信息添加到你的问题中是很重要的，这样可以让我们重现bug并更快地修复它。如果你在Github上公开了这个应用程序，请提交存储库地址和问题描述。你还可以使用[Gist](https://gist.github.com/)来发布你想要与我们共享的任何代码。
 
-A small single-file script is usually the best way to reproduce a problem:
+
+## 创建一个小脚本
+
+一个小单文件脚本通常是重现一个问题最好的办法：
 
 ```php
 <?php
@@ -41,11 +44,11 @@ var_dump($_SESSION);
 var_dump($_COOKIE);
 ```
 
-Depending on your application, you can use these skeletons in order to create your own script and reproduce the bug:
+根据你的应用程序，你可以使用这些框架来创建你自己的脚本并再现bug：
 
-### Database
+### 数据库
 
-Remember to add to the script how you registered the database service:
+请记得把你如何注册数据库服务添加到脚本：
 
 ```php
 <?php
@@ -66,9 +69,9 @@ $result = $di['db']->query('SELECT * FROM customers');
 
 ```
 
-### Single/Multi-Module applications
+### 单/多模块（single/modules）应用
 
-Remember to add to the script how you are creating the Phalcon\Mvc\Application instance:
+请记得把你如何创建 Phalcon\Mvc\Application 实例添加到脚本：
 
 ```php
 <?php
@@ -86,7 +89,7 @@ echo $app->handle->getContent()
 
 ```
 
-Include models and controllers as part of the test:
+包含模型和控制器作为测试的部分：
 
 ```php
 <?php
@@ -113,9 +116,9 @@ echo $app->handle->getContent()
 
 ```
 
-### Micro application
+### 微（micro）应用
 
-Follow this structure to create the script:
+依据这个结构创建脚本：
 
 ```php
 <?php
@@ -129,11 +132,10 @@ $app = new \Phalcon\Mvc\Micro($di);
 $app->handle();
 ```
 
-### Dispatcher
 
 ### ORM
 
-You can provide your own database schema or even better use any of the phalcon test [databases](https://github.com/phalcon/cphalcon/tree/master/unit-tests/schemas). Follow this structure to create the script:
+你可以提供你自己的数据库模式，或使用任何phalcon测试[数据库](https://github.com/phalcon/cphalcon/tree/master/unit-tests/schemas)甚至更好。根据这个结构创建脚本：
 
 ```php
 <?php

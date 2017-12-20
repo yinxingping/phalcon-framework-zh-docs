@@ -1,11 +1,28 @@
-# New Feature Request
+# 新特性请求
 
-A NFR is a short document explaining how a new feature request must be submitted, how it can be implemented, and how it can help core developers and others to understand implement it.
 
-A NFR contains: * Suggested syntax * Suggested class names and methods * A short documentation * If the feature is already implemented in other frameworks, a short explanation of how that was implemented and its advantages
+NFR是一个简短的文档，说明如何提交一个新的特性请求，如何实现它，以及它如何帮助核心开发人员和其他人理解实现它。
 
-In the following cases a new feature request will be rejected: * The feature makes the framework slow * The feature doesn't provide any additional value to the framework * The NFR is not clear, bad documentation, unclear explanation, etc. * The NFR doesn't follow the current guidelines/philosophy of the framework * The NFR affects/breaks applications developed in current/older versions of the framework * The original poster doesn't provide feedback/input when requested * It's technically impossible to implement * It can only be used in the development/testing stages * Submitted/proposed classes/components don't follow the [Single Responsibility Principle](http://en.wikipedia.org/wiki/Single_responsibility_principle) * Static methods aren't allowed
+NFR包含:
 
-To send a NFR you don't need to provide Zephir or C code or develop the feature. New Feture requests explain the goal of the intended implementation and open discussion on how best to implement it.
+* 建议的语法
+* 建议的类名和方法
+* 一个简短的文档
+* 如果该特性已经在其他框架中实现了，就说明它是如何实现的，以及它的优点
 
-All NFRs should be posted as a new issue on [Github](https://github.com/phalcon/cphalcon/issues).
+在以下情况下一个新特性请求将被拒绝:
+
+* 特性使得框架慢
+* 特性对框架没提供任何附加值
+* NFR不清楚，文档很烂，解释不清楚等
+* NFR没遵守框架当前的指导方针/哲学
+* NFR会影响/中断使用目前版本/旧版框架开发的应用
+* 请求时最早的提交者不提供反馈/输入
+* 在技术上是不可能实现的
+* 只能用于开发/测试阶段
+* 提交/建议的类/组件不遵循[单一责任原则](http://en.wikipedia.org/wiki/Single_responsibility_principle)
+* 不允许静态方法
+
+要发送一个NFR，你不需要提供Zephir或C代码或开发该特性。新特性请求解释了想要实现的目标，并就如何最好地实现它进行公开讨论。
+
+所有的NFR都应该在[Github](https://github.com/phalcon/cphalcon/issues)上作为一个新问题发布。

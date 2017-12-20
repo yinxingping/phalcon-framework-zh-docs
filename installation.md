@@ -4,15 +4,11 @@ Phalcon需要PHP来运行。它的松耦合设计允许开发人员在没有附�
 
 ## 硬件
 
----
-
 在提供高性能的同时，Phalcon被设计为尽可能少的使用资源。虽然我们已经在各种低端环境中测试过了（比如0.25 RAM，0.5 CPU），但是你所选择的硬件将取决于你的应用程序需要。
 
 我们的网站和博客（以及其他站点）托管在一个Amazon VM上，有512MB RAM和1个vCPU。
 
 ## 软件
-
----
 
 * PHP &gt;= 5.5
 
@@ -40,15 +36,12 @@ Phalcon需要PHP来运行。它的松耦合设计允许开发人员在没有附�
 
 * [Memcache](http://php.net/manual/zh/book.memcache.php)，[Memcached](http://php.net/manual/zh/book.memcached.php) 或其他相关的缓存适配器，取决于你对缓存的使用情况
 
-## 
 
 # 安装
 
 由于Phalcon被编译为PHP扩展，所以它的安装与其他传统PHP框架有所不同。需要在web服务器上安装和加载一个模块。
 
 ## Linux
-
----
 
 在Linux上安装Phalcon，你需要将我们的存储库添加到你的发行版中，然后安装它。
 
@@ -163,8 +156,6 @@ yum install php56-php-phalcon3
 
 ## FreeBSD
 
----
-
 已经为FreeBSD提供了移植版本。安装它你需要执行以下命令：
 
 **pkg\_add**
@@ -185,13 +176,9 @@ make install clean
 
 ## Gentoo
 
----
-
 可以在这里找到安装Phalcon的说明 [https://github.com/smoke/phalcon-gentoo-overlay](https://github.com/smoke/phalcon-gentoo-overlay)
 
 ## macOS
-
----
 
 在macOS系统中，你可以使用brew、macports或源代码来编译和安装这个扩展
 
@@ -227,8 +214,6 @@ extension=php_phalcon.so
 
 ## Windows
 
----
-
 要在Windows上使用Phalcon，你需要安装phalcon.dll。我们根据目标平台编译了几个DLL，你可以在我们的[download](https://phalconphp.com/en/download/windows)页面找到。
 
 认清你的PHP安装和体系结构。如果你下载了错误的DLL，那么它就不会起作用。phpinfo\(\) 包含这些信息。在下面的示例中，我们将需要DLL的NTS版本：
@@ -237,20 +222,20 @@ extension=php_phalcon.so
 
 可供使用的DLL有：
 
-| Architecture | Version | Type |
-| :--- | :--- | :--- |
-| x64 | 7.x | Thread safe |
-| x64 | 7.x | Non Thread safe \(NTS\) |
-| x86 | 7.x | Thread safe |
-| x86 | 7.x | Non Thread safe \(NTS\) |
-| x64 | 5.6 | Thread safe |
-| x64 | 5.6 | Non Thread safe \(NTS\) |
-| x86 | 5.6 | Thread safe |
-| x86 | 5.6 | Non Thread safe \(NTS\) |
-| x64 | 5.5 | Thread safe |
-| x64 | 5.5 | Non Thread safe \(NTS\) |
-| x86 | 5.5 | Thread safe |
-| x86 | 5.5 | Non Thread safe \(NTS\) |
+| Architecture | Version | Type                    |
+| :----- | :--- | :---- |
+| x64          | 7.x     | Thread safe             |
+| x64          | 7.x     | Non Thread safe \(NTS\) |
+| x86          | 7.x     | Thread safe             |
+| x86          | 7.x     | Non Thread safe \(NTS\) |
+| x64          | 5.6     | Thread safe             |
+| x64          | 5.6     | Non Thread safe \(NTS\) |
+| x86          | 5.6     | Thread safe             |
+| x86          | 5.6     | Non Thread safe \(NTS\) |
+| x64          | 5.5     | Thread safe             |
+| x64          | 5.5     | Non Thread safe \(NTS\) |
+| x86          | 5.5     | Thread safe             |
+| x86          | 5.5     | Non Thread safe \(NTS\) |
 
 编辑php.ini文件，并在最后添加：
 
@@ -261,8 +246,6 @@ extension=php_phalcon.dll
 重启你的web服务器。
 
 ## 从源代码编译
-
----
 
 从源代码编译类似于大多数环境\(Linux/macOS\)。
 
@@ -328,8 +311,6 @@ extension=phalcon.so
 ```
 
 ## 高级编译
-
----
 
 Phalcon自动检测你的体系结构，但是，你也可以指定为特定体系结构编译。
 

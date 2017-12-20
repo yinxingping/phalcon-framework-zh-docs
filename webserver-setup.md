@@ -4,8 +4,6 @@
 
 ## PHP-FPM
 
----
-
 PHP-FPM（FastCGI进程管理器）通常用于处理PHP文件。现在，PHP-FPM与所有基于Linux的PHP发行版绑定在一起。
 
 Windows中PHP-FPM通过PHP发行包中的文件`php-cgi.exe`提供。你可以用这个脚本启动它来帮助设置选项。Windows不支持unix套接字，因此这个脚本将在端口9000上以TCP模式启动 fast-cgi。
@@ -20,8 +18,6 @@ c:\bin\RunHiddenConsole.exe C:\PHP\php-cgi.exe -b 127.0.0.1:9000
 ```
 
 ## PHP内置web服务器（用于开发人员）
-
----
 
 为了加速让你的Phalcon应用程序在开发模式下运行起来，最简单的方法就是使用这个内置的web服务器。不要在生产环境下使用此服务器，后面为Nginx和Apache提供的配置才是你所需要的。
 
@@ -49,8 +45,6 @@ $(which php) -S localhost:8000 -t public .htrouter.php
 
 ## Nginx
 
----
-
 [Nginx](http://wiki.nginx.org/Main)是一个自由、开源、高性能的HTTP服务器和反向代理，以及一个IMAP/POP3代理服务器。与传统的服务器不同，Nginx不依赖线程来处理请求，相反，它使用了一种更具伸缩性的事件驱动（异步）架构。这种架构使用较小，但更重要的是、在负载下可预测的内存量。
 
 Nginx + PHP-FPM + Phalcon 提供了一套强大的工具，为你的PHP应用程序提供最大的性能。
@@ -63,93 +57,93 @@ Nginx + PHP-FPM + Phalcon 提供了一套强大的工具，为你的PHP应用程
 
 你可以使用以下可能设置来配置Nginx+Phalcon：
 
-    server {
-        # Port 80 will require Nginx to be started with root permissions
-        # Depending on how you install Nginx to use port 80 you will need
-        # to start the server with `sudo` ports about 1000 do not require
-        # root privileges
-        # listen      80;
+```
+server {
+    # Port 80 will require Nginx to be started with root permissions
+    # Depending on how you install Nginx to use port 80 you will need
+    # to start the server with `sudo` ports about 1000 do not require
+    # root privileges
+    # listen      80;
 
-        listen        8000;
-        server_name   default;
+    listen        8000;
+    server_name   default;
 
-        ##########################
-        # In production require SSL
-        # listen 443 ssl default_server;
+    ##########################
+    # In production require SSL
+    # listen 443 ssl default_server;
 
-        # ssl on;
-        # ssl_session_timeout  5m;
-        # ssl_protocols  SSLv2 SSLv3 TLSv1;
-        # ssl_ciphers  ALL:!ADH:!EXPORT56:RC4+RSA:+HIGH:+MEDIUM:+LOW:+SSLv2:+EXP;
-        # ssl_prefer_server_ciphers   on;
+    # ssl on;
+    # ssl_session_timeout  5m;
+    # ssl_protocols  SSLv2 SSLv3 TLSv1;
+    # ssl_ciphers  ALL:!ADH:!EXPORT56:RC4+RSA:+HIGH:+MEDIUM:+LOW:+SSLv2:+EXP;
+    # ssl_prefer_server_ciphers   on;
 
-        # These locations depend on where you store your certs
-        # ssl_certificate        /var/nginx/certs/default.cert;
-        # ssl_certificate_key    /var/nginx/certs/default.key;
-        ##########################
+    # These locations depend on where you store your certs
+    # ssl_certificate        /var/nginx/certs/default.cert;
+    # ssl_certificate_key    /var/nginx/certs/default.key;
+    ##########################
 
-        # This is the folder that index.php is in
-        root /var/www/default/public;
-        index index.php index.html index.htm;
+    # This is the folder that index.php is in
+    root /var/www/default/public;
+    index index.php index.html index.htm;
 
-        charset utf-8;
-        client_max_body_size 100M;
-        fastcgi_read_timeout 1800;
+    charset utf-8;
+    client_max_body_size 100M;
+    fastcgi_read_timeout 1800;
 
-        # Represents the root of the domain
-        # http://localhost:8000/[index.php]
-        location / {
-            # Matches URLS `$_GET['_url']`
-            try_files $uri $uri/ /index.php?_url=$uri&$args;
-        }
-
-        # When the HTTP request does not match the above
-        # and the file ends in .php
-        location ~ [^/]\.php(/|$) {
-            # try_files $uri =404;
-
-            # Ubuntu and PHP7.0-fpm in socket mode
-            # This path is dependent on the version of PHP install
-            fastcgi_pass  unix:/var/run/php/php7.0-fpm.sock;
-
-            # Alternatively you use PHP-FPM in TCP mode (Required on Windows)
-            # You will need to configure FPM to listen on a standard port
-            # https://www.nginx.com/resources/wiki/start/topics/examples/phpfastcgionwindows/
-            # fastcgi_pass  127.0.0.1:9000;
-
-            fastcgi_index /index.php;
-
-            include fastcgi_params;
-            fastcgi_split_path_info ^(.+?\.php)(/.*)$;
-            if (!-f $document_root$fastcgi_script_name) {
-                return 404;
-            }
-
-            fastcgi_param PATH_INFO       $fastcgi_path_info;
-            # fastcgi_param PATH_TRANSLATED $document_root$fastcgi_path_info;
-            # and set php.ini cgi.fix_pathinfo=0
-
-            fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
-        }
-
-        location ~ /\.ht {
-            deny all;
-        }
-
-        location ~* \.(js|css|png|jpg|jpeg|gif|ico)$ {
-            expires       max;
-            log_not_found off;
-            access_log    off;
-        }
+    # Represents the root of the domain
+    # http://localhost:8000/[index.php]
+    location / {
+        # Matches URLS `$_GET['_url']`
+        try_files $uri $uri/ /index.php?_url=$uri&$args;
     }
+
+    # When the HTTP request does not match the above
+    # and the file ends in .php
+    location ~ [^/]\.php(/|$) {
+        # try_files $uri =404;
+
+        # Ubuntu and PHP7.0-fpm in socket mode
+        # This path is dependent on the version of PHP install
+        fastcgi_pass  unix:/var/run/php/php7.0-fpm.sock;
+
+        # Alternatively you use PHP-FPM in TCP mode (Required on Windows)
+        # You will need to configure FPM to listen on a standard port
+        # https://www.nginx.com/resources/wiki/start/topics/examples/phpfastcgionwindows/
+        # fastcgi_pass  127.0.0.1:9000;
+
+        fastcgi_index /index.php;
+
+        include fastcgi_params;
+        fastcgi_split_path_info ^(.+?\.php)(/.*)$;
+        if (!-f $document_root$fastcgi_script_name) {
+            return 404;
+        }
+
+        fastcgi_param PATH_INFO       $fastcgi_path_info;
+        # fastcgi_param PATH_TRANSLATED $document_root$fastcgi_path_info;
+        # and set php.ini cgi.fix_pathinfo=0
+
+        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+    }
+
+    location ~ /\.ht {
+        deny all;
+    }
+
+    location ~* \.(js|css|png|jpg|jpeg|gif|ico)$ {
+        expires       max;
+        log_not_found off;
+        access_log    off;
+    }
+}
+```
 
 #### 启动Nginx
 
 通常从命令行启动nginx，但这取决于你的安装方法。
 
 ## Apache
-
----
 
 Apache是一种流行的、众所周知的web服务器，可以在许多平台上使用。
 
@@ -222,7 +216,7 @@ test/
 </IfModule>
 ```
 
-#### Virtual Hosts
+#### 虚拟主机
 
 第二种配置允许你将Phalcon应用程序安装到虚拟主机：
 
@@ -245,8 +239,6 @@ test/
 ```
 
 ## Cherokee
-
----
 
 [Cherokee](http://www.cherokee-project.com/) 是一个高性能的web服务器，它非常快速、灵活和易于配置。
 

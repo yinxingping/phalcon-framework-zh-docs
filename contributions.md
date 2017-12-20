@@ -1,114 +1,69 @@
-<div class='article-menu'>
-  <ul>
-    <li>
-      <a href="#contributing">Contributing to Phalcon</a> <ul>
-        <li>
-          <a href="#contributions">Contributions</a>
-        </li>
-        <li>
-          <a href="#questions-and-support">Questions and Support</a>
-        </li>
-        <li>
-          <a href="#bug-report-checklist">Bug Report Checklist</a> 
-          <ul>
-            <li>
-              <a href="#bug-report-generating-backtrace">Generating a backtrace</a>
-            </li>
-          </ul>
-        </li>
-        <li>
-          <a href="#pull-request-checklist">Pull Request Checklist</a>
-        </li>
-        <li>
-          <a href="#getting-support">Getting Support</a>
-        </li>
-        <li>
-          <a href="#requesting-features">Requesting Features</a>
-        </li>
-      </ul>
-    </li>
-  </ul>
-</div>
+# 为Phalcon贡献
 
-<a name='contributing'></a>
+Phalcon是一个开源项目，很大程度上依赖于志愿者的努力。我们欢迎大家的贡献！
 
-# Contributing to Phalcon
+请大家花点时间检阅一下这份文件，以便使我们的贡献过程更容易、更有效。
 
-Phalcon is an open source project and heavily relies on volunteer efforts. We welcome contributions from everyone!
+遵循这些指导方针，允许更好的沟通，更快地解决问题，并推动项目向前发展。
 
-Please take a moment to review this document in order to make the contribution process easy and effective all.
 
-Following these guidelines, allows better communication, faster resolution of issues and moves the project forward.
+## 贡献
 
-<a name='contributions'></a>
+为Phalcon做贡献应该按照[GitHub pull request](https://help.github.com/articles/using-pull-requests/) 的方式进行。每个pull request将由一个核心贡献者(允许合并pull request的人)评审。根据pull request的类型和内容，可以立即合并，如果需要澄清或者拒绝，就可以暂停。
 
-## Contributions
+请确保你将你的pull request送到正确的分支，并且你已经重新编写了你的代码。
 
-Contributions to Phalcon should be made in the form of [GitHub pull requests](https://help.github.com/articles/using-pull-requests/). Each pull request will be reviewed by a core contributor (someone with permission to merge pull requests). Based on the type and content of the pull request, it can either be merged immediately, put on hold if clarifications are needed, or rejected.
 
-Please ensure that you are sending your pull request to the correct branch and that you already have rebased your code.
+## 问题和支持
 
-<a name='questions-and-support'></a>
+> 我们仅接受Bug报告、新feature请求和GitHub中的pull requests。对于关于框架用法的问题或支持请求请访问[官方论坛](https://phalcon.link/forum)。
 
-## Questions and Support
 
-<div class="alert alert-warning">
-    <p>
-       We only accept bug reports, new feature requests and pull requests in GitHub. For questions regarding the usage of the framework or support requests please visit the <a href="https://phalcon.link/forum">official forums</a>.
-    </p>
-</div>
+## Bug报告清单
 
-<a name='bug-report-checklist'></a>
+- 提交bug报告之前，确保你使用的是最新版本的Phalcon。核心团队不处理老版本的Bug。
+- 如果你发现了一个bug，添加相关信息对于重现它是非常必要的。能够重现一个bug可以大大减少调查和修复它的时间。这些信息应该以脚本、小应用程序或者甚至是一个失败的测试的形式出现。请检阅[提交可重复测试](https://github.com/phalcon/cphalcon/wiki/Submit-Reproducible-Test)的更多信息。
+- 作为报告的一部分，请包含其他信息，如操作系统、PHP版本、文件系统、web服务器、内存等。
+- 如果你提交一个[Segmentation Fault](https://en.wikipedia.org/wiki/Segmentation_fault)错误，我们将要求回溯。为了获得更多信息，请检阅下一段：生成回溯。
 
-## Bug Report Checklist
+### 生成回溯
 
-- Make sure you are using the latest released version of Phalcon before submitting a bug report. Bugs in versions older than the latest released one will not be addressed by the core team.
-- If you have found a bug, it is essential to add relevant information to reproduce it. Being able to reproduce a bug greatly reduces the time to investigate and fix it. This information should come in the form of a script, small application, or even a failing test. Please check [Submit Reproducible Test](https://github.com/phalcon/cphalcon/wiki/Submit-Reproducible-Test) for more information.
-- As part of your report, please include additional information such as the OS, PHP version, Phalcon version, web server, memory etc.
-- If you're submitting a [Segmentation Fault](https://en.wikipedia.org/wiki/Segmentation_fault) error, we would require a backtrace. Please check [Generating a Backtrace](#bug-report-generating-backtrace) for more information.
+有时因为[Segmentation Fault](https://en.wikipedia.org/wiki/Segmentation_fault)错误，Phalcon 可能会破坏你的一些web服务器进程。请帮助我们找到问题的答案，在bug报告中添加一个崩溃回溯。
 
-<a name='bug-report-generating-backtrace'></a>
+请按照下面的指南来理解如何生成回溯:
 
-### Generating a backtrace
+- [生成gdb回溯](https://bugs.php.net/bugs-generating-backtrace.php)
+- [Win32上用编译器生成回溯](http://bugs.php.net/bugs-generating-backtrace-win32.php)
+- [调试符号](https://github.com/oerdnj/deb.sury.org/wiki/Debugging-symbols)
+- [构建PHP](http://www.phpinternalsbook.com/build_system/building_php.html)
 
-Sometimes due to [Segmentation Fault](https://en.wikipedia.org/wiki/Segmentation_fault) error, Phalcon could crash some of your web server processes. Please help us to find out the problem by adding a crash backtrace to your bug report.
 
-Please follow this guides to understand how to generate the backtrace:
 
-- [Generating a gdb backtrace](https://bugs.php.net/bugs-generating-backtrace.php)
-- [Generating a backtrace, with a compiler, on Win32](http://bugs.php.net/bugs-generating-backtrace-win32.php)
-- [Debugging Symbols](https://github.com/oerdnj/deb.sury.org/wiki/Debugging-symbols)
-- [Building PHP](http://www.phpinternalsbook.com/build_system/building_php.html)
+## Pull Request清单
 
-<a name='pull-request-checklist'></a>
+- 不要将你的 pull 请求提交给 `master` 分支。 从需要的分支中分支，如果需要，在提交你的pull request之前，将其rebase到适当的分支。如果它不干净地与master合并，你可能会被要求rebase你的变更
+- 不要在pull request中添加子模块更新，例如`composer.lock`，除非它们是合并提交
+- 添加修补bug或新feature的测试，更多信息请看我们的[测试指南](https://github.com/phalcon/cphalcon/blob/master/tests/README.md) 
+- Phalcon是用[Zephir](https://zephir-lang.com/)编写的，请不要提交直接修改C生成文件的commits，或者那些commits的功能/补丁是用C编程语言实现的
+- 确保你所编写的PHP代码符合[公认PHP标准](http://www.php-fig.org/psr/)的通用风格和编码标准
+- 提交pull request之前请移除任何对`ext/kernel`、`.zep.c`、`.zep.h`文件的更改
 
-## Pull Request Checklist
+在提交**新功能**之前，请在GitHub上打开一个作为新问题的[NFR](new-feature-request.md)，讨论包含这个新功能或核心扩展的变更带来的影响。一旦功能被批准，确保你的PR包含以下内容:
 
-- 不要将您的 pull 请求提交给 `master` 分支。 Branch from the required branch and, if needed, rebase to the proper branch before submitting your pull request. If it doesn't merge cleanly with master you may be asked to rebase your changes
-- Don't put submodule updates, `composer.lock`, etc in your pull request unless they are to merged commits
-- Add tests relevant to the fixed bug or new feature. See our [testing guide](https://github.com/phalcon/cphalcon/blob/master/tests/README.md) for more information
-- Phalcon is written in [Zephir](https://zephir-lang.com/), please do not submit commits that modify C generated files directly or those whose functionality/fixes are implemented in the C programming language
-- Make sure that the PHP code you write fits with the general style and coding standards of the [Accepted PHP Standards](http://www.php-fig.org/psr/)
-- Remove any change to `ext/kernel`, `*.zep.c` and `*.zep.h` files before submitting the pull request
+- `CHANGELOG.md`更新
+- 单元测试
+- 文档或用法示例
 
-Before submit **new functionality**, please open a [NFR](/[[language]]/[[version]]/new-feature-request) as a new issue on GitHub to discuss the impact of include the functionality or changes in the core extension. Once the functionality is approved, make sure your PR contains the following:
 
-- An update to the `CHANGELOG.md`
-- Unit Tests
-- Documentation or Usage Examples
+## 获取支持
 
-<a name='getting-support'></a>
+如果你有关于如何使用Phalcon的问题，请查看[支持页面](https://phalconphp.com/support)。
 
-## Getting Support
 
-If you have a question about how to use Phalcon, please see the [support page](https://phalconphp.com/support).
+## 请求Features
 
-<a name='requesting-features'></a>
+如果你有个修改或新feature，请填写[NFR](new-feature-request.md)。
 
-## Requesting Features
+感谢
 
-If you have a change or new feature in mind, please fill an [NFR](/[[language]]/[[version]]/new-feature-request).
-
-Thanks!
-
-<3 Phalcon Team
+Phalcon团队

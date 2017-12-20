@@ -1,9 +1,14 @@
-# New Pull Request
+# 新Pull Request
 
-A pull request is alterations to the code that either fixes a current issue or introduces new functionality.
+pull request是对代码的修改，要么修复当前问题，要么引入新功能。
 
-Your Pull request must include: * Issued to the correct branch. **We do not accept Pull Requests to the `master` branch** * Update to the CHANGELOG * Unit tests * Documentation if necessary and usage examples
+你的pull request必须包括：
 
-For fixing bugs, please ensure that you reference the issue in Github. If such issue does not exist, create one.
+* 向正确的分支发出。**我们不接受对`master`分支的Pull Request**
+* 更新CHANGELOG
+* 单元测试
+* 所需文档和用法示例
 
-For new functionality, again we will need to have an issue created and referenced. If the functionality you are introducing collides with the philosophy and implementation of Phalcon it will be rejected. Additionally any new functionality that introduces breaking changes will be rejected at least for the current version but could very well be implemented in the next major version. It is highly recommended to discuss your NFR and PR with the core team and most importantly with the community so as to get feedback.
+为了修复bug，请确保你在Github中引用了这个问题。如果不存在这样的问题，就创建一个。
+
+对于新功能，再一次，我们需要创建和引用一个问题。如果你所引入的功能与Phalcon的哲学和实现相冲突，它将被拒绝。此外，任何引入突发变更的新功能都将被拒绝，至少对于当前版本是如此，但很可能在下一个主要版本中实现。强烈建议你与核心团队讨论你的NFR和PR，最重要的是与社区进行交流，以便获得反馈。

@@ -1,10 +1,8 @@
 # 概述
 
-[WampServer](http://www.wampserver.com/en/) 是一个Windows web开发环境。它允许你使用Apache2、PHP和Mysql数据库创建web应用程序。以下是关于如何在Windows的WampServer环境安装Phalcon的详细说明，强力推荐使用最新的WampServer。
+[WampServer](http://www.wampserver.com/zh/) 是一个Windows web开发环境。它允许你使用Apache2、PHP和Mysql数据库创建web应用程序。以下是关于如何在Windows的WampServer环境安装Phalcon的详细说明，强力推荐使用最新的WampServer。
 
 ## 下载正确的Phalcon版本
-
----
 
 WAMP有32和64位版本，你可以从下载区下载适合你的WAMP的Phalcon DLL。
 
@@ -28,8 +26,6 @@ extension=php_phalcon.dll
 
 并保存。
 
-
-
 ![](https://docs.phalconphp.com/images/content/webserver-wamp-2.png) 
 
 `C:\wamp\bin\apache\apache2.4.9\bin\php.ini `下的 `php.ini` 也要编辑，在文件的末尾添加：
@@ -50,9 +46,7 @@ extension=php_phalcon.dll
 
 恭喜你！现在Phalcon已经玩起来了。
 
-### 相关向导
-
----
+## 相关向导
 
 * [一般安装](installation.md)
 * [WAMP安装](webserver-wamp.md)

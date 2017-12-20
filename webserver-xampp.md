@@ -4,8 +4,6 @@
 
 ## 下载正确的Phalcon版本
 
----
-
 XAMPP总是发行Apache和PHP的32位版。你需要从下载区下载x86版的Windows Phalcon。
 
 下载Phalcon库后你将看到类似以下的zip文件：
@@ -44,9 +42,7 @@ extension=php_phalcon.dll
 
 如果你能在 phpinfo\(\) 的输出中看到phalcon版本，恭喜你！Phalcon已经玩起来了。
 
-### 相关向导
-
----
+## 相关向导
 
 * [一般安装](installation.md)
 * [XAMPP安装](webserver-xampp.md)
