@@ -1,23 +1,5 @@
-# Becoming a sponsor
+# 成为赞助商
 
-For those that wish to sponsor our work and further the development of Phalcon, we offer various sponsorship options that will fit any budget. Sponsoring our work allows us to devote more time to the project, offer faster responses to bugs and features and ensure the projects's stability.
+对于那些想要赞助我们的工作并进一步发展Phalcon的人来说，我们提供了各种各样的赞助方案来满足任何预算。赞助我们的工作使我们能够投入更多的时间在项目上，为bug和特性提供更快的响应，并确保项目的稳定性。
 
-<a href="https://phalcon.link/fund">
-<button class="btn button-small btn-danger">
-    Become a Patron!
-</button>
-</a>
-
-# Sponsors and Supporters
-
-<a href="https://pdffiller.com/" target="_blank">
-    <img src="https://raw.githubusercontent.com/phalcon/cphalcon/master/backers/pdffiller-240x60.png" alt="PDFFiller" />
-</a>
-
-<a href="https://mctekk.com/" target="_blank">
-    <img src="https://raw.githubusercontent.com/phalcon/cphalcon/master/backers/mctekk-240x60.png" alt="MCTekk" />
-</a>
-
-<a href="https://abits.com/" target="_blank">
-    <img src="https://raw.githubusercontent.com/phalcon/cphalcon/master/backers/abits-240x60.png" alt="Abits" />
-</a>
+详情参看Phalcon官网 [赞助者](https://docs.phalconphp.com/en/3.2/sponsors) 页面。

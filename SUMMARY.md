@@ -11,7 +11,7 @@
 * [Pull Request](new-pull-request.md)
 * [NFR](new-feature-request.md)
 * [回溯生成](generating-backtrace.md)
-* [测试重现](reproducible-tests.md)
+* [可重现测试](reproducible-tests.md)
 * [测试指南](unit-testing.md)
 
 ### 开始

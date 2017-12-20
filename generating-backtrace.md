@@ -1,9 +1,9 @@
-# Generating a backtrace
+# 生成回溯
 
-Sometimes due to segmentation faults, Phalcon could crash some of your web server processes. Please help us to identify the problem by adding a crash backtrace to your bug report.
+有时由于段错误，Phalcon可能会破坏你的的一些web服务器进程。请通过在bug报告中添加一个崩溃回溯来帮助我们识别问题。
 
-Please follow this guide to understand how to generate the backtrace.
+请遵循本指南，了解如何生成回溯。
 
-<https://bugs.php.net/bugs-generating-backtrace.php>
+https://bugs.php.net/bugs-generating-backtrace.php
 
-<http://bugs.php.net/bugs-generating-backtrace-win32.php>
+http://bugs.php.net/bugs-generating-backtrace-win32.php
