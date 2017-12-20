@@ -1,73 +1,31 @@
-<div class='article-menu'>
-  <ul>
-    <li>
-      <a href="#overview">Tutorial: Creating a Simple REST API</a>
-      <ul>
-        <li>
-          <a href="#definitions">Defining the API</a>
-        </li>
-        <li>
-          <a href="#implementation">Creating the Application</a>
-        </li>
-        <li>
-          <a href="#models">Creating a Model</a>
-        </li>
-        <li>
-          <a href="#retrieving-data">Retrieving Data</a>
-        </li>
-        <li>
-          <a href="#inserting-data">Inserting Data</a>
-        </li>
-        <li>
-          <a href="#updating-data">Updating Data</a>
-        </li>
-        <li>
-          <a href="#deleting-data">Deleting Data</a>
-        </li>
-        <li>
-          <a href="#testing">Testing our Application</a>
-        </li>
-        <li>
-          <a href="#conclusion">Conclusion</a>
-        </li>
-      </ul>
-    </li>
-  </ul>
-</div>
+# 教程: 创建一个简单的REST API
 
-<a name='basic'></a>
+在这个教程里，我们将解释如何创建一个简单的应用，这个应用提供了一个使用不同HTTP方法的[RESTful](http://en.wikipedia.org/wiki/Representational_state_transfer) API。
 
-# Tutorial: Creating a Simple REST API
+* `GET` 获取和搜索数据
+* `POST` 增加数据
+* `PUT` 更新数据
+* `DELETE` 删除数据
 
-In this tutorial, we will explain how to create a simple application that provides a [RESTful](http://en.wikipedia.org/wiki/Representational_state_transfer) API using the different HTTP methods:
+## 定义API
 
-* `GET` to retrieve and search data
-* `POST` to add data
-* `PUT` to update data
-* `DELETE` to delete data
+这个API由下面的方法组成：
 
-<a name='definitions'></a>
+| 方法       | URL                      | 动作                   |
+| -------- | ------------------------ | -------------------- |
+| `GET`    | /api/robots              | 获取所有Robots           |
+| `GET`    | /api/robots/search/Astro | 用"Astro"在名字中搜索robots |
+| `GET`    | /api/robots/2            | 基于主键获取robots         |
+| `POST`   | /api/robots              | 添加一个新robot           |
+| `PUT`    | /api/robots/2            | 基于主键更新robots         |
+| `DELETE` | /api/robots/2            | 基于主键删除robots         |
 
-## Defining the API
 
-The API consists of the following methods:
+## 创建应用
 
-| Method   | URL                      | Action                                         |
-| -------- | ------------------------ | ---------------------------------------------- |
-| `GET`    | /api/robots              | Retrieves all robots                           |
-| `GET`    | /api/robots/search/Astro | Searches for robots with 'Astro' in their name |
-| `GET`    | /api/robots/2            | Retrieves robots based on primary key          |
-| `POST`   | /api/robots              | Adds a new robot                               |
-| `PUT`    | /api/robots/2            | Updates robots based on primary key            |
-| `DELETE` | /api/robots/2            | Deletes robots based on primary key            |
+因为这个应用是那么简单，因为我们开发时将不实现任何完全MVC环境。在这本例中，我们将使用一个[微应用](application-micro.md)来满足我们的目的。
 
-<a name='implementation'></a>
-
-## Creating the Application
-
-As the application is so simple, we will not implement any full MVC environment to develop it. In this case, we will use a [micro application](/[[language]]/[[version]]/application-micro) to meet our goal.
-
-The following file structure is more than enough:
+下面的文件结构完全够用：
 
 ```php
 my-rest-api/
@@ -77,7 +35,7 @@ my-rest-api/
     .htaccess
 ```
 
-First, we need a `.htaccess` file that contains all the rules to rewrite the request URIs to the `index.php` file (application entry-point):
+首先，我们需要一个`.htaccess`文件，里面包含了所有重写请求URI到`index.php`（应用入口点）的规则：
 
 ```apacheconfig
 <IfModule mod_rewrite.c>
@@ -87,7 +45,7 @@ First, we need a `.htaccess` file that contains all the rules to rewrite the req
 </IfModule>
 ```
 
-The bulk of our code will be placed in `index.php`. The file is created as follows:
+我们的代码块将被放到`index.php`中，文件创建如下：
 
 ```php
 <?php
@@ -101,7 +59,7 @@ $app = new Micro();
 $app->handle();
 ```
 
-Now we will create the routes as we defined above:
+现在我们将创建如我们上面定义的路由：
 
 ```php
 <?php
@@ -161,15 +119,13 @@ $app->delete(
 $app->handle();
 ```
 
-Each route is defined with a method with the same name as the HTTP method, as first parameter we pass a route pattern, followed by a handler. In this case, the handler is an anonymous function. The following route: `/api/robots/{id:[0-9]+}`, by example, explicitly sets that the `id` parameter must have a numeric format.
+每个路由都使用与HTTP方法相同的方法定义，我们传递一个路由模式作为第一个参数，然后是一个处理程序。在本例中，处理程序是一个匿名函数。下面的路由：`/api/robots/id:[0-9]+`，作为范例，显式地设置`id`参数必须有一个数字格式。
 
-When a defined route matches the requested URI then the application executes the corresponding handler.
+当一个已定义的路由匹配到了请求URL，然后应用执行对应的处理程序。
 
-<a name='models'></a>
+## 创建模型
 
-## Creating a Model
-
-Our API provides information about `robots`, these data are stored in a database. The following model allows us to access that table in an object-oriented way. We have implemented some business rules using built-in validators and simple validations. Doing this will give us the peace of mind that saved data meet the requirements of our application. This model file should be placed in your `Models` folder.
+我们的API提供了关于`robots`的信息，这些数据存储在一个数据库中。下面的模型允许我们以面向对象的方式访问该表。我们已经使用内置的验证器和简单的验证实现了一些业务规则。这样做可以让我们安心，节省了数据，满足了我们应用程序的需求。这个模型文件应该放在你的的`Models`文件夹中。
 
 ```php
 <?php
@@ -224,7 +180,7 @@ class Robots extends Model
 }
 ```
 
-Now, we must set up a connection to be used by this model and load it within our app [File: `index.php`]:
+现在，我们必须设置这个模型需要的连接并将它加载到我们的应用里[文件：`index.php`]：
 
 ```php
 <?php
@@ -266,11 +222,9 @@ $di->set(
 $app = new Micro($di);
 ```
 
-<a name='retrieving-data'></a>
+## 获取数据
 
-## Retrieving Data
-
-The first `handler` that we will implement is which by method GET returns all available robots. Let's use PHQL to perform this simple query returning the results as JSON. [File: `index.php`]
+我们要实现的第一个`handler`，使用GET方法返回所有可用的robots。让我们要PHQL执行这个简单的查询，以JSON返回结果。[文件：`index.php`]
 
 ```php
 <?php
@@ -297,9 +251,9 @@ $app->get(
 );
 ```
 
-[PHQL](/[[language]]/[[version]]/db-phql), allow us to write queries using a high-level, object-oriented SQL dialect that internally translates to the right SQL statements depending on the database system we are using. The clause `use` in the anonymous function allows us to pass some variables from the global to local scope easily.
+[PHQL](db-phql.md)，允许我们使用一种高级的、面向对象的SQL方言编写查询，它在内部转换为与我们正在使用的数据库系统一致的正确的SQL语句。在匿名函数中使用的子句`use`允许我们轻松地将一些变量从全局传递给局部。
 
-The searching by name handler would look like [File: `index.php`]:
+通过名字处理程序搜索如下 [文件： `index.php`]：
 
 ```php
 <?php
@@ -331,7 +285,7 @@ $app->get(
 );
 ```
 
-Searching by the field `id` it's quite similar, in this case, we're also notifying if the robot was found or not [File: `index.php`]:
+通过字段`id`的搜索非常类似，本例中，我们也会通知robot是否找到 [文件：`index.php`]：
 
 ```php
 <?php
@@ -379,11 +333,10 @@ $app->get(
 );
 ```
 
-<a name='inserting-data'></a>
 
-## Inserting Data
+## 插入数据
 
-Taking the data as a JSON string inserted in the body of the request, we also use PHQL for insertion [File: `index.php`]:
+把插入到请求体中的数据当作JSON字符串，我们还是用PHQL实现插入 [文件：`index.php`]：
 
 ```php
 <?php
@@ -447,11 +400,10 @@ $app->post(
 );
 ```
 
-<a name='updating-data'></a>
 
-## Updating Data
+## 更新数据
 
-The data update is similar to insertion. The `id` passed as parameter indicates what robot must be updated [File: `index.php`]:
+数据更新与插入类似。作为参数传递的`id`指出哪个robot必须更新 [文件：`index.php`]：
 
 ```php
 <?php
@@ -509,11 +461,10 @@ $app->put(
 );
 ```
 
-<a name='deleting-data'></a>
 
-## Deleting Data
+## 删除数据
 
-The data delete is similar to update. The `id` passed as parameter indicates what robot must be deleted [File: `index.php`]:
+数据删除类似于数据更新。作为参数传递的`id`指出哪个robot必须删除 [文件：`index.php`]：
 
 ```php
 <?php
@@ -565,13 +516,12 @@ $app->delete(
 );
 ```
 
-<a name='testing'></a>
 
-## Testing our Application
+## 测试我们的应用
 
-Using [curl](http://en.wikipedia.org/wiki/CURL) we'll test every route in our application verifying its proper operation.
+我们使用 [curl](http://en.wikipedia.org/wiki/CURL) 来测试应用中的每一个路由，以验证操作是否正确。
 
-Obtain all the robots:
+获取所有的robots:
 
 ```bash
 curl -i -X GET http://localhost/my-rest-api/api/robots
@@ -585,7 +535,7 @@ Content-Type: text/html; charset=UTF-8
 [{"id":"1","name":"Robotina"},{"id":"2","name":"Astro Boy"},{"id":"3","name":"Terminator"}]
 ```
 
-Search a robot by its name:
+通过名字搜索robot：
 
 ```bash
 curl -i -X GET http://localhost/my-rest-api/api/robots/search/Astro
@@ -599,7 +549,7 @@ Content-Type: text/html; charset=UTF-8
 [{"id":"2","name":"Astro Boy"}]
 ```
 
-Obtain a robot by its id:
+通过id搜索robot:
 
 ```bash
 curl -i -X GET http://localhost/my-rest-api/api/robots/3
@@ -613,7 +563,7 @@ Content-Type: text/html; charset=UTF-8
 {"status":"FOUND","data":{"id":"3","name":"Terminator"}}
 ```
 
-Insert a new robot:
+插入一个新robot:
 
 ```bash
 curl -i -X POST -d '{"name":"C-3PO","type":"droid","year":1977}'
@@ -628,7 +578,7 @@ Content-Type: text/html; charset=UTF-8
 {"status":"OK","data":{"name":"C-3PO","type":"droid","year":1977,"id":"4"}}
 ```
 
-Try to insert a new robot with the name of an existing robot:
+尝试用一个已存在robot的名字来插入新robot：
 
 ```bash
 curl -i -X POST -d '{"name":"C-3PO","type":"droid","year":1977}'
@@ -643,7 +593,7 @@ Content-Type: text/html; charset=UTF-8
 {"status":"ERROR","messages":["The robot name must be unique"]}
 ```
 
-Or update a robot with an unknown type:
+或者用一个未知的类型更新robot:
 
 ```bash
 curl -i -X PUT -d '{"name":"ASIMO","type":"humanoid","year":2000}'
@@ -659,7 +609,7 @@ Content-Type: text/html; charset=UTF-8
     list: droid, mechanical, virtual"]}
 ```
 
-Finally, delete a robot:
+最后，删除一个robot:
 
 ```bash
 curl -i -X DELETE http://localhost/my-rest-api/api/robots/4
@@ -673,8 +623,7 @@ Content-Type: text/html; charset=UTF-8
 {"status":"OK"}
 ```
 
-<a name='conclusion'></a>
 
-## Conclusion
+## 结语
 
-As we saw, developing a [RESTful](http://en.wikipedia.org/wiki/Representational_state_transfer) API with Phalcon is easy using [micro applications](/[[language]]/[[version]]/application-micro) and [PHQL](/[[language]]/[[version]]/db-phql).
+如我们所见，使用Phalcon的[微应用](application-micro.md)和[PHQL](db-phql.md)开发一个 [RESTful](http://en.wikipedia.org/wiki/Representational_state_transfer) API是非常容易的。
