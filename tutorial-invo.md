@@ -1,79 +1,14 @@
-<div class='article-menu'>
-  <ul>
-    <li>
-      <a href="#overview">Tutorial: INVO</a> 
-      <ul>
-        <li>
-          <a href="#structure">Project Structure</a>
-        </li>
-        <li>
-          <a href="#routing">Routing</a>
-        </li>
-        <li>
-          <a href="#configuration">Configuration</a>
-        </li>
-        <li>
-          <a href="#autoloaders">Autoloaders</a>
-        </li>
-        <li>
-          <a href="#services">Registering services</a>
-        </li>
-        <li>
-          <a href="#handling-requests">Handling the Request</a>
-        </li>
-        <li>
-          <a href="#dependency-injection">Dependency Injection</a>
-        </li>
-        <li>
-          <a href="#log-in">Log into the Application</a>
-        </li>
-        <li>
-          <a href="#securing-backend">Securing the Backend</a> 
-          <ul>
-            <li>
-              <a href="#events-manager">Events Management</a>
-            </li>
-            <li>
-              <a href="#acl">Getting the ACL list</a>
-            </li>
-          </ul>
-        </li>
-        <li>
-          <a href="#working-with-crud">Working with the CRUD</a>
-        </li>
-        <li>
-          <a href="#search-form">The Search Form</a>
-        </li>
-        <li>
-          <a href="#performing-searches">Performing a Search</a>
-        </li>
-        <li>
-          <a href="#creating-updating-records">Creating and Updating Records</a>
-        </li>
-        <li>
-          <a href="#user-components">User Components</a>
-        </li>
-        <li>
-          <a href="#dynamic-titles">Changing the Title Dynamically</a>
-        </li>
-      </ul>
-    </li>
-  </ul>
-</div>
+# 教程: INVO
 
-<a name='overview'></a>
-
-# Tutorial: INVO
-
-In this second tutorial, we'll explain a more complete application in order to gain a deeper understanding of developing with Phalcon. INVO is one of the sample applications we have created. INVO is a small website that allows users to generate invoices and do other tasks such as manage customers and products. You can clone its code from [Github](https://github.com/phalcon/invo).
+在第二篇教程中，我们将解释一个更完整的应用程序，以便更好地理解使用Phalcon的方法。INVO是我们创建的示例应用程序之一。INVO是一个小型网站，允许用户生成发票，并执行其他任务，如管理客户和产品。你可以从 [Github](https://github.com/phalcon/invo)克隆它的代码。
 
 INVO was made with the client-side framework [Bootstrap](http://getbootstrap.com/). Although the application does not generate actual invoices, it still serves as an example showing how the framework works.
+INVO是由客户端框架[Bootstrap](http://gebootstrap.com/)开发而成。尽管应用没有生成实际的发票，但它仍然是一个展示框架如何工作的示例。
 
-<a name='structure'></a>
 
-## Project Structure
+## 项目结构
 
-Once you clone the project in your document root you'll see the following structure:
+一旦克隆这个项目，在项目的文档根将看到下面的结构：
 
 ```bash
 invo/
@@ -96,27 +31,25 @@ invo/
     schemas/
 ```
 
-As you know, Phalcon does not impose a particular file structure for application development. This project has a simple MVC structure and a public document root.
+如你所知，Phalcon不为应用程序开发设置特定的文件结构。这个项目有一个简单的MVC结构和一个公共文档根。
 
-Once you open the application in your browser `http://localhost/invo` you'll see something like this:
+一旦你在浏览器打开你的应用`http://localhost/invo`，你将看到如下内容：
 
 ![](/images/content/tutorial-invo-1.png)
 
-The application is divided into two parts: a frontend and a backend. The frontend is a public area where visitors can receive information about INVO and request contact information. The backend is an administrative area where registered users can manage their products and customers.
+应用程序分为两个部分：端和后端。前端是一个公共区域，游客可以在这里接收有关INVO的信息，并请求联系信息。后端是一个管理区域，注册用户可以管理他们的产品和客户。
 
-<a name='routing'></a>
 
-## Routing
+## 路由
 
-INVO uses the standard route that is built-in with the [Router](/[[language]]/[[version]]/routing) component. These routes match the following pattern: `/:controller/:action/:params`. This means that the first part of a URI is the controller, the second the controller action and the rest are the parameters.
+INVO使用内置的 [Router](/[[language]]/[[version]]/routing) 组件提供的标准路由。这些路由匹配如下模式：`/:controller/:action/:params`。这意味着URI的第一部分是控制器，第二部分是控制器行为，剩余部分是参数。
 
-The following route `/session/register` executes the controller `SessionController` and its action `registerAction`.
+下面的路由 `/session/register`执行控制器 `SessionController`和它的行为`registerAction`。
 
-<a name='configuration'></a>
 
-## Configuration
+## 配置
 
-INVO has a configuration file that sets general parameters in the application. This file is located at `app/config/config.ini` and is loaded in the very first lines of the application bootstrap (`public/index.php`):
+INVO有一个用于设置应用中一般参数的配置文件。这个文件位于 `app/config/config.ini`， 它在应用引导文件（`public/index.php`）非常靠前的几行被加载：
 
 ```php
 <?php
@@ -132,7 +65,7 @@ $config = new ConfigIni(
 
 ```
 
-[Phalcon Config](/[[language]]/[[version]]/config) (`Phalcon\Config`) allows us to manipulate the file in an object-oriented way. In this example, we're using an ini file for configuration but Phalcon has [adapters](/[[language]]/[[version]]/config) for other file types as well. The configuration file contains the following settings:
+[Phalcon Config](config.md) (`Phalcon\Config`)允许我们以面向对象方式操作这个配置文件。本例中，我们使用ini配置文件，但Phalcon通过[adapters](config.md)也支持其他文件类型。这个配置文件包括以下设置：
 
 ```ini
 [database]
@@ -152,12 +85,12 @@ baseUri        = /invo/
 ```
 
 Phalcon doesn't have any pre-defined settings convention. Sections help us to organize the options as appropriate. In this file there are two sections to be used later: `application` and `database`.
+Phalcon没有任何预先设定的约定。节帮助我们按照适当的方式组织选项。在这个文件中有两个节稍后将使用：application和database。
 
-<a name='autoloaders'></a>
 
-## Autoloaders
+## 自动加载器
 
-The second part that appears in the bootstrap file (`public/index.php`) is the autoloader:
+在引导文件（`public/index`）出现的第二部分是自动加载器：
 
 ```php
 <?php
@@ -168,7 +101,7 @@ The second part that appears in the bootstrap file (`public/index.php`) is the a
 require APP_PATH . 'app/config/loader.php';
 ```
 
-The autoloader registers a set of directories in which the application will look for the classes that it will eventually need.
+自动加载器注册了一组目录，应用将在这些目录里查找它最终需要的类。
 
 ```php
 <?php
@@ -189,7 +122,7 @@ $loader->registerDirs(
 $loader->register();
 ```
 
-Note that the above code has registered the directories that were defined in the configuration file. The only directory that is not registered is the viewsDir because it contains HTML + PHP files but no classes. Also, note that we use a constant called APP_PATH. This constant is defined in the bootstrap (`public/index.php`) to allow us to have a reference to the root of our project:
+注意，以上代码注册了配置文件中定义的目录，唯一没被注册的目录是viewsDir，因为它包含HTML+PHP文件但没有类。也要注意，我们使用了一个叫APP_PATH的常量。这个常量在引导文件 (`public/index.php`) 中定义，允许我们引用项目的根目录：
 
 ```php
 <?php
@@ -202,11 +135,10 @@ define(
 );
 ```
 
-<a name='services'></a>
 
-## Registering services
+## 注册服务
 
-Another file that is required in the bootstrap is (`app/config/services.php`). This file allows us to organize the services that INVO uses.
+引导文件中需要的另一个文件是 (`app/config/services.php`)。这个文件允许我们组织INVO用到的服务。
 
 ```php
 <?php
@@ -217,7 +149,7 @@ Another file that is required in the bootstrap is (`app/config/services.php`). T
 require APP_PATH . 'app/config/services.php';
 ```
 
-Service registration is achieved with closures for lazy loading the required components:
+服务注册是通过延迟加载所需组件的闭包实现的：
 
 ```php
 <?php
@@ -243,11 +175,10 @@ $di->set(
 );
 ```
 
-We will discuss this file in depth later.
+后面我们将深入讨论这个文件。
 
-<a name='handling-requests'></a>
 
-## Handling the Request
+## 处理请求
 
 If we skip to the end of the file (`public/index.php`), the request is finally handled by `Phalcon\Mvc\Application` which initializes and executes all that is necessary to make the application run:
 

@@ -1,32 +1,10 @@
-<div class='article-menu'>
-  <ul>
-    <li>
-      <a href="#overview">Tutorial: Vökuró</a> <ul>
-        <li>
-          <a href="#structure">Project Structure</a>
-        </li>
-        <li>
-          <a href="#dependencies">Load Classes and Dependencies</a>
-        </li>
-        <li>
-          <a href="#sign-up">Sign Up</a>
-        </li>
-      </ul>
-    </li>
-  </ul>
-</div>
+# 教程: Vökuró
 
-<a name='overview'></a>
+Vökuró是另一个你可以用来学习更多Phalcon框架知识的样例应用。Vökuró是一个小网站，这个网站展示了如何实现安全特性和用户及权限的管理。你可以从[Github](https://github.com/phalcon/vokuro) 克隆他的代码。
 
-# Tutorial: Vökuró
+## 项目结构
 
-Vökuró is another sample application you can use to learn more about Phalcon. Vökuró is a small website that shows how to implement a security features and management of users and permissions. You can clone its code from [Github](https://github.com/phalcon/vokuro).
-
-<a name='structure'></a>
-
-## Project Structure
-
-Once you clone the project in your document root you'll see the following structure:
+一旦你克隆了这个项目，在文档根目录你将看到如下结构：
 
 ```bash
 vokuro/
@@ -44,24 +22,22 @@ vokuro/
     schemas/
 ```
 
-This project follows a quite similar structure to INVO. Once you open the application in your browser `http://localhost/vokuro` you'll see something like this:
+这个项目遵循了与INVO相似的结构。一旦你在浏览器中打开了这个应用`http://localhost/vokuro`，你就会看到这样的内容：
 
 ![](/images/content/tutorial-vokuro-1.png)
 
-The application is divided into two parts, a frontend, where visitors can sign up the service and a backend where administrative users can manage registered users. Both frontend and backend are combined in a single module.
+这个应用分为两部分，访问者可以通过前端注册服务，在后端，具管理员身份的用户可以管理已注册用户。前端和后端被组合在一个模块中。
 
-<a name='dependencies'></a>
+## 加载类和依赖
 
-## Load Classes and Dependencies
-
-This project uses `Phalcon\Loader` to load controllers, models, forms, etc. within the project and [composer](https://getcomposer.org/) to load the project's dependencies. So, the first thing you have to do before execute Vökuró is install its dependencies via [composer](https://getcomposer.org/). Assuming you have it correctly installed, type the following command in the console:
+这个项目使用 `Phalcon\Loader` 来加载模型、控制器和表单等。在项目中使用[composer](https://getcomposer.org/)来加载项目的依赖。因此，执行Vökuró前的第一件事就是通过`composer`安装它的依赖。假设你已经正确安装了它，在控制台输入下面的命令：
 
 ```bash
 cd vokuro
 composer install
 ```
 
-Vökuró sends emails to confirm the sign up of registered users using Swift, the `composer.json` looks like:
+Vökuró 使用Swift发送邮件来确认用户注册， `composer.json` 如下：
 
 ```json
 {
@@ -74,7 +50,7 @@ Vökuró sends emails to confirm the sign up of registered users using Swift, th
 }
 ```
 
-Now, there is a file called `app/config/loader.php` where all the auto-loading stuff is set up. At the end of this file you can see that the composer autoloader is included enabling the application to autoload any of the classes in the downloaded dependencies:
+现在，有一个叫`app/config/loader.php`的文件，里面设置好了所有自动加载的素材。在文件的末尾你可以看到composer的自动加载程序被包含了进来，这使应用可以自动加载所下载依赖中的任何类。
 
 ```php
 <?php
@@ -85,7 +61,7 @@ Now, there is a file called `app/config/loader.php` where all the auto-loading s
 require_once BASE_PATH . '/vendor/autoload.php';
 ```
 
-Moreover, Vökuró, unlike the INVO, utilizes namespaces for controllers and models which is the recommended practice to structure a project. This way the autoloader looks slightly different than the one we saw before (`app/config/loader.php`):
+此外，与INVO不同的是，Vökuró为控制器和模型使用了命名空间，构建一个项目时建议这样做。这样，自动加载器看起来与我们之前看到的略有不同(`app/config/loader.php`)：
 
 ```php
 <?php
@@ -108,7 +84,7 @@ $loader->register();
 // ...
 ```
 
-Instead of using `registerDirectories()`, we use `registerNamespaces()`. Every namespace points to a directory defined in the configuration file (app/config/config.php). For instance the namespace `Vokuro\Controllers` points to `app/controllers` so all the classes required by the application within this namespace requires it in its definition:
+我们使用`registerNamespaces()`而不是`registerDirectories()`，每个命名空间指向一个在配置文件中定义的目录(app/config/config.php)。例如，命名空间`Vokuro\Controllers`指向`app/controllers`，因此应用程序中所需的所有类都需要它的定义：
 
 ```php
 <?php
@@ -121,11 +97,10 @@ class AboutController extends ControllerBase
 }
 ```
 
-<a name='sign-up'></a>
 
-## Sign Up
+## 注册
 
-First, let's check how users are registered in Vökuró. When a user clicks the `Create an Account` button, the controller SessionController is invoked and the action `signup` is executed:
+首先，让我们查看在Vökuró里用户是如何注册的。当一个用户点击`Create an Account`按钮，控制器SessionController被调用，行为`signup`被执行：
 
 ```php
 <?php
@@ -147,7 +122,7 @@ class SessionController extends ControllerBase
 }
 ```
 
-This action simply pass a form instance of `SignUpForm` to the view, which itself is rendered to allow the user enter the login details:
+这个行为简单地传递一个`SignUpForm`表单实例给视图，这个视图被渲染为允许用户输入登录细节：
 
 ```twig
 {{ form('class': 'form-search') }}
