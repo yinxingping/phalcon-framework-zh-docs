@@ -365,9 +365,9 @@ $some->someDbTask();
 
 组件现在可以简单地访问它需要的服务，如果它不需要一个服务，该服务甚至不用初始化，节省资源。该组件现在已经高度解耦了，例如，我们可以替换连接创建的方式、它们的行为或它们的任何其他方面，而这不会影响组件。
 
-[Phalcon\Di](https://docs.phalconphp.com/zh/3.2/api/Phalcon_Di) 是一个实现依赖注入和服务定位的组件，它本身就是一个容器。
+[Phalcon\Di](api/Phalcon_Di.md) 是一个实现依赖注入和服务定位的组件，它本身就是一个容器。
 
-由于Phalcon是高度解耦的，因此，[Phalcon\Di](https://docs.phalconphp.com/zh/3.2/api/Phalcon_Di) 对这个框架不同组件的集成至关重要。开发人员还可以使用该组件来注入依赖关系，并管理应用程序中使用的不同类的全局实例。
+由于Phalcon是高度解耦的，因此，[Phalcon\Di](api/Phalcon_Di.md) 对这个框架不同组件的集成至关重要。开发人员还可以使用该组件来注入依赖关系，并管理应用程序中使用的不同类的全局实例。
 
 基本上，这个组件实现了控制反转（[Inversion of Control](http://en.wikipedia.org/wiki/Inversion_of_control)）模式。应用这一点，对象不会使用`setter`或构造函数来接收它们的依赖项，而是请求依赖注入器服务。这降低了整体的复杂性，因为只有一种方法可以在组件中获得所需的依赖项。
 
