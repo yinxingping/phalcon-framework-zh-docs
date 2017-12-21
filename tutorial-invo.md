@@ -2,8 +2,7 @@
 
 在第二篇教程中，我们将解释一个更完整的应用程序，以便更好地理解使用Phalcon的方法。INVO是我们创建的示例应用程序之一。INVO是一个小型网站，允许用户生成发票，并执行其他任务，如管理客户和产品。你可以从 [Github](https://github.com/phalcon/invo)克隆它的代码。
 
-INVO was made with the client-side framework [Bootstrap](http://getbootstrap.com/). Although the application does not generate actual invoices, it still serves as an example showing how the framework works.
-INVO是由客户端框架[Bootstrap](http://gebootstrap.com/)开发而成。尽管应用没有生成实际的发票，但它仍然是一个展示框架如何工作的示例。
+INVO利用客户端框架[Bootstrap](http://gebootstrap.com/)开发完成。尽管应用没有生成实际的发票，但它仍然是一个展示框架如何工作的示例。
 
 
 ## 项目结构
@@ -42,9 +41,9 @@ invo/
 
 ## 路由
 
-INVO使用内置的 [Router](/[[language]]/[[version]]/routing) 组件提供的标准路由。这些路由匹配如下模式：`/:controller/:action/:params`。这意味着URI的第一部分是控制器，第二部分是控制器行为，剩余部分是参数。
+INVO使用内置的 [Router](/[[language]]/[[version]]/routing) 组件提供的标准路由。这些路由匹配如下模式：`/:controller/:action/:params`。这意味着URI的第一部分是控制器，第二部分是控制器操作，剩余部分是参数。
 
-下面的路由 `/session/register`执行控制器 `SessionController`和它的行为`registerAction`。
+下面的路由 `/session/register`执行控制器 `SessionController`和它的操作`registerAction`。
 
 
 ## 配置
@@ -84,8 +83,7 @@ libraryDir     = app/library/
 baseUri        = /invo/
 ```
 
-Phalcon doesn't have any pre-defined settings convention. Sections help us to organize the options as appropriate. In this file there are two sections to be used later: `application` and `database`.
-Phalcon没有任何预先设定的约定。节帮助我们按照适当的方式组织选项。在这个文件中有两个节稍后将使用：application和database。
+Phalcon没有任何预先定义的设置约定。节帮助我们按照适当的方式组织选项。在这个文件中有两个稍后将使用到的节：application和database。
 
 
 ## 自动加载器
@@ -180,7 +178,7 @@ $di->set(
 
 ## 处理请求
 
-If we skip to the end of the file (`public/index.php`), the request is finally handled by `Phalcon\Mvc\Application` which initializes and executes all that is necessary to make the application run:
+如果我们跳到文件（`public/index.php`）的末尾，可以看到请求最后是由`Phalcon\Mvc\Application`处理的，它初始化并执行所需的一切来让应用运行：
 
 ```php
 <?php
@@ -196,15 +194,13 @@ $response = $application->handle();
 $response->send();
 ```
 
-<a name='dependency-injection'></a>
+## 依赖注入
 
-## Dependency Injection
+上面代码块的第一行中，Application类构造器接受变量`$di`作为参数。这个变量的目的是什么？Phalcon是一个高度解耦的框架，所以我们需要一个能让所有东西协同工作的组件，这个组件就是`Phalcon\Di`。它是一个服务容器，还执行依赖项注入和服务定位，在应用程序需要的时候实例化所有组件。
 
-In the first line of the code block above, the Application class constructor is receiving the variable `$di` as an argument. What is the purpose of that variable? Phalcon is a highly decoupled framework so we need a component that acts as glue to make everything work together. That component is `Phalcon\Di`. It's a service container that also performs dependency injection and service location, instantiating all components as they are needed by the application.
+在容器中注册服务有很多方法。在INVO中，大多数服务都是使用匿名函数/闭包进行注册的。由于这一点，对象以一种惰性的方式被实例化，从而减少了应用程序所需要的资源。
 
-There are many ways of registering services in the container. In INVO, most services have been registered using anonymous functions/closures. Thanks to this, the objects are instantiated in a lazy way, reducing the resources needed by the application.
-
-For instance, in the following excerpt the session service is registered. The anonymous function will only be called when the application requires access to the session data:
+例如，在下面的片段中，会话服务被注册。只有当应用程序需要访问会话数据时，才会调用匿名函数。
 
 ```php
 <?php
@@ -226,9 +222,9 @@ $di->set(
 );
 ```
 
-Here, we have the freedom to change the adapter, perform additional initialization and much more. Note that the service was registered using the name `session`. This is a convention that will allow the framework to identify the active service in the services container.
+在这里，我们可以自由地更改适配器、执行额外的初始化以及更多的操作。注意，该服务是使用名称`session`注册的。这是一种约定，它允许框架在服务容器中标识活动服务。
 
-A request can use many services and registering each service individually can be a cumbersome task. For that reason, the framework provides a variant of `Phalcon\Di` called `Phalcon\Di\FactoryDefault` whose task is to register all services providing a full-stack framework.
+一个请求可能使用许多服务，单独注册每个服务可能是一个非常麻烦的任务。由于这个原因，框架提供了一个名为`Phalcon\Di\FactoryDefault`的``Phalcon\Di`的变种，它的任务是注册所有服务以提供一个全栈框架。
 
 ```php
 <?php
@@ -242,17 +238,16 @@ use Phalcon\Di\FactoryDefault;
 $di = new FactoryDefault();
 ```
 
-It registers the majority of services with components provided by the framework as standard. If we need to override the definition of some service we could just set it again as we did above with `session` or `url`. This is the reason for the existence of the variable `$di`.
+它使用框架提供的组件作为标准来注册大多数服务。如果我们需要覆盖某个服务的定义，我们可以像上面的`session`或`url`那样重新设置它。这就是变量`$di`存在的原因。
 
-<a name='log-in'></a>
 
-## Log into the Application
+## 登录到应用
 
-A `log in` facility will allow us to work on backend controllers. The separation between backend controllers and frontend ones is only logical. All controllers are located in the same directory (`app/controllers/`).
+`log in`设施将允许我们在后端控制器上工作。后端控制器和前端控制器之间的分离只是逻辑上的。所有控制器都位于同一个目录(`app/controller/`)中。
 
-To enter the system, users must have a valid username and password. Users are stored in the table `users` in the database `invo`.
+要进入系统，用户必须有一个有效的用户名和密码。用户信息存储在数据库`invo`中的`users`表中。
 
-Before we can start a session, we need to configure the connection to the database in the application. A service called `db` is set up in the service container with the connection information. As with the autoloader, we are again taking parameters from the configuration file in order to configure a service:
+在开始会话之前，我们需要在应用程序中配置好到数据库的连接。在服务容器中，建立了一个带连接信息的名为`db`的服务。与自动加载器一样，我们再次从配置文件中获取参数，以配置服务：
 
 ```php
 <?php
@@ -277,9 +272,9 @@ $di->set(
 );
 ```
 
-Here, we return an instance of the MySQL connection adapter. If needed, you could do extra actions such as adding a logger, a profiler or change the adapter, setting it up as you want.
+这里，我们返回一个MySQL连接适配器的实例，如果需要，你可以执行额外的操作，如添加一个日志记录器，一个分析器，或更改适配器，根据你的需要设置它。
 
-The following simple form (`app/views/session/index.volt`) requests the login information. We've removed some HTML code to make the example more concise:
+下面的简单表单（`app/views/session/index.volt`）请求登录信息。我们已经删除了一些HTML代码以使示例更简洁：
 
 ```twig
 {{ form('session/start') }}
@@ -311,9 +306,9 @@ The following simple form (`app/views/session/index.volt`) requests the login in
 {{ endForm() }}
 ```
 
-Instead of using raw PHP as the previous tutorial, we started to use [Volt](/[[language]]/[[version]]/volt). This is a built-in template engine inspired by Jinja_ providing a simpler and friendly syntax to create templates. It will not take too long before you become familiar with Volt.
+我们开始用[Volt](volt.md)，而不是像以前的教程那样使用原始的PHP。Volt是由Jinjia出品的一款内置模版引擎，提供了一种更简单和友好的语法来创建模版。用不了多久你就会熟悉Volt了。
 
-The `SessionController::startAction` function (`app/controllers/SessionController.php`) has the task of validating the data entered in the form including checking for a valid user in the database:
+`SessionController::startAction`函数（`app/controllers/SessionController.php）的任务是验证表单中输入的数据，包括检查是否是数据库中一个合法的用户。
 
 ```php
 <?php
@@ -386,9 +381,9 @@ class SessionController extends ControllerBase
 }
 ```
 
-For the sake of simplicity, we have used [sha1](http://php.net/manual/en/function.sha1.php) to store the password hashes in the database, however, this algorithm is not recommended in real applications, use [bcrypt](/[[language]]/[[version]]/security) instead.
+为简单起见，我们使用[SHA1](http://php.net/manual/zh/function.sha1.php)在数据库中存储密码散列，然而，不推荐在真实的应用程序中使用这个算法，用[bcrypt](security.md)代替。
 
-Note that multiple public attributes are accessed in the controller like: `$this->flash`, `$this->request` or `$this->session`. These are services defined in the services container from earlier (`app/config/services.php`). When they're accessed the first time, they are injected as part of the controller. These services are `shared`, which means that we are always accessing the same instance regardless of the place where we invoke them. For instance, here we invoke the `session` service and then we store the user identity in the variable `auth`:
+注意，在控制器中可以访问多个公共属性，比如：`$this->flash`、`$this->$request`或`$this->session`。这些是早先在在服务容器(`app/config/services.php`)中定义的服务。当第一次访问它们时，它们被作为控制器的一部分注入。这些服务是`shared`的，这意味着无论在哪里调用它们，我们总是访问相同的实例。例如，我们在这里调用`session`服务，然后将用户标识存储在变量`auth`中：
 
 ```php
 <?php
@@ -402,7 +397,7 @@ $this->session->set(
 );
 ```
 
-Another important aspect of this section is how the user is validated as a valid one, first we validate whether the request has been made using method `POST`:
+这一节的另一个重要方面是如何验证用户是合法的，首先我们验证请求是否使用方法`POST`：
 
 ```php
 <?php
@@ -412,7 +407,7 @@ if ($this->request->isPost()) {
 }
 ```
 
-Then, we receive the parameters from the form:
+然后，我们从表单接收参数：
 
 ```php
 <?php
@@ -421,7 +416,7 @@ $email    = $this->request->getPost('email');
 $password = $this->request->getPost('password');
 ```
 
-Now, we have to check if there is one user with the same username or email and password:
+现在，我们必须验证是否有一个相同的用户名/邮箱和密码的用户：
 
 ```php
 <?php
@@ -437,9 +432,9 @@ $user = Users::findFirst(
 );
 ```
 
-Note, the use of 'bound parameters', placeholders `:email:` and `:password:` are placed where values should be, then the values are 'bound' using the parameter `bind`. This safely replaces the values for those columns without having the risk of a SQL injection.
+注意“绑定参数”的使用，占位符`:email:`和`:password:`放在值应该在的位置，然后使用参数`bind`绑定值。这样就可以安全地替换那些列的值，而不会有SQL注入的风险。
 
-If the user is valid we register it in session and forwards him/her to the dashboard:
+如果用户是合法的，我们在会话中注册并将其转发给仪表板：
 
 ```php
 <?php
@@ -460,7 +455,7 @@ if ($user !== false) {
 }
 ```
 
-If the user does not exist we forward the user back again to action where the form is displayed:
+如果用户不存在，我们让用户回到显示表单的地方：
 
 ```php
 <?php
@@ -473,19 +468,18 @@ return $this->dispatcher->forward(
 );
 ```
 
-<a name='securing-backend'></a>
 
-## Securing the Backend
+## 后端安全
 
-The backend is a private area where only registered users have access. Therefore, it is necessary to check that only registered users have access to these controllers. If you aren't logged into the application and you try to access, for example, the products controller (which is private) you will see a screen like this:
+后端是一个只有注册用户才能访问的私有区域。因此，必须检查只有注册用户才能访问这些控制器。如果你没有登录到应用程序，并且尝试访问，例如，产品控制器(它是私有的)，你将看到这样的屏幕：
 
 ![](/images/content/tutorial-invo-2.png)
 
-Every time someone attempts to access any controller/action, the application verifies that the current role (in session) has access to it, otherwise it displays a message like the above and forwards the flow to the home page.
+每当有人试图访问任何控制器/操作时，应用程序就会验证当前角色(在会话中)是否有访问它的权限，否则它将显示类似上述的消息，并将流程转发到主页。
 
-Now let's find out how the application accomplishes this. The first thing to know is that there is a component called [Dispatcher](/[[language]]/[[version]]/dispatcher). It is informed about the route found by the [Routing](/[[language]]/[[version]]/routing) component. Then, it is responsible for loading the appropriate controller and execute the corresponding action method.
+现在让我们看看应用程序是如何实现这一点的。首先要知道的是，有一个组件叫[Dispatcher](dispatcher.md)。它被告知由[Routing](routing.md)组件所找到的路由。然后，它负责加载适当的控制器并执行相应的操作。
 
-Normally, the framework creates the Dispatcher automatically. In our case, we want to perform a verification before executing the required action, checking if the user has access to it or not. To achieve this, we have replaced the component by creating a function in the bootstrap:
+通常，框架会自动创建分派器。在我们的例子中，我们希望在执行所需的操作之前执行一个验证，检查用户是否可以访问它。为了实现这一点，我们已经通过在引导程序中创建一个函数来替换组件：
 
 ```php
 <?php
@@ -509,13 +503,11 @@ $di->set(
 );
 ```
 
-We now have total control over the Dispatcher used in the application. Many components in the framework trigger events that allow us to modify their internal flow of operation. As the Dependency Injector component acts as glue for components, a new component called [EventsManager](/[[language]]/[[version]]/events) allows us to intercept the events produced by a component, routing the events to listeners.
+我们现在已经完全控制了应用程序中使用的分派器。框架中的许多组件触发事件，这些事件允许我们修改它们的内部操作流。由于依赖注入器组件充当组件的粘合剂，一个名为[EventsManager](events.md)的新组件允许我们拦截组件生成的事件，将事件路由到侦听器。
 
-<a name='events-manager'></a>
+### 事件管理
 
-### Events Management
-
-The [EventsManager](/[[language]]/[[version]]/events) allows us to attach listeners to a particular type of event. The type that interests us now is 'dispatch'. The following code filters all events produced by the Dispatcher:
+[EventsManager](/events.md)允许我们给特定类型的事件附加侦听器。我们现在感兴趣的类型是“dispatch”。下面的代码过滤了分派器产生的所有事件：
 
 ```php
 <?php
@@ -551,7 +543,7 @@ $di->set(
 );
 ```
 
-When an event called `beforeExecuteRoute` is triggered the following plugin will be notified:
+当一个叫`beforeExecuteRoute`被触发时，下面的插件将得到通知：
 
 ```php
 <?php
@@ -565,7 +557,7 @@ $eventsManager->attach(
 );
 ```
 
-When a `beforeException` is triggered then other plugin is notified:
+当`beforeException`被触发，另外一个插件将得到通知：
 
 ```php
 <?php
@@ -579,7 +571,7 @@ $eventsManager->attach(
 );
 ```
 
-SecurityPlugin is a class located at (`app/plugins/SecurityPlugin.php`). This class implements the method `beforeExecuteRoute`. This is the same name as one of the events produced in the Dispatcher:
+SecurityPlugin是一个位于 (`app/plugins/SecurityPlugin.php`)的类。这个类实现了方法 `beforeExecuteRoute`。这个名字与分派器里的一个事件的名字相同：
 
 ```php
 <?php
@@ -599,9 +591,9 @@ class SecurityPlugin extends Plugin
 }
 ```
 
-The hook events always receive a first parameter that contains contextual information of the event produced (`$event`) and a second one that is the object that produced the event itself (`$dispatcher`). It is not mandatory that plugins extend the class `Phalcon\Mvc\User\Plugin`, but by doing this they gain easier access to the services available in the application.
+钩子事件总是接收两个参数。第一个参数包含所生成事件的上下文信息(`$event`)，第二个参数是产生事件本身的对象(`$dispatcher`)。插件继承`Phalcon\Mvc\User\Plugin`类并不是强制的，但通过这样做，他们可以更容易地访问应用中可用的服务。
 
-Now, we're verifying the role in the current session, checking if the user has access using the ACL list. If the user does not have access we redirect to the home screen as explained before:
+现在，我们正在验证当前会话中的角色，检查用户是否使用ACL列表访问。如果用户没有访问权限，我们将重定向到主屏幕，如前所述:
 
 ```php
 <?php
@@ -656,11 +648,10 @@ class SecurityPlugin extends Plugin
 }
 ```
 
-<a name='acl'></a>
 
-### Getting the ACL list
+### 取得ACL列表
 
-In the above example we have obtained the ACL using the method `$this->getAcl()`. This method is also implemented in the Plugin. Now we are going to explain step-by-step how we built the access control list (ACL):
+在上面的示例中，我们使用方法`$this-getAcl()`获得了ACL。这种方法也被在Plugin中实现。现在，我们将逐步解释如何构建访问控制列表(ACL)：
 
 ```php
 <?php
@@ -689,7 +680,7 @@ foreach ($roles as $role) {
 }
 ```
 
-Now, we define the resources for each area respectively. Controller names are resources and their actions are accesses for the resources:
+现在，我们分别为每个区域定义了资源。控制器名称是资源，它们的操作是对资源的访问：
 
 ```php
 <?php
@@ -733,7 +724,7 @@ foreach ($publicResources as $resourceName => $actions) {
 }
 ```
 
-The ACL now knows about the existing controllers and their related actions. Role `Users` has access to all the resources of both frontend and backend. The role `Guests` only has access to the public area:
+ACL现在了解已存在的控制器及其相关操作。角色`users`可以访问前端和后端的所有资源，角色`Guests`只能进入公共区域：
 
 ```php
 <?php
@@ -761,13 +752,12 @@ foreach ($privateResources as $resource => $actions) {
 }
 ```
 
-<a name='working-with-crud'></a>
 
-## Working with the CRUD
+## 使用CRUD
 
-Backends usually provide forms to allow users to manipulate data. Continuing the explanation of INVO, we now address the creation of CRUDs, a very common task that Phalcon will facilitate you using forms, validations, paginators and more.
+后端通常提供表单以允许用户操作数据。继续对解释INVO，我们现在处理CRUD的创建，这是一个非常常见的任务，Phalcon将帮助你使用表单、验证器、分页器等等。
 
-Most options that manipulate data in INVO (companies, products and types of products) were developed using a basic and common [CRUD](http://en.wikipedia.org/wiki/Create,_read,_update_and_delete) (Create, Read, Update and Delete). Each CRUD contains the following files:
+INVO里操作数据（公司，产品和产品类型）的大多数选项使用一个基本的、普通的[CRUD](http://en.wikipedia.org/wiki/Create,_read,_update_and_delete)(创建、读取、更新和删除)开发。每个CRUD包含以下文件：
 
 ```bash
 invo/
@@ -786,7 +776,7 @@ invo/
                 search.volt
 ```
 
-Each controller has the following actions:
+每个控制器有下列操作：
 
 ```php
 <?php
@@ -852,11 +842,10 @@ class ProductsController extends ControllerBase
 }
 ```
 
-<a name='search-form'></a>
 
-## The Search Form
+## 搜索表单
 
-Every CRUD starts with a search form. This form shows each field that the table has (products), allowing the user to create a search criteria for any field. The `products` table has a relationship with the table `products_types`. In this case, we previously queried the records in this table in order to facilitate the search by that field:
+每个CRUD都以搜索表单开始。这个表单显示了该表拥有的每个字段(产品)，允许用户为任何字段创建一个搜索条件。`products`表与`products_types`表有关系。在本例中，我们之前查询了该表中的记录，以处理该字段的搜索：
 
 ```php
 <?php
@@ -872,7 +861,7 @@ public function indexAction()
 }
 ```
 
-An instance of the `ProductsForm` form (`app/forms/ProductsForm.php`) is passed to the view. This form defines the fields that are visible to the user:
+`ProductsForm`表单 (`app/forms/ProductsForm.php`)的实例被传递给视图。这个表单定义了用户可见的字段：
 
 ```php
 <?php
@@ -961,7 +950,7 @@ class ProductsForm extends Form
 }
 ```
 
-The form is declared using an object-oriented scheme based on the elements provided by the [forms](/[[language]]/[[version]]/forms) component. Every element follows almost the same structure:
+表单是使用面向对象的方案、基于[Forms](forms.md)组件提供的元素声明的。每个元素都遵循着几乎相同的结构：
 
 ```php
 <?php
@@ -995,7 +984,7 @@ $name->addValidators(
 $this->add($name);
 ```
 
-Other elements are also used in this form:
+这个表单里也用到其他元素：
 
 ```php
 <?php
@@ -1026,7 +1015,7 @@ $type = new Select(
 );
 ```
 
-Note that `ProductTypes::find()` contains the data necessary to fill the SELECT tag using `Phalcon\Tag::select()`. Once the form is passed to the view, it can be rendered and presented to the user:
+注意 `ProductTypes::find()` 包含需用`Phalcon\Tag::select()`填充到SELECT标签的数据。一旦表单被传给视图，它将被渲染并展现给用户：
 
 ```twig
 {{ form('products/search') }}
@@ -1058,7 +1047,7 @@ Note that `ProductTypes::find()` contains the data necessary to fill the SELECT 
 {{ endForm() }}
 ```
 
-This produces the following HTML:
+这生成如下HTML：
 
 ```html
 <form action='/invo/products/search' method='post'>
@@ -1114,13 +1103,12 @@ This produces the following HTML:
 </form>
 ```
 
-When the form is submitted, the `search` action is executed in the controller performing the search based on the data entered by the user.
+当提交表单时，根据用户输入的数据，在执行搜索的控制器中执行`search`操作。
 
-<a name='performing-searches'></a>
 
-## Performing a Search
+## 执行搜索
 
-The `search` action has two behaviors. When accessed via POST, it performs a search based on the data sent from the form but when accessed via GET it moves the current page in the paginator. To differentiate HTTP methods, we check it using the [Request](/[[language]]/[[version]]/request) component:
+`search`操作有两个行为。当通过POST访问时，它基于发送的数据执行一个搜索，但当通过GET访问时，它在分页器中移动当前页。对于区分HTTP方法，我们使用 [Request](request.md) 组件：
 
 ```php
 <?php
@@ -1141,7 +1129,7 @@ public function searchAction()
 }
 ```
 
-With the help of `Phalcon\Mvc\Model\Criteria`, we can create the search conditions intelligently based on the data types and values sent from the form:
+借助`Phalcon\Mvc\Model\Criteria`的帮助，我们可以根据从表单发送的数据类型和值来智能地创建搜索条件:
 
 ```php
 <?php
@@ -1153,14 +1141,14 @@ $query = Criteria::fromInput(
 );
 ```
 
-This method verifies which values are different from '' (empty string) and null and takes them into account to create the search criteria:
+该方法验证哪些值不为空或NULL，并将它们纳入到创建搜索条件的考量：
 
-* If the field data type is text or similar (char, varchar, text, etc.) It uses an SQL `like` operator to filter the results.
-* If the data type is not text or similar, it'll use the operator `=`.
+* 如果字段数据类型是text或类text(char、varchar、text等)，它使用`like`操作符这样的SQL来过滤结果。
+* 如果数据类型不是text或类text，它使用操作符`=`。
 
-Additionally, `Criteria` ignores all the `$_POST` variables that do not match any field in the table. Values are automatically escaped using `bound parameters`.
+另外， `Criteria`忽略所有`$_POST`中与数据表字段不匹配的变量，且值使用`bound parameters`自动转义。
 
-Now, we store the produced parameters in the controller's session bag:
+现在，我们存储控制器会话包产生的参数：
 
 ```php
 <?php
@@ -1168,9 +1156,9 @@ Now, we store the produced parameters in the controller's session bag:
 $this->persistent->searchParams = $query->getParams();
 ```
 
-A session bag, is a special attribute in a controller that persists between requests using the session service. When accessed, this attribute injects a `Phalcon\Session\Bag` instance that is independent in each controller.
+会话包，是控制器中的一个特殊的属性，它使用会话服务在不同的请求中持续存在。当访问时，这个属性注入一个`Phalcon\Session\Bag`实例， 这个实例在每个控制器中是独立的。
 
-Then, based on the built params we perform the query:
+然后，基于构建的参数我们执行查询：
 
 ```php
 <?php
@@ -1191,7 +1179,7 @@ if (count($products) === 0) {
 }
 ```
 
-If the search doesn't return any product, we forward the user to the index action again. Let's pretend the search returned results, then we create a paginator to navigate easily through them:
+如果搜索不返回任何产品，我们将用户再次转发到索引操作（index action）。让我们假设搜索返回了结果，然后创建一个分页器来轻松地导航它们：
 
 ```php
 <?php
@@ -1212,7 +1200,7 @@ $paginator = new Paginator(
 $page = $paginator->getPaginate();
 ```
 
-Finally we pass the returned page to view:
+最后，我们传递返回的页到视图：
 
 ```php
 <?php
@@ -1220,7 +1208,7 @@ Finally we pass the returned page to view:
 $this->view->page = $page;
 ```
 
-In the view (`app/views/products/search.volt`), we traverse the results corresponding to the current page, showing every row in the current page to the user:
+在 (`app/views/products/search.volt`)视图里，我们遍历与当前页面对应的结果，向用户显示当前页面中的每一行：
 
 ```twig
 {% for product in page.items %}
@@ -1290,19 +1278,19 @@ In the view (`app/views/products/search.volt`), we traverse the results correspo
 {% endfor %}
 ```
 
-There are many things in the above example that worth detailing. First of all, active items in the current page are traversed using a Volt's `for`. Volt provides a simpler syntax for a PHP `foreach`.
+在上面的例子中有很多值得详细说明的东西。首先，当前页面上的活动项是使用Volt的`for`来遍历的。Volt为PHP的`foreach`提供了更简单的语法。
 
 ```twig
 {% for product in page.items %}
 ```
 
-Which in PHP is the same as:
+这与PHP里的用法是相同的：
 
 ```php
 <?php foreach ($page->items as $product) { ?>
 ```
 
-The whole `for` block provides the following:
+整个`for`块提供如下：
 
 ```twig
 {% for product in page.items %}
@@ -1320,7 +1308,7 @@ The whole `for` block provides the following:
 {% endfor %}
 ```
 
-Now you can go back to the view and find out what every block is doing. Every field in `product` is printed accordingly:
+现在你可以回到视图，找出每个块都在做什么。`product`的每一个字段都有相应的输出：
 
 ```twig
 <tr>
@@ -1354,7 +1342,7 @@ Now you can go back to the view and find out what every block is doing. Every fi
 </tr>
 ```
 
-As we seen before using `product.id` is the same as in PHP as doing: `$product->id`, we made the same with `product.name` and so on. Other fields are rendered differently, for instance, let's focus in `product.productTypes.name`. To understand this part, we have to check the Products model (`app/models/Products.php`):
+就像我们之前看到的那样，使用`product.id`和在PHP中是一样的：`$product->id`，`product.name`也一样。其他字段的渲染则不同，作为示例，让我们专注于`product.productTypes.name`。要理解这部分，我们必须检查Products模型(`app/models/Products.php`)：
 
 ```php
 <?php
@@ -1387,7 +1375,7 @@ class Products extends Model
 }
 ```
 
-A model can have a method called `initialize()`, this method is called once per request and it serves the ORM to initialize a model. In this case, 'Products' is initialized by defining that this model has a one-to-many relationship to another model called 'ProductTypes'.
+模型可能有一个叫做 `initialize()`的方法， 这个方法每次请求都仅被调用一次，它服务于ORM来初始化一个模型。在本例中，’Products'通过定义该模型与另一个名为'ProductTypes'的模型有一对多的关系来实现初始化。
 
 ```php
 <?php
@@ -1402,39 +1390,39 @@ $this->belongsTo(
 );
 ```
 
-Which means, the local attribute `product_types_id` in `Products` has an one-to-many relation to the `ProductTypes` model in its attribute `id`. By defining this relationship we can access the name of the product type by using:
+也就是说，`Products`中的本地属性`product_types_id`与`ProductTypes`模型的属性`id`有一对多的关系。通过定义这种关系，我们可以使用以下方法来访问产品类型的名称：
 
 ```twig
 <td>{{ product.productTypes.name }}</td>
 ```
 
-The field `price` is printed by its formatted using a Volt filter:
+字段 `price`使用Volt过滤器格式化化后输出：
 
 ```twig
 <td>{{ '%.2f'|format(product.price) }}</td>
 ```
 
-In plain PHP, this would be:
+在普通PHP中，这将是：
+
 
 ```php
 <?php echo sprintf('%.2f', $product->price) ?>
 ```
 
-Printing whether the product is active or not uses a helper implemented in the model:
+使用模型中实现的助手来打印出产品是否活跃：
 
 ```php
 <td>{{ product.getActiveDetail() }}</td>
 ```
 
-This method is defined in the model.
+这个方法在模型中定义。
 
-<a name='creating-updating-records'></a>
 
-## Creating and Updating Records
+## 创建和更新记录
 
-Now let's see how the CRUD creates and updates records. From the `new` and `edit` views, the data entered by the user is sent to the `create` and `save` actions that perform actions of `creating` and `updating` products, respectively.
+现在让我们看看CRUD是如何创建和更新记录的。从`new`和`edit`视图中，用户输入的数据被发送到`create`和`save`操作，这些操作分别执行`creating`和`updating`产品。
 
-In the creation case, we recover the data submitted and assign them to a new `Products` instance:
+在创建案例中，我们恢复提交的数据并将它们分配给一个新产品实例：
 
 ```php
 <?php
@@ -1467,7 +1455,7 @@ public function createAction()
 }
 ```
 
-Remember the filters we defined in the Products form? Data is filtered before being assigned to the object `$product`. This filtering is optional; the ORM also escapes the input data and performs additional casting according to the column types:
+还记得我们在产品表单中定义的过滤器吗？数据在被分配给对象`$product`之前被过滤。这种过滤是可选的；ORM还会转义输入数据，并根据字段类型执行额外的转换：
 
 ```php
 <?php
@@ -1500,7 +1488,7 @@ $name->addValidators(
 $this->add($name);
 ```
 
-When saving, we'll know whether the data conforms to the business rules and validations implemented in the form `ProductsForm` form (`app/forms/ProductsForm.php`):
+保存时，我们就会知道数据是否符合业务逻辑和在`ProductsForm`表单（`app/forms/ProductsForm.php`）中实现的验证规则：
 
 ```php
 <?php
@@ -1530,7 +1518,7 @@ if (!$form->isValid($data, $product)) {
 }
 ```
 
-Finally, if the form does not return any validation message we can save the product instance:
+最后，如果表单没有返回任何验证消息，我们可以保存产品实例：
 
 ```php
 <?php
@@ -1566,7 +1554,7 @@ return $this->dispatcher->forward(
 );
 ```
 
-Now, in the case of updating a product, we must first present the user with the data that is currently in the edited record:
+现在，在更新产品的情况下，我们必须首先向用户提供当前已编辑的记录中的数据：
 
 ```php
 <?php
@@ -1602,7 +1590,7 @@ public function editAction($id)
 }
 ```
 
-The data found is bound to the form by passing the model as first parameter. Thanks to this, the user can change any value and then sent it back to the database through to the `save` action:
+通过传递模型作为第一个参数，将所找到的数据绑定到表单。感谢这一点，用户可以更改任何值，然后通过`save`操作将其发送回数据库：
 
 ```php
 <?php
@@ -1687,13 +1675,12 @@ public function saveAction()
 }
 ```
 
-<a name='user-components'></a>
 
-## User Components
+## 用户组件
 
-All the UI elements and visual style of the application has been achieved mostly through [Bootstrap](http://getbootstrap.com/). Some elements, such as the navigation bar changes according to the state of the application. For example, in the upper right corner, the link `Log in / Sign Up` changes to `Log out` if a user is logged into the application.
+应用程序的所有UI元素和可视化样式都是通过[Bootstrap](http://getbootstrap.com/)实现的。一些元素，例如导航条会根据应用程序的状态变化。例如，在右上角，如果用户登录到应用程序，则链接`Log in/Sign Up`变为`Log out`。
 
-This part of the application is implemented in the component `Elements` (`app/library/Elements.php`).
+该应用程序的这一部分是在组件元素(`app/library/Elements.php`)中实现的。
 
 ```php
 <?php
@@ -1714,7 +1701,7 @@ class Elements extends Component
 }
 ```
 
-This class extends the `Phalcon\Mvc\User\Component`. It is not imposed to extend a component with this class, but it helps to get access more quickly to the application services. Now, we are going to register our first user component in the services container:
+这个类继承了`Phalcon\Mvc\User\Component`。用这个类继承`Component`并不是强制的，但是它有助于更快地访问应用程序服务。现在，我们将在服务容器中注册我们的第一个用户组件:
 
 ```php
 <?php
@@ -1728,7 +1715,7 @@ $di->set(
 );
 ```
 
-As controllers, plugins or components within a view, this component also has access to the services registered in the container and by just accessing an attribute with the same name as a previously registered service:
+作为视图中的控制器、插件或组件，该组件还可以访问在容器中注册的服务，并且只需访问与先前注册的服务相同的属性:
 
 ```twig
 <div class='navbar navbar-fixed-top'>
@@ -1758,17 +1745,16 @@ As controllers, plugins or components within a view, this component also has acc
 </div>
 ```
 
-The important part is:
+重要的部分是：
 
 ```twig
 {{ elements.getMenu() }}
 ```
 
-<a name='dynamic-titles'></a>
 
-## Changing the Title Dynamically
+## 动态改变标题
 
-When you browse between one option and another will see that the title changes dynamically indicating where we are currently working. This is achieved in each controller initializer:
+当你在一个选项和另一个选项间浏览时，会看到标题会动态地显示我们当前工作的位置。这是在每个控制器的初始化时实现的：
 
 ```php
 <?php
@@ -1789,7 +1775,7 @@ class ProductsController extends ControllerBase
 }
 ```
 
-Note, that the method `parent::initialize()` is also called, it adds more data to the title:
+注意，方法`parent::initialize()`也被调用了，它给标题添加了更多的数据：
 
 ```php
 <?php
@@ -1808,7 +1794,7 @@ class ControllerBase extends Controller
 }
 ```
 
-Finally, the title is printed in the main view (app/views/index.volt):
+最后，在主视图（`app/views/index.volt`）中，标题被打印出来：
 
 ```php
 <!DOCTYPE html>
