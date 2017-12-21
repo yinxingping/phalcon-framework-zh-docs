@@ -1,30 +1,28 @@
 # 提高性能
 
-Get faster applications requires refine many aspects: server, client, network, database, web server, static sources, etc. In this chapter we highlight scenarios where you can improve performance and how detect what is really slow in your application.
+获得更快的应用程序需要改进许多方面：服务器、客户端、网络、数据库、web服务器、静态源等等。在本章中，我们重点介绍可以提高性能的场景，以及如何检测应用程序中真的很慢的地方。
 
-<a name='profiling-server'></a>
 
-## Profile on the Server
+## 服务器上的Profile
 
-Each application is different, the permanent profiling is important to understand where performance can be increased. Profiling gives us a real picture on what is really slow and what does not. Profiles can vary between a request and another, so it is important to make enough measurements to make conclusions.
+每个应用程序都是不同的，定量Profile对于了解在哪里可以提高性能是很重要的。Profiling给了我们一个什么是慢、什么不是的真实的画面。Profile可以在一个请求和其他请求之间有所不同，因此重要的是要进行足够的度量以得出结论。
 
-Profiling with XDebug
+使用XDebug进行Profiling
 
-[XDebug](http://xdebug.org/docs) provides an easier way to profile PHP applications, just install the extension and enable profiling in the php.ini:
+[XDebug](http://xdebug.org/docs) 为profile PHP应用提供了一个更容易的方法，只要安装xdebug扩展并在php.ini中开启即可：
 
 ```ini
 xdebug.profiler_enable = On
 ```
 
-Using a tool like [Webgrind](https://github.com/jokkedk/webgrind/) you can see which functions/methods are slower than others:
+使用类似 [Webgrind](https://github.com/jokkedk/webgrind/) 这样的工具，你可以看到哪个函数/方法比其他的更慢：
 
-![](/images/content/performance-webgrind.jpg)
+![](https://docs.phalconphp.com/images/content/performance-webgrind.jpg)
 
-<a name='profiling-server-xhprof'></a>
 
-### Profiling with Xhprof
+### 使用Xhprof进行Profiling
 
-[Xhprof](https://github.com/facebook/xhprof) is another interesting extension to profile PHP applications. Add the following line to the start of the bootstrap file:
+[Xhprof](https://github.com/facebook/xhprof) 是另一个profile PHP应用的有趣的扩展。添加下面一行到引导文件的开始处：
 
 ```php
 <?php
@@ -32,7 +30,7 @@ Using a tool like [Webgrind](https://github.com/jokkedk/webgrind/) you can see w
 xhprof_enable(XHPROF_FLAGS_CPU + XHPROF_FLAGS_MEMORY);
 ```
 
-Then at the end of the file save the profiled data:
+然后在文件末尾保存profiled数据：
 
 ```php
 <?php
@@ -49,80 +47,73 @@ $run_id = $xhprof_runs->save_run($xhprof_data, 'xhprof_testing');
 echo "http://localhost/xhprof/xhprof_html/index.php?run={$run_id}&source=xhprof_testing\n";
 ```
 
-Xhprof provides a built-in HTML viewer to analyze the profiled data:
+Xhprof 提供了一个内置的HTML查看器来分析profiled数据：
 
-![](/images/content/performance-xhprof-2.jpg)
+![](https://docs.phalconphp.com/images/content/performance-xhprof-2.jpg)
 
-![](/images/content/performance-xhprof-1.jpg)
+![](https://docs.phalconphp.com/images/content/performance-xhprof-1.jpg)
 
-<a name='profiling-server-sql-statements'></a>
 
-### Profiling SQL Statements
+### SQL语句的Profiling
 
-Most database systems provide tools to identify slow SQL statements. Detecting and fixing slow queries is very important in order to increase performance in the server side. In the Mysql case, you can use the slow query log to know what SQL queries are taking more time than expected:
+大多数数据库系统都提供了识别慢SQL语句的工具。为了提高服务器端的性能，检测和修复慢速查询是非常重要的。在Mysql案例中，你可以使用慢查询日志来了解什么SQL查询所花费的时间比预期的要多：
 
 ```ini
 log-slow-queries = /var/log/slow-queries.log
 long_query_time = 1.5
 ```
 
-<a name='profiling-client'></a>
 
-## Profile on the Client
+## 客户端的Profile
 
-Sometimes we may need to improve the loading of static elements such as images, javascript and css to improve performance. The following tools are useful to detect common bottlenecks in the client side:
+有时，我们可能需要改进静态元素的加载，比如图像、javascript和css，以提高性能。以下工具对于检测客户端的常见瓶颈非常有用：
 
-<a name='profiling-client-chrome-firefox'></a>
 
-### Profile with Chrome/Firefox
+### 使用 Chrome/Firefox浏览器Profile
 
-Most modern browsers have tools to profile the page loading time. In Chrome you can use the web inspector to know how much time is taking the loading of the different resources required by a single page:
+大多数现代浏览器都有工具来profile页面加载时间。在Chrome中，你可以使用网页检查器来了解一个页面所需要的不同资源的加载时间：
 
-![](/images/content/performance-chrome-1.jpg)
+![](https://docs.phalconphp.com/images/content/performance-chrome-1.jpg)
 
-[Firebug](http://getfirebug.com/) provides a similar functionality:
+[Firebug](http://getfirebug.com/) 提供了一个类似的功能：
 
-![](/images/content/performance-firefox-1.jpg)
+![](https://docs.phalconphp.com/images/content/performance-firefox-1.jpg)
 
-<a name='profiling-client-yslow'></a>
 
 ### Yahoo! YSlow
 
-[YSlow](http://developer.yahoo.com/yslow/) analyzes web pages and suggests ways to improve their performance based on a set of [rules for high performance web pages](http://developer.yahoo.com/performance/rules.html)
+[YSlow](http://developer.yahoo.com/yslow/) 基于一组[高性能网页规则](http://developer.yahoo.com/performance/rules.html)来分析网页并提出提高性能的建议。
 
-![](/images/content/performance-yslow-1.jpg)
+![](https://docs.phalconphp.com/images/content/performance-yslow-1.jpg)
 
-<a name='profiling-client-speed-tracer'></a>
 
-### Profile with Speed Tracer
+### 使用Speed Tracer Profile
 
-[Speed Tracer](https://developers.google.com/web-toolkit/speedtracer/) is a tool to help you identify and fix performance problems in your web applications. It visualizes metrics that are taken from low level instrumentation points inside of the browser and analyzes them as your application runs. Speed Tracer is available as a Chrome extension and works on all platforms where extensions are currently supported (Windows and Linux).
+[Speed Tracer](https://developers.google.com/web-toolkit/speedtracer/) 是一种帮助你识别和修复web应用程序中的性能问题的工具。它可以可视化从浏览器内部的低级工具点获取的度量，并在应用程序运行时对它们进行分析。Speed Tracer是一个Chrome扩展，可以在所有支持扩展的平台上运行(Windows和Linux)。
 
-![](/images/content/performance-speed-tracer.jpg)
+![](https://docs.phalconphp.com/images/content/performance-speed-tracer.jpg)
 
-This tool is very useful because it help you to get the real time used to render the whole page including HTML parsing, Javascript evaluation and CSS styling.
 
-<a name='php-version'></a>
+这个工具非常有用，因为它可以帮助您获得渲染整个页面所用的真正时间，包括HTML解析、Javascript评估和CSS样式。
 
-## Use a recent PHP version
 
-PHP is faster every day, using the latest version improves the performance of your applications and also of Phalcon.
+## 使用近期的PHP版本
 
-<a name='bytecode-cache'></a>
+PHP每一天都变得更快，使用最新版本能提高应用程序的性能，也提高了Phalcon的性能。
 
-## Use a PHP Bytecode Cache
 
-[APC](http://php.net/manual/en/book.apc.php) as many other bytecode caches help an application to reduce the overhead of read, tokenize and parse PHP files in each request. Once the extension is installed use the following setting to enable APC:
+## 使用PHP字节码缓存
+
+[APC](http://php.net/manual/zh/book.apc.php) 与许多其他字节码缓存一样，帮助应用程序减少每次请求中读取、分词和解析PHP文件的开销。安装扩展之后，使用以下设置启用APC：
 
 ```ini
 apc.enabled = On
 ```
 
-<a name='background-tasks'></a>
 
-## Do blocking work in the background
+## 在后台做阻塞性工作
 
-Process a video, send e-mails, compress a file or an image, etc., are slow tasks that must be processed in background jobs. There are a variety of tools that provide queuing or messaging systems that work well with PHP:
+处理一个视频、发送电子邮件、压缩文件或图像等，是必须在后台作业中处理的慢任务。有许多工具提供排队或消息系统，这些系统与PHP可以很好地协同工作：
 
 * [Beanstalkd](http://kr.github.io/beanstalkd/)
 * [Redis](http://redis.io/)
@@ -131,8 +122,7 @@ Process a video, send e-mails, compress a file or an image, etc., are slow tasks
 * [Gearman](http://gearman.org/)
 * [ZeroMQ](http://www.zeromq.org/)
 
-<a name='page-speed'></a>
 
 ## Google Page Speed
 
-[mod_pagespeed](https://developers.google.com/speed/pagespeed/mod) speeds up your site and reduces page load time. This open-source Apache HTTP server module (also available for nginx as [ngx_pagespeed](https://developers.google.com/speed/pagespeed/ngx)) automatically applies web performance best practices to pages, and associated assets (CSS, JavaScript, images) without requiring that you modify your existing content or workflow.
+[mod_pagespeed](https://developers.google.com/speed/pagespeed/mod) 加速你的网站并缩减页面加载时间。这个开源的Apache HTTP服务器模块 (也可以 [ngx_pagespeed](https://developers.google.com/speed/pagespeed/ngx)用于nginx) 自动将web性能最佳实践应用到页面以及相关的资源(CSS、JavaScript、图像)，而不需要修改现有的内容或工作流。
