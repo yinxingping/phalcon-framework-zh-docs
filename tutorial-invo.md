@@ -34,7 +34,7 @@ invo/
 
 一旦你在浏览器打开你的应用`http://localhost/invo`，你将看到如下内容：
 
-![](/images/content/tutorial-invo-1.png)
+![](https://docs.phalconphp.com/images/content/tutorial-invo-1.png)
 
 应用程序分为两个部分：端和后端。前端是一个公共区域，游客可以在这里接收有关INVO的信息，并请求联系信息。后端是一个管理区域，注册用户可以管理他们的产品和客户。
 
@@ -473,7 +473,7 @@ return $this->dispatcher->forward(
 
 后端是一个只有注册用户才能访问的私有区域。因此，必须检查只有注册用户才能访问这些控制器。如果你没有登录到应用程序，并且尝试访问，例如，产品控制器(它是私有的)，你将看到这样的屏幕：
 
-![](/images/content/tutorial-invo-2.png)
+![](https://docs.phalconphp.com/images/content/tutorial-invo-2.png)
 
 每当有人试图访问任何控制器/操作时，应用程序就会验证当前角色(在会话中)是否有访问它的权限，否则它将显示类似上述的消息，并将流程转发到主页。
 
