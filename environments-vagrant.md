@@ -1,129 +1,3 @@
-<div class='article-menu'>
-  <ul>
-    <li>
-      <a href="#overview">Overview</a> 
-      <ul>
-        <li>
-          <a href="#requirements">Requirements</a>
-        </li>
-        <li>
-          <a href="#packages-included">Packages Included</a>
-        </li>
-        <li>
-          <a href="#installation">Installation</a> <ul>
-            <li>
-              <a href="#installation-vagrant-box">Installing the Vagrant Box</a>
-            </li>
-            <li>
-              <a href="#installation-phalcon-box">Installing the Phalcon Box</a>
-            </li>
-          </ul>
-        </li>
-        <li>
-          <a href="#installation-configuration">Configuring</a> 
-          <ul>
-            <li>
-              <a href="#installation-configuration-setting-provider">Setting your provider</a>
-            </li>
-            <li>
-              <a href="#installation-configuration-memory-cpu">Memory and CPU</a>
-            </li>
-            <li>
-              <a href="#installation-configuration-shared-folders">Shared folders</a>
-            </li>
-            <li>
-              <a href="#installation-configuration-nginx">Nginx sites</a> 
-              <ul>
-                <li>
-                  <a href="#installation-configuration-custom-nginx">Custom Nginx configuration</a>
-                </li>
-                <li>
-                  <a href="#installation-configuration-hosts">Configuring the <code>hosts</code> file</a>
-                </li>
-              </ul>
-            </li>
-            <li>
-              <a href="#installation-aditional-packages">Install additional packages</a>
-            </li>
-            <li>
-              <a href="#installation-launching-phalcon-box">Launching the Phalcon Box</a>
-            </li>
-          </ul>
-        </li>
-        <li>
-          <a href="#daily-usage">Daily usage</a> 
-          <ul>
-            <li>
-              <a href="#daily-usage-accessing-box-globally">Accessing Phalcon Box globally</a> 
-              <ul>
-                <li>
-                  <a href="#daily-usage-accessing-box-globally-mac-linux">Mac || Linux</a>
-                </li>
-                <li>
-                  <a href="#daily-usage-accessing-box-globally-windows">Windows</a>
-                </li>
-              </ul>
-            </li>
-            <li>
-              <a href="#daily-usage-ssh">Connecting via SSH</a>
-            </li>
-            <li>
-              <a href="#daily-usage-databases">Connecting to databases</a>
-            </li>
-            <li>
-              <a href="#daily-usage-additional-sites">Adding additional sites</a>
-            </li>
-            <li>
-              <a href="#daily-usage-environment-variables">Environment variables</a> 
-              <ul>
-                <li>
-                  <a href="#daily-usage-environment-global-variables">Global variables</a>
-                </li>
-                <li>
-                  <a href="#daily-usage-environment-site-variables">Site variables</a>
-                </li>
-              </ul>
-            </li>
-            <li>
-              <a href="#daily-usage-ports">Ports</a> 
-              <ul>
-                <li>
-                  <a href="#daily-usage-ports-forwarding">Forwarding additional ports</a>
-                </li>
-              </ul>
-            </li>
-            <li>
-              <a href="#daily-usage-sharing-environment">Sharing your environment</a>
-            </li>
-            <li>
-              <a href="#daily-usage-network-interfaces">Network interfaces</a>
-            </li>
-            <li>
-              <a href="#daily-usage-updating-box">Updating Phalcon Box</a>
-            </li>
-            <li>
-              <a href="#daily-usage-provider-settings">Provider specific settings</a> 
-              <ul>
-                <li>
-                  <a href="#daily-usage-provider-settings-virtualbox">VirtualBox</a>
-                </li>
-              </ul>
-            </li>
-            <li>
-              <a href="#daily-usage-mail-catcher">Mail catcher</a>
-            </li>
-          </ul>
-        </li>
-        <li>
-          <a href="#troubleshooting">Troubleshooting</a>
-        </li>
-      </ul>
-    </li>
-  </ul>
-</div>
-
-<a name='overview'></a>
-
 # Overview
 
 Phalcon Box uses the default **phalcon/xenial64** box from [Vagrant Cloud](https://atlas.hashicorp.com/phalconphp/boxes/xenial64/) for compatibility. If you choose to use a 64-bit ISO you may need to update your BIOS to enable [virtualization](https://en.wikipedia.org/wiki/X86_virtualization) with `AMD-V`, `Intel VT-x` or `VIA VT`.
@@ -385,12 +259,12 @@ copy:
 You must add the "domains" for your Nginx sites to the hosts file on your machine. The hosts file will redirect requests for your Phalcon sites into your Phalcon Box machine. On Mac and Linux, this file is located at `/etc/hosts`. On Windows, it is located at `C:\Windows\System32\drivers\etc\hosts`. The lines you add to this file will look like the following:
 
     192.168.50.4  phalcon.local
-    
+​    
 
 Make sure the IP address listed is the one set in your `settings.yml` file. Once you have added the domain to your `hosts` file and launched the Vagrant box you will be able to access the site via your web browser:
 
     http://phalcon.local
-    
+​    
 
 <div class="alert alert-danger">
     <p>
@@ -529,7 +403,7 @@ If Vagrant is not managing your "hosts" file automatically, you may need to add 
     192.168.50.4  phalcon.local
     192.168.50.4  pdffiller.local
     192.168.50.4  blog.local
-    
+
 
 <div class="alert alert-danger">
     <p>
@@ -617,7 +491,7 @@ sites:
 By default, the following ports are forwarded to your Phalcon Box environment:
 
 | Forwarded port | Phalcon Box | Host system |
-| -------------- |:-----------:|:-----------:|
+| -------------- | :---------: | :---------: |
 | **SSH**        |    `22`     |   `2222`    |
 | **HTTP**       |    `80`     |   `8000`    |
 | **HTTPS**      |    `443`    |   `44300`   |
@@ -758,7 +632,7 @@ vagrant plugin install vagrant-vbguest
 **Problem:**
 
 > Vagrant was unable to mount VirtualBox shared folders. This is usually because the filesystem "vboxsf" is not available. This filesystem is made available via the VirtualBox Guest Additions and kernel module. Please verify that these guest additions are properly installed in the guest. This is not a bug in Vagrant and is usually caused by a faulty Vagrant box. For context, the command attempted was:
-> 
+>
 > mount -t vboxsf -o uid=900,gid=900 vagrant /vagrant
 
 **Solution:**
@@ -770,9 +644,9 @@ vagrant plugin install vagrant-vbguest
 **Problem:**
 
 > There was an error while executing `VBoxManage`, a CLI used by Vagrant for controlling VirtualBox. The command and stderr is shown below.
-> 
+>
 > Command: `["startvm", "9d2b95e1-0fdd-40f4-ad65-4b56eb4315f8", "--type", "headless"]`
-> 
+>
 > Stderr: VBoxManage.exe: error: VT-x is not available (VERR_VMX_NO_VMX) VBoxManage.exe: error: Details: code E_FAIL (0x80004005), component ConsoleWrap, interface IConsole
 
 **Solution:**
