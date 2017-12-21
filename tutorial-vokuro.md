@@ -24,7 +24,7 @@ vokuro/
 
 这个项目遵循了与INVO相似的结构。一旦你在浏览器中打开了这个应用`http://localhost/vokuro`，你就会看到这样的内容：
 
-![](/images/content/tutorial-vokuro-1.png)
+![](https://docs.phalconphp.com/images/content/tutorial-vokuro-1.png)
 
 这个应用分为两部分，访问者可以通过前端注册服务，在后端，具管理员身份的用户可以管理已注册用户。前端和后端被组合在一个模块中。
 
