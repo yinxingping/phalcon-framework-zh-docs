@@ -131,17 +131,18 @@ $di->set(
 
 Volt中可以使用下面的选项：
 
-| 选项 | 描述 | 默认值 |
-| ------------------- | ---------------------------------------- | ------- |
-| `compiledPath`      | A writable path where the compiled PHP templates will be placed | `./`    |
-| `compiledExtension` | An additional extension appended to the compiled PHP file | `.php`  |
-| `compiledSeparator` | Volt replaces the directory separators / and \ by this separator in order to create a single file in the compiled directory | `%%`    |
-| `stat`              | Whether Phalcon must check if exists differences between the template file and its compiled path | `true`  |
-| `compileAlways`     | Tell Volt if the templates must be compiled in each request or only when they change | `false` |
-| `prefix`            | Allows to prepend a prefix to the templates in the compilation path | `null`  |
-| `autoescape`        | Enables globally autoescape of HTML      | `false` |
+| 选项                  | 描述                                   | 默认值     |
+| ------------------- | ------------------------------------ | ------- |
+| `compiledPath`      | 一个可写的路径，编译后的PHP模板将保存在这里              | `./`    |
+| `compiledExtension` | 添加到已编译PHP文件上的附加扩展名                   | `.php`  |
+| `compiledSeparator` | 为了在编译目录创建一个单文件，Volt使用这个分隔符替换/和\目录分隔符 | `%%`    |
+| `stat`              | Phalcon是不是必须检查模板文件和它的编译路径内容是否不同      | `true`  |
+| `compileAlways`     | 告诉Volt模板是不是每次请求都要编译，或仅当它们改变时编译       | `false` |
+| `prefix`            | 允许编译路径里的模板添加一个前缀                     | `null`  |
+| `autoescape`        | 启动HTML的全局自动转义                        | `false` |
 
-The compilation path is generated according to the above options, if the developer wants total freedom defining the compilation path, an anonymous function can be used to generate it, this function receives the relative path to the template in the views directory. The following examples show how to change the compilation path dynamically:
+
+编译路径根据上面的选项生成，如果开发人员想要完全自由地定义编译路径，可以使用一个匿名函数来生成它，这个函数将接收视图目录中的模板的相对路径。下面的例子展示了如何动态更改编译路径：
 
 ```php
 <?php
@@ -175,9 +176,9 @@ $volt->setOptions(
 
 ## 基本用法
 
-A view consists of Volt code, PHP and HTML. A set of special delimiters is available to enter into Volt mode. `{% ... %}` is used to execute statements such as for-loops or assign values and `{{ ... }}`, prints the result of an expression to the template.
+视图由Volt代码、PHP和HTML组成，通过一组特殊的定界符进入Volt模式。`{%……%}`用于执行诸如for循环或赋值等语句，`{{ ... }}`将表达式的结果打印到模板中。
 
-Below is a minimal template that illustrates a few basics:
+下面是一个最小化的模板，展示了一些基础知识：
 
 ```twig
 {# app/views/posts/show.phtml #}
@@ -210,7 +211,7 @@ Below is a minimal template that illustrates a few basics:
 </html>
 ```
 
-Using `Phalcon\Mvc\View` you can pass variables from the controller to the views. In the above example, four variables were passed to the view: `show_navigation`, `menu`, `title` and `post`:
+使用 `Phalcon\Mvc\View` 你可以从控制器传递变量到视图。上面的例子中，四个变量被传递给了视图：`show_navigation`, `menu`, `title` and `post`:
 
 ```php
 <?php
@@ -242,7 +243,7 @@ class PostsController extends Controller
 
 ## 变量
 
-Object variables may have attributes which can be accessed using the syntax: `foo.bar`. If you are passing arrays, you have to use the square bracket syntax: `foo['bar']`
+对象变量可能具有可以通过语法访问的属性：`foo.bar`。如果你正在传递数组，你必须使用方括号语法：`foo[bar]`
 
 ```twig
 {{ post.title }} {# for $post->title #}
@@ -252,7 +253,7 @@ Object variables may have attributes which can be accessed using the syntax: `fo
 
 ## 过滤器
 
-Variables can be formatted or modified using filters. The pipe operator `|` is used to apply filters to variables:
+可以使用过滤器格式化或修改变量。管道操作符`|`用于将过滤器应用到变量:
 
 ```twig
 {{ post.title|e }}
@@ -260,37 +261,37 @@ Variables can be formatted or modified using filters. The pipe operator `|` is u
 {{ name|capitalize|trim }}
 ```
 
-The following is the list of available built-in filters in Volt:
+下面是Volt中内置的过滤器列表：
 
-| Filter             | Description                              |
+| 过滤器                | 描述                                       |
 | ------------------ | ---------------------------------------- |
-| `abs`              | Applies the [abs](http://php.net/manual/en/function.abs.php) PHP function to a value. |
-| `capitalize`       | Capitalizes a string by applying the [ucwords](http://php.net/manual/en/function.ucwords.php) PHP function to the value |
-| `convert_encoding` | Converts a string from one charset to another |
-| `default`          | Sets a default value in case that the evaluated expression is empty (is not set or evaluates to a falsy value) |
-| `e`                | Applies `Phalcon\Escaper->escapeHtml()` to the value |
-| `escape`           | Applies `Phalcon\Escaper->escapeHtml()` to the value |
-| `escape_attr`      | Applies `Phalcon\Escaper->escapeHtmlAttr()` to the value |
-| `escape_css`       | Applies `Phalcon\Escaper->escapeCss()` to the value |
-| `escape_js`        | Applies `Phalcon\Escaper->escapeJs()` to the value |
-| `format`           | Formats a string using [sprintf](http://php.net/manual/en/function.sprintf.php). |
-| `json_encode`      | Converts a value into its [JSON](http://php.net/manual/en/function.json-encode.php) representation |
-| `json_decode`      | Converts a value from its [JSON](http://php.net/manual/en/function.json-encode.php) representation to a PHP representation |
-| `join`             | Joins the array parts using a separator [join](http://php.net/manual/en/function.join.php) |
-| `keys`             | Returns the array keys using [array_keys](http://php.net/manual/en/function.array-keys.php) |
-| `left_trim`        | Applies the [ltrim](http://php.net/manual/en/function.ltrim.php) PHP function to the value. Removing extra spaces |
-| `length`           | Counts the string length or how many items are in an array or object |
-| `lower`            | Change the case of a string to lowercase |
-| `nl2br`            | Changes newlines `\n` by line breaks (`<br />`). Uses the PHP function [nl2br](http://php.net/manual/en/function.nl2br.php) |
-| `right_trim`       | Applies the [rtrim](http://php.net/manual/en/function.rtrim.php) PHP function to the value. Removing extra spaces |
-| `sort`             | Sorts an array using the PHP function [asort](http://php.net/manual/en/function.asort.php) |
-| `stripslashes`     | Applies the [stripslashes](http://php.net/manual/en/function.stripslashes.php) PHP function to the value. Removing escaped quotes |
-| `striptags`        | Applies the [striptags](http://php.net/manual/en/function.striptags.php) PHP function to the value. Removing HTML tags |
-| `trim`             | Applies the [trim](http://php.net/manual/en/function.trim.php) PHP function to the value. Removing extra spaces |
+| `abs`              | 应用PHP函数[abs](http://php.net/manual/zh/function.abs.php)到值 |
+| `capitalize`       | 通过应用PHP函数[ucwords](http://php.net/manual/zh/function.ucwords.php)大写一个字符串值 |
+| `convert_encoding` | 转换字符串编码                                  |
+| `default`          | 在表达式为空（没定义或为false）时设置默认值                 |
+| `e`                | 应用`Phalcon\Escaper->escapeHtml()`到值      |
+| `escape`           | 应用`Phalcon\Escaper->escapeHtml()`到值      |
+| `escape_attr`      | 应用`Phalcon\Escaper->escapeHtmlAttr()`到值  |
+| `escape_css`       | 应用`Phalcon\Escaper->escapeCss()`到值       |
+| `escape_js`        | 应用`Phalcon\Escaper->escapeJs()`到值        |
+| `format`           | 使用[sprintf](http://php.net/manual/zh/function.sprintf.php)格式化一个字符串 |
+| `json_encode`      | 将值转换为[JSON](http://php.net/manual/zh/function.json-encode.php)格式 |
+| `json_decode`      | 将值从[JSON](http://php.net/manual/zh/function.json-encode.php)格式转换为PHP表示 |
+| `join`             | 使用分隔符连接数组部分 [join](http://php.net/manual/zh/function.join.php) |
+| `keys`             | 使用PHP函数[array_keys](http://php.net/manual/en/function.array-keys.php)返回数组的键数组 |
+| `left_trim`        | 应用[ltrim](http://php.net/manual/zh/function.ltrim.php)PHP函数删除左边额外的空格 |
+| `length`           | 计算字符串长度，或数组和对象里包含多少项                     |
+| `lower`            | 小写一个字符串                                  |
+| `nl2br`            | 使用`<br />`替换`\n`。使用PHP函数[nl2br](http://php.net/manual/zh/function.nl2br.php) |
+| `right_trim`       | 应用PHP函数[rtrim](http://php.net/manual/zh/function.rtrim.php)删除右侧额外的空格 |
+| `sort`             | 使用PHP函数 [asort](http://php.net/manual/zh/function.asort.php) 给数组排序 |
+| `stripslashes`     | 应用PHP函数[stripslashes](http://php.net/manual/zh/function.stripslashes.php)删除转义后的引号 |
+| `striptags`        | 应用PHP函数[striptags](http://php.net/manual/zh/function.striptags.php)删除HTML标签 |
+| `trim`             |  应用PHP函数[trim](http://php.net/manual/zh/function.trim.php)删除额外的空格 |
 | `upper`            | Change the case of a string to uppercase |
 | `url_encode`       | Applies the [urlencode](http://php.net/manual/en/function.urlencode.php) PHP function to the value |
 
-Examples:
+例如：
 
 ```twig
 {# e or escape filter #}
@@ -353,7 +354,7 @@ Examples:
 
 ## 注释
 
-Comments may also be added to a template using the `{# ... #}` delimiters. All text inside them is just ignored in the final output:
+注释也可以用`{# ... #}`分隔符被加到模板中。它们里面的所有文本在最后输出时将被忽略掉：
 
 ```twig
 {# note: this is a comment
@@ -364,12 +365,12 @@ Comments may also be added to a template using the `{# ... #}` delimiters. All t
 
 ## 控制结构列表
 
-Volt provides a set of basic but powerful control structures for use in templates:
+Volt提供了一组强大的控制结构可以在模板里使用：
 
 
 ### For
 
-Loop over each item in a sequence. The following example shows how to traverse a set of 'robots' and print his/her name:
+按顺序对每一项进行循环。下面的例子展示了如何遍历一组‘robots'并打印出他/她的名字:
 
 ```twig
 <h1>Robots</h1>
@@ -382,7 +383,7 @@ Loop over each item in a sequence. The following example shows how to traverse a
 </ul>
 ```
 
-for-loops can also be nested:
+for循环也可以嵌套：
 
 ```twig
 <h1>Robots</h1>
@@ -393,7 +394,8 @@ for-loops can also be nested:
 {% endfor %}
 ```
 
-You can get the element `keys` as in the PHP counterpart using the following syntax:
+你可以使用以下语法同PHP对应部分一样获得元素的`keys`:
+
 
 ```twig
 {% set numbers = ['one': 1, 'two': 2, 'three': 3] %}
@@ -403,7 +405,7 @@ You can get the element `keys` as in the PHP counterpart using the following syn
 {% endfor %}
 ```
 
-An `if` evaluation can be optionally set:
+可选择设置一个`if`判断：
 
 ```twig
 {% set numbers = ['one': 1, 'two': 2, 'three': 3] %}
@@ -417,7 +419,7 @@ An `if` evaluation can be optionally set:
 {% endfor %}
 ```
 
-If an `else` is defined inside the `for`, it will be executed if the expression in the iterator result in zero iterations:
+如果在`for`中定义了`else`，那么迭代器中的表达式将被执行为0迭代:
 
 ```twig
 <h1>Robots</h1>
@@ -428,7 +430,7 @@ If an `else` is defined inside the `for`, it will be executed if the expression 
 {% endfor %}
 ```
 
-Alternative syntax:
+替代语法:
 
 ```twig
 <h1>Robots</h1>
@@ -439,11 +441,10 @@ Alternative syntax:
 {% endfor %}
 ```
 
-<a name='control-structures-loops'></a>
 
 ### 循环控制
 
-The `break` and `continue` statements can be used to exit from a loop or force an iteration in the current block:
+`break` and `continue` 语句可以用于退出循环，或者在当前块中强制执行迭代:
 
 ```twig
 {# skip the even robots #}
@@ -468,7 +469,7 @@ The `break` and `continue` statements can be used to exit from a loop or force a
 
 ### If
 
-As PHP, an `if` statement checks if an expression is evaluated as true or false:
+与PHP一样，`if`语句检查一个表达式的值是真或假：
 
 ```twig
 <h1>Cyborg Robots</h1>
@@ -481,7 +482,7 @@ As PHP, an `if` statement checks if an expression is evaluated as true or false:
 </ul>
 ```
 
-The else clause is also supported:
+else字句也得到了支持：
 
 ```twig
 <h1>Robots</h1>
@@ -496,7 +497,7 @@ The else clause is also supported:
 </ul>
 ```
 
-The `elseif` control flow structure can be used together with if to emulate a `switch` block:
+`elseif`控制流结构可以和if来模拟一个`switch`块:
 
 ```twig
 {% if robot.type === 'cyborg' %}
@@ -508,23 +509,22 @@ The `elseif` control flow structure can be used together with if to emulate a `s
 {% endif %}
 ```
 
-<a name='control-structures-loop'></a>
 
 ### 循环上下文
 
-A special variable is available inside `for` loops providing you information about
+在`for`循环中可以用一个特殊的变量来为你提供关于以下的信息
 
-| Variable         | Description                              |
+| 变量         | 描述                             |
 | ---------------- | ---------------------------------------- |
-| `loop.index`     | The current iteration of the loop. (1 indexed) |
-| `loop.index0`    | The current iteration of the loop. (0 indexed) |
-| `loop.revindex`  | The number of iterations from the end of the loop (1 indexed) |
-| `loop.revindex0` | The number of iterations from the end of the loop (0 indexed) |
-| `loop.first`     | True if in the first iteration.          |
-| `loop.last`      | True if in the last iteration.           |
-| `loop.length`    | The number of items to iterate           |
+| `loop.index`     | 以1为基准的循环的当前位置 |
+| `loop.index0`    | 以0为基准的循环的当前位置 |
+| `loop.revindex`  | 以1为基准的循环的最后位置 |
+| `loop.revindex0` | 以0为基准的循环的最后位置 |
+| `loop.first`     | 循环的第一个位置时为True         |
+| `loop.last`      | 循环的最后一个位置时True        |
+| `loop.length`    | 迭代项的数量  |
 
-Example:
+举例：
 
 ```twig
 {% for robot in robots %}
@@ -550,7 +550,7 @@ Example:
 
 ## 赋值
 
-Variables may be changed in a template using the instruction 'set':
+变量可以在模板里使用指令`set`改变：
 
 ```twig
 {% set fruits = ['Apple', 'Banana', 'Orange'] %}
@@ -558,13 +558,13 @@ Variables may be changed in a template using the instruction 'set':
 {% set name = robot.name %}
 ```
 
-Multiple assignments are allowed in the same instruction:
+在同一条指令中允许多个赋值：
 
 ```twig
 {% set fruits = ['Apple', 'Banana', 'Orange'], name = robot.name, active = true %}
 ```
 
-Additionally, you can use compound assignment operators:
+此外，你可以使用组合赋值运算符：
 
 ```twig
 {% set price += 100.00 %}
@@ -572,52 +572,48 @@ Additionally, you can use compound assignment operators:
 {% set age *= 5 %}
 ```
 
-The following operators are available:
+可以使用如下运算符：
 
-| Operator | Description               |
+| 运算符 | 描述               |
 | -------- | ------------------------- |
-| `=`      | Standard Assignment       |
-| `+=`     | Addition assignment       |
-| `-=`     | Subtraction assignment    |
-| `\*=`    | Multiplication assignment |
-| `/=`     | Division assignment       |
+| `=`      | 标准赋值       |
+| `+=`     | 加法赋值       |
+| `-=`     | 减法赋值    |
+| `\*=`    | 乘法赋值 |
+| `/=`     | 除法赋值       |
 
-<a name='expressions'></a>
 
 ## 表达式
 
-Volt provides a basic set of expression support, including literals and common operators. A expression can be evaluated and printed using the `{{` and `}}` delimiters:
+Volt提供了一组基本的表达式支持，包括字面值和普通运算符。一个表达式可以使用`{{`和`}}`分隔符进行计算和输出:
 
 ```twig
 {{ (1 + 1) * 2 }}
 ```
 
-If an expression needs to be evaluated without be printed the `do` statement can be used:
+如果一个表达式需要计算但不需输出，可以使用`do`语句：
 
 ```twig
 {% do (1 + 1) * 2 %}
 ```
 
-<a name='expressions-literals'></a>
-
 ### 字面值
 
-The following literals are supported:
+支持下面的字面值：
 
-| Filter               | Description                              |
+| 字面值               | 描述                             |
 | -------------------- | ---------------------------------------- |
-| `'this is a string'` | Text between double quotes or single quotes are handled as strings |
-| `100.25`             | Numbers with a decimal part are handled as doubles/floats |
-| `100`                | Numbers without a decimal part are handled as integers |
-| `false`              | Constant 'false' is the boolean false value |
-| `true`               | Constant 'true' is the boolean true value |
-| `null`               | Constant 'null' is the Null value        |
+| `'this is a string'` | 双引号和单引号之间的文本被作为字符串处理 |
+| `100.25`             | 带小数点的数字被当作双精度/浮点数处理 |
+| `100`                | 不带小数点的数字被当作整数处理 |
+| `false`              | 常量'false'是布尔false |
+| `true`               | 常量'true'是布尔值true |
+| `null`               | 常量'null'是NULL       |
 
-<a name='expressions-arrays'></a>
 
 ### 数组
 
-Whether you're using PHP 5.3 or >= 5.4 you can create arrays by enclosing a list of values in square brackets:
+无论你是用PHP 5.3还是 >=5.4，都可以通过将一列值放到中括号来创建数组：
 
 ```twig
 {# Simple array #}
@@ -633,32 +629,30 @@ Whether you're using PHP 5.3 or >= 5.4 you can create arrays by enclosing a list
 {{ ['first': 1, 'second': 4/2, 'third': '3'] }}
 ```
 
-Curly braces also can be used to define arrays or hashes:
+花括号也能用来定义数组或哈希：
 
 ```twig
 {% set myArray = {'Apple', 'Banana', 'Orange'} %}
 {% set myHash  = {'first': 1, 'second': 4/2, 'third': '3'} %}
 ```
 
-<a name='expressions-math'></a>
 
 ### 数学运算
 
-You may make calculations in templates using the following operators:
+你可以使用下面的运算符在模板中执行计算：
 
-| Operator | Description                              |
+| 运算符 | 描述                             |
 | :------: | ---------------------------------------- |
-|   `+`    | Perform an adding operation. `{{ 2 + 3 }}` returns 5 |
-|   `-`    | Perform a substraction operation `{{ 2 - 3 }}` returns -1 |
-|   `*`    | Perform a multiplication operation `{{ 2 * 3 }}` returns 6 |
-|   `/`    | Perform a division operation `{{ 10 / 2 }}` returns 5 |
-|   `%`    | Calculate the remainder of an integer division `{{ 10 % 3 }}` returns 1 |
+|   `+`    | 执行加法运算，`{{ 2 + 3 }}` 返回 5 |
+|   `-`    | 执行减法运算， `{{ 2 - 3 }}` 返回 -1 |
+|   `*`    | 执行乘法运算， `{{ 2 * 3 }}` 返回 6 |
+|   `/`    | 执行除法运算， `{{ 10 / 2 }}` 返回 5 |
+|   `%`    | 计算除法运算的余数， `{{ 10 % 3 }}` 返回 1 |
 
-<a name='expressions-comparisons'></a>
 
 ### 比较运算
 
-The following comparison operators are available:
+下面是可用的比较运算符：
 
 | Operator | Description                              |
 | :------: | ---------------------------------------- |
@@ -672,7 +666,6 @@ The following comparison operators are available:
 |  `===`   | Check whether both operands are identical |
 |  `!==`   | Check whether both operands aren't identical |
 
-<a name='expressions-logic'></a>
 
 ### 逻辑运算
 
@@ -685,7 +678,6 @@ Logic operators are useful in the `if` expression evaluation to combine multiple
 |   `not`    | Negates an expression                    |
 | `( expr )` | Parenthesis groups expressions           |
 
-<a name='expressions-other-operators'></a>
 
 ### 其它运算符
 
@@ -926,7 +918,6 @@ To call a `Phalcon\Tag` helper, you only need to call an uncamelized version of 
 | `Phalcon\Tag::textArea`          | `text_area`          |
 | `Phalcon\Tag::textField`         | `text_field`         |
 
-<a name='functions'></a>
 
 ## 函数
 
