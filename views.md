@@ -1,22 +1,19 @@
 # 使用视图
 
-Views represent the user interface of your application. Views are often HTML files with embedded PHP code that perform tasks related solely to the presentation of the data. Views handle the job of providing data to the web browser or other tool that is used to make requests from your application.
-
 视图表示应用程序的用户界面。视图通常是带有嵌入式PHP代码的HTML文件，它们执行与数据表示相关的任务。视图处理向web浏览器或从你的应用程序请求数据的其他工具提供数据的工作。
 
 `Phalcon\Mvc\View` 和 `Phalcon\Mvc\View\Simple` 负责管理你的MVC应用的视图层。
 
 ## 集成视图与控制器
 
-Phalcon automatically passes the execution to the view component as soon as a particular controller has completed its cycle. The view component will look in the views folder for a folder named as the same name of the last controller executed and then for a file named as the last action executed. For instance, if a request is made to the URL *http://127.0.0.1/blog/posts/show/301*, Phalcon will parse the URL as follows:
 当一个特定的控制器完成它的周期时，Phalcon会自动将执行传递给视图组件。视图组件将在视图文件夹中查找一个文件夹，该文件夹与执行的最后一个控制器的名称相同，然后是与执行的最后一个操作同名的文件。例如，如果请求的URL是 http://127.0.0.1/blog/posts/show/301，Phalcon将解析URL如下所示：
 
-| 服务器地址    | 127.0.0.1 |
-| ----------------- | --------- |
-| Phalcon目录 | blog      |
-| Controller        | posts     |
-| Action            | show      |
-| Parameter         | 301       |
+| 服务器地址      | 127.0.0.1 |
+| ---------- | --------- |
+| Phalcon目录  | blog      |
+| Controller | posts     |
+| Action     | show      |
+| Parameter  | 301       |
 
 分派器将查找一个`PostsController`和他的操作`showAction`。 一个简单的控制器文件如下：
 
@@ -50,11 +47,11 @@ class PostsController extends Controller
 该组件默认使用PHP自身作为模板引擎，因此视图应该有.phtml扩展名。如果视图目录是 *app/views*，那么视图组件将自动找到这3个视图文件。
 
 
-| 名称 | 文件 | 描述 |
-| ----------------- | ----------------------------- | ---------------------------------------- |
-| 操作视图 | app/views/posts/show.phtml    | 这是与操作相关的视图，只有在执行show操作时才会显示它。 |
+| 名称    | 文件                            | 描述                                       |
+| ----- | ----------------------------- | ---------------------------------------- |
+| 操作视图  | app/views/posts/show.phtml    | 这是与操作相关的视图，只有在执行show操作时才会显示它。            |
 | 控制器布局 | app/views/layouts/posts.phtml | 这是与控制器相关的视图，它只会显示在控制器“posts”内执行的每个操作。在布局中实现的所有代码都将被用于该控制器中的所有操作。 |
-| 主布局  | app/views/index.phtml         | 这是一个主要的操作，它将显示在应用程序中执行的每个控制器或操作。 |
+| 主布局   | app/views/index.phtml         | 这是一个主要的操作，它将显示在应用程序中执行的每个控制器或操作。         |
 
 你不需要实现上面提到的所有文件。 `Phalcon\Mvc\View` 会转移到文件层次结构中的下一级视图。如果所有三个视图文件都被实现，它们将被处理如下：
 
@@ -321,14 +318,14 @@ class PostsController extends Controller
 
 可用的渲染级别有：
 
-| 类常量  | 描述 | 顺序 |
-| ----------------------- | ---------------------------------------- | :---: |
-| `LEVEL_NO_RENDER`       | 指出避免生成任何呈现 |       |
-| `LEVEL_ACTION_VIEW`     | 生成与操作相关的视图的呈现 |   1   |
-| `LEVEL_BEFORE_TEMPLATE` | 生成优先于控制器布局的模板的呈现 |   2   |
-| `LEVEL_LAYOUT`          | 生成控制器布局的呈现 |   3   |
-| `LEVEL_AFTER_TEMPLATE`  | 生成控制器布局后模板的呈现 |   4   |
-| `LEVEL_MAIN_LAYOUT`     | 生成主布局的呈现，文件`views/index.phtml` |   5   |
+| 类常量                     | 描述                             |  顺序  |
+| ----------------------- | ------------------------------ | :--: |
+| `LEVEL_NO_RENDER`       | 指出避免生成任何呈现                     |      |
+| `LEVEL_ACTION_VIEW`     | 生成与操作相关的视图的呈现                  |  1   |
+| `LEVEL_BEFORE_TEMPLATE` | 生成优先于控制器布局的模板的呈现               |  2   |
+| `LEVEL_LAYOUT`          | 生成控制器布局的呈现                     |  3   |
+| `LEVEL_AFTER_TEMPLATE`  | 生成控制器布局后模板的呈现                  |  4   |
+| `LEVEL_MAIN_LAYOUT`     | 生成主布局的呈现，文件`views/index.phtml` |  5   |
 
 
 ### 禁用渲染级别
@@ -482,11 +479,11 @@ class UsersController extends Controller
 
 ## 简单渲染
 
-`Phalcon\Mvc\View\Simple` is an alternative component to `Phalcon\Mvc\View`. It keeps most of the philosophy of `Phalcon\Mvc\View` but lacks of a hierarchy of files which is, in fact, the main feature of its counterpart.
+`Phalcon\Mvc\View\Simple`是`Phalcon\Mvc\View`的替代组件。 它保留了`Phalcon\Mvc\View`的大部分理念，但缺乏文件的层次结构，事实上，这是它的主要特征。
 
-This component allows the developer to have control of when a view is rendered and its location. In addition, this component can leverage of view inheritance available in template engines such as `Volt` and others.
+该组件允许开发人员控制视图何时呈现以及它的位置。此外，该组件还可以利用诸如`Volt`等模板引擎中可用的视图继承。
 
-The default component must be replaced in the service container:
+必须在服务容器中替换默认组件:
 
 ```php
 <?php
@@ -506,7 +503,7 @@ $di->set(
 );
 ```
 
-Automatic rendering must be disabled in `Phalcon\Mvc\Application` (if needed):
+`Phalcon\Mvc\Application`里的自动渲染必须禁用 (若需要):
 
 ```php
 <?php
@@ -527,7 +524,7 @@ try {
 }
 ```
 
-To render a view it's necessary to call the render method explicitly indicating the relative path to the view you want to display:
+为了渲染一个视图，需要显式调用渲染方法指出你要显示的视图的相对路径：
 
 ```php
 <?php
@@ -563,7 +560,7 @@ class PostsController extends Controller
 }
 ```
 
-This is different to `Phalcon\Mvc\View` who's `render()` method uses controllers and actions as parameters:
+这不同于 `Phalcon\Mvc\View`，它的 `render()`方法使用控制器和操作作为参数：
 
 ```php
 <?php
@@ -581,13 +578,12 @@ $simpleView = new \Phalcon\Mvc\View\Simple();
 echo $simpleView->render('posts/show', $params);
 ```
 
-<a name='using-partials'></a>
 
 ## 使用局部渲染
 
-Partial templates are another way of breaking the rendering process into simpler more manageable chunks that can be reused by different parts of the application. With a partial, you can move the code for rendering a particular piece of a response to its own file.
+局部模板是将呈现过程分解为更易于管理的块的另一种方法，这些块可以被应用程序的不同部分重用。有了局部模板，你可以移动渲染响应特定部分的代码到它自己的文件。
 
-One way to use partials is to treat them as the equivalent of subroutines: as a way to move details out of a view so that your code can be more easily understood. For example, you might have a view that looks like this:
+使用局部模板的一种方法是把它们当作子程序的等价物：作为一种将细节从视图中移出的方法，这样你的代码就可以更容易地被理解。例如，你可能有一个这样的视图：
 
 ```php
 <div class='top'><?php $this->partial('shared/ad_banner'); ?></div>
@@ -602,17 +598,15 @@ One way to use partials is to treat them as the equivalent of subroutines: as a 
 <div class='footer'><?php $this->partial('shared/footer'); ?></div>
 ```
 
-The `partial()` method does accept a second parameter as an array of variables/parameters that only will exists in the scope of the partial:
+`partial()` 方法接受作为变量数组的第二个参数，这些变量只会存在于局部模板范围内：
 
 ```php
 <?php $this->partial('shared/ad_banner', ['id' => $site->id, 'size' => 'big']); ?>
 ```
 
-<a name='value-transfer'></a>
-
 ## 从控制器给视图传递值
 
-`Phalcon\Mvc\View` is available in each controller using the view variable (`$this->view`). You can use that object to set variables directly to the view from a controller action by using the `setVar()` method.
+`Phalcon\Mvc\View`在每个控制器中可以通过视图变量 `$this->view`使用。你可以使用这个对象，从一个控制器操作用`setVar()`直接设置变量给视图。
 
 ```php
 <?php
@@ -650,7 +644,7 @@ class PostsController extends Controller
 }
 ```
 
-A variable with the name of the first parameter of `setVar()` will be created in the view, ready to be used. The variable can be of any type, from a simple string, integer etc. variable to a more complex structure such as array, collection etc.
+带有`setVar()`第一个参数名称的变量将在视图中创建，准备好被使用。该变量可以是任意类型的，从简单的字符串、整数等变量到更复杂的结构，如数组、集合等等。
 
 ```php
 <h1>
@@ -668,13 +662,12 @@ A variable with the name of the first parameter of `setVar()` will be created in
 </div>
 ```
 
-<a name='caching-fragments'></a>
 
 ## 缓存视图片段
 
-Sometimes when you develop dynamic websites and some areas of them are not updated very often, the output is exactly the same between requests. `Phalcon\Mvc\View` offers caching a part or the whole rendered output to increase performance.
+有时当你开发一个动态网站时，它们的某些区域并不经常更新，不同请求的输出是相同的。`Phalcon\Mvc\View`提供了缓存部分或整个渲染输出来提升性能。
 
-`Phalcon\Mvc\View` integrates with `Phalcon\Cache` to provide an easier way to cache output fragments. You could manually set the cache handler or set a global handler:
+`Phalcon\Mvc\View`与`Phalcon\Cache`集成来提供一种缓存输入片段的更容易的方式。你可以手动设置缓存处理器或设置一个全局处理器：
 
 ```php
 <?php
@@ -724,9 +717,9 @@ class PostsController extends Controller
 }
 ```
 
-When we do not define a key to the cache, the component automatically creates one using an [MD5](http://php.net/manual/en/function.md5.php) hash of the name of the controller and view currently being rendered in the format of `controller/view`. It is a good practice to define a key for each action so you can easily identify the cache associated with each view.
+当我们没有定义缓存的键时，这个组件会自动用控制器的名字和当下正被渲染的视图，以`controller/view`的格式，使用[MD5](http://php.net/manual/en/function.md5.php) 哈希创建一个。为每个操作定义一个键，你因而可以很容易地分辨与每个视图相关的缓存，这是一个好的实践。
 
-When the View component needs to cache something it will request a cache service from the services container. The service name convention for this service is `viewCache`:
+当视图组件想要缓存一些东西时，它将从服务容器中请求一个缓存服务。这个服务的服务名称约定是`viewCache`：
 
 ```php
 <?php
@@ -759,15 +752,12 @@ $di->set(
 );
 ```
 
-<div class="alert alert-warning">
-    <p>
-        The frontend must always be <a href="/[[language]]/[[version]]/api/Phalcon_Cache_Frontend_Output">Phalcon\Cache\Frontend\Output</a> and the service <code>viewCache</code> must be registered as always open (not shared) in the services container (DI).
-    </p>
-</div>
+> 前端必须总是[Phalcon\Cache\Frontend\Output](api/Phalcon_Cache_Frontend_Output.md) 服务viewCache一定要在服务容器（DI）中注册为一直开放的（不是共享的）。
+>
 
-When using views, caching can be used to prevent controllers from needing to generate view data on each request.
+当我们使用视图时，缓存可以避免控制器对每一次请求都生成视图数据。
 
-To achieve this we must identify uniquely each cache with a key. First we verify that the cache does not exist or has expired to make the calculations/queries to display data in the view:
+为了实现这一点，我们必须用一个键来标识每个缓存。首先，我们验证缓存不存在或已过期，此时需计算/查询在视图中显示的数据：
 
 ```php
 <?php
@@ -779,6 +769,7 @@ class DownloadController extends Controller
     public function indexAction()
     {
         // Check whether the cache with key 'downloads' exists or has expired
+        // 这里好像有问题，应该是缓存不存在时请求数据库
         if ($this->view->getCache()->exists('downloads')) {
             // Query the latest downloads
             $latest = Downloads::find(
@@ -800,21 +791,19 @@ class DownloadController extends Controller
 }
 ```
 
-The [PHP alternative site](https://github.com/phalcon/php-site) is an example of implementing the caching of fragments.
+[PHP替代站](https://github.com/phalcon/php-site)是一个实现片段缓存的例子。
 
-<a name='template-engines'></a>
 
 ## 模板引擎
 
-Template Engines help designers to create views without the use of a complicated syntax. Phalcon includes a powerful and fast templating engine called `Volt`. `Phalcon\Mvc\View` allows you to use other template engines instead of plain PHP or Volt.
+模板引擎帮助设计人员在不使用复杂语法的情况下创建视图。Phalcon包括一个强大而快速的模板引擎，叫做`Volt`。`Phalcon\Mvc\View`允许你使用其他的模板引擎，来代替纯PHP或Volt。
 
-Using a different template engine, usually requires complex text parsing using external PHP libraries in order to generate the final output for the user. This usually increases the number of resources that your application will use.
+使用不同的模板引擎，通常需要使用外部PHP库进行复杂的文本解析，以便为用户生成最终的输出。这通常会增加应用程序使用的资源数量。
 
-If an external template engine is used, `Phalcon\Mvc\View` provides exactly the same view hierarchy and it's still possible to access the API inside these templates with a little more effort.
+如果使用了一个外部模板引擎，`Phalcon\Mvc\View`提供一个完全相同的视图层次结构，而且在这些模板中仍然可以付出多一点点的工作来访问API。
 
-This component uses adapters, these help Phalcon to speak with those external template engines in a unified way, let's see how to do that integration.
+这个组件使用了适配器，这些适配器帮助Phalcon以统一的方式与外部模板引擎进行对话，让我们来看看如何进行集成。
 
-<a name='custom-template-engine'></a>
 
 ### 创建你自己的模板引擎适配器
 
@@ -823,6 +812,12 @@ There are many template engines, which you might want to integrate or create one
 A template engine adapter is a class that acts as bridge between `Phalcon\Mvc\View` and the template engine itself. Usually it only needs two methods implemented: `__construct()` and `render()`. The first one receives the `Phalcon\Mvc\View` instance that creates the engine adapter and the DI container used by the application.
 
 The method `render()` accepts an absolute path to the view file and the view parameters set using `$this->view->setVar()`. You could read or require it when it's necessary.
+
+有许多模板引擎，你可能希望集成或创建自己的模板引擎。开始使用外部模板引擎的第一步是为它创建一个适配器。
+
+模板引擎适配器是一个类，它充当了在`Phalcon\Mvc\View`和模板引擎之间的桥梁。通常它只需要实现两个方法：`__construct()`和`render()`。第一个接受`Phalcon\Mvc\View`实例，通过这个实例创建引擎适配器和应用程序使用的DI容器。
+
+方法`render()`接受视图文件的绝对路径，并使用`$this->view->setVar()`来设置视图参数。你可以在必要的时候读取或要求它。
 
 ```php
 <?php
@@ -867,11 +862,11 @@ class MyTemplateAdapter extends Engine
 
 ### 更换模板引擎
 
-You can replace the template engine completely or use more than one template engine at the same time. The method `Phalcon\Mvc\View::registerEngines()` accepts an array containing data that define the template engines. The key of each engine is an extension that aids in distinguishing one from another. Template files related to the particular engine must have those extensions.
+你可以彻底替换模板引擎，或者同时使用多个模板引擎。方法`Phalcon\Mvc\View::registerEngines()`接受包含定义模板引擎的数据的数组。每个引擎的键是一个有助于区分不同的引擎的扩展名。与特定引擎相关的模板文件必须有这些扩展名。
 
-The order that the template engines are defined with `Phalcon\Mvc\View::registerEngines()` defines the relevance of execution. If `Phalcon\Mvc\View` finds two views with the same name but different extensions, it will only render the first one.
+模板引擎的顺序使用`Phalcon\Mvc\View::registerEngines()`定义，它定义了执行的相关性。如果`Phalcon\Mvc\View`发现了两个使用同样名字但不同扩展名的视图，它将只渲染第一个。
 
-If you want to register a template engine or a set of them for each request in the application. You could register it when the view service is created:
+如果你想为应用程序中的每个请求注册一个或一组模板引擎。你可以在创建视图服务时注册它：
 
 ```php
 <?php
@@ -908,14 +903,15 @@ $di->set(
 );
 ```
 
-There are adapters available for several template engines on the [Phalcon Incubator](https://github.com/phalcon/incubator/tree/master/Library/Phalcon/Mvc/View/Engine)
+在 [Phalcon孵化器](https://github.com/phalcon/incubator/tree/master/Library/Phalcon/Mvc/View/Engine)提供了多种模板引擎的适配器。
 
 
 ## 视图中注入服务
 
-Every view executed is included inside a `Phalcon\Di\Injectable` instance, providing easy access to the application's service container.
+每个执行的视图被包含在一个`Phalcon\Di\Injectable`实例里，提供对应用的服务容器的易访问性。
 
-The following example shows how to write a jQuery [ajax request](http://api.jquery.com/jQuery.ajax/) using a URL with the framework conventions. The service `url` (usually `Phalcon\Mvc\Url`) is injected in the view by accessing a property with the same name:
+
+下面的例子展示了如何用框架约定的URL写一个jQuery [ajax request](http://api.jquery.com/jQuery.ajax/)。服务 `url` (通常是`Phalcon\Mvc\Url`) 通过访问一个同名属性被注入视图：
 
 ```js
 <script type='text/javascript'>
@@ -930,16 +926,15 @@ $.ajax({
 </script>
 ```
 
-<a name='stand-along'></a>
 
 ## 独立组件
 
-All the components in Phalcon can be used as *glue* components individually because they are loosely coupled to each other:
+Phalcon中的所有组件都可以单独使用，因为它们之间是松耦合的：
 
 
 ### 分层渲染
 
-Using `Phalcon\Mvc\View` in a stand-alone mode can be demonstrated below:
+以独立模式使用 `Phalcon\Mvc\View` 示范如下：:
 
 ```php
 <?php
@@ -967,7 +962,7 @@ $view->finish();
 echo $view->getContent();
 ```
 
-A short syntax is also available:
+可以使用一种简短的语法：
 
 ```php
 <?php
@@ -995,11 +990,9 @@ echo $view->getRender(
 );
 ```
 
-<a name='stand-alone-simple-rendering'></a>
-
 ### 简单渲染
 
-Using `Phalcon\Mvc\View\Simple` in a stand-alone mode can be demonstrated below:
+以独立模式使用 `Phalcon\Mvc\View\Simple`的示范如下：
 
 ```php
 <?php
@@ -1027,17 +1020,17 @@ echo $view->render(
 
 ## 视图事件
 
-`Phalcon\Mvc\View` and `Phalcon\Mvc\View\Simple` are able to send events to an `EventsManager` if it is present. Events are triggered using the type `view`. Some events when returning boolean false could stop the active operation. The following events are supported:
+如果提供了`EventManager`，`Phalcon\Mvc\View`和`Phalcon\Mvc\View\Simple`能发送事件给它。事件用类型`view`触发。某些事件当返回布尔值`false`时能停止活动的操作。支持以下事件：
 
-| Event Name       | Triggered                                | Can stop operation? |
-| ---------------- | ---------------------------------------- | :-----------------: |
-| beforeRender     | Triggered before starting the render process |         Yes         |
-| beforeRenderView | Triggered before rendering an existing view |         Yes         |
-| afterRenderView  | Triggered after rendering an existing view |         No          |
-| afterRender      | Triggered after completing the render process |         No          |
-| notFoundView     | Triggered when a view was not found      |         No          |
+| 事件名称             | 被触发             | 能停止操作吗？ |
+| ---------------- | --------------- | :-----: |
+| beforeRender     | 开始渲染过程时触发       |   Yes   |
+| beforeRenderView | 开始渲染一个已存在的视图前触发 |   Yes   |
+| afterRenderView  | 渲染一个已存在的视图后触发   |   No    |
+| afterRender      | 完成渲染过程后触发       |   No    |
+| notFoundView     | 当找不到一个视图时触发     |   No    |
 
-The following example demonstrates how to attach listeners to this component:
+下面的例子示范了如何给这个组件绑定侦听器：
 
 ```php
 <?php
@@ -1073,7 +1066,7 @@ $di->set(
 );
 ```
 
-The following example shows how to create a plugin that cleans/repair the HTML produced by the render process using [Tidy](http://www.php.net/manual/en/book.tidy.php):
+下面的例子展示了如何创建一个插件，这个插件使用 [Tidy](http://www.php.net/manual/en/book.tidy.php)净化/修补渲染过程中生成的HTML：
 
 ```php
 <?php
